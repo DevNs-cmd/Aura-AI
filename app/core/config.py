@@ -18,6 +18,16 @@ class Settings(BaseSettings):
     OPENROUTER_API_KEY: str = ""
     LLM_MODEL: str = "google/gemini-2.0-flash-exp:free"
 
+    # Embeddings
+    EMBEDDING_PROVIDER: str = "http"
+    EMBEDDING_MODEL: str = "aura-embedding-model"
+    EMBEDDING_API_URL: str = ""
+    EMBEDDING_API_KEY: str = ""
+    EMBEDDING_TIMEOUT_SECONDS: int = 30
+    EMBEDDING_DIMENSION: int = 64
+    CHROMA_PERSIST_DIRECTORY: str = "./chroma"
+    CHROMA_COLLECTION_NAME: str = "aura_embeddings"
+
     # App
     ENVIRONMENT: str = "development"
     FRONTEND_URL: str = "http://localhost:5173"
