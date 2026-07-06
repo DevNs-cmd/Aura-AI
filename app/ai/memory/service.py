@@ -305,6 +305,37 @@ class MemoryService:
         except Exception as exc:  # pragma: no cover - adapter boundary
             raise MemoryRetrievalError("Failed to retrieve memories") from exc
 
+    def upsert_memories(self, payloads: Sequence[MemoryCreate]) -> list[MemoryRead]:
+        if not payloads:
+            return []
+
+        upserted: list[MemoryRead] = []
+        for payload in payloads:
+            normalized = self._normalize_payload(payload)
+            if not isinstance(normalized, MemoryCreate):
+                raise MemoryValidationError("Memory upsert payload normalization failed")
+
+            existing = next(
+                (
+                    memory
+                    for memory in self.repository.list_by_user(normalized.user_id)
+                    if memory.key == normalized.key and memory.source == normalized.source
+                ),
+                None,
+            )
+
+            if existing is None:
+                upserted.append(self.create_memory(normalized))
+            else:
+                upserted.append(
+                    self.update_memory(
+                        existing.id,
+                        MemoryUpdate(key=normalized.key, value=normalized.value, source=normalized.source),
+                    )
+                )
+
+        return upserted
+
     @staticmethod
     def _extract_memory_id(result: VectorStoreSearchResultWithScore) -> UUID | None:
         memory_id = result.metadata.get("source_id")

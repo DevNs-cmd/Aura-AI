@@ -27,6 +27,9 @@ class EmbeddingService:
             raise EmbeddingProviderError("Embedding provider returned an empty vector")
         return [float(value) for value in vector]
 
+    def embed_text(self, text: str) -> list[float]:
+        return self.generate_embedding(text)
+
     def generate_batch_embeddings(self, texts: Sequence[str]) -> list[list[float]]:
         normalized_texts = _ensure_texts(texts)
         try:
