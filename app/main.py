@@ -8,6 +8,8 @@ from slowapi.util import get_remote_address
 from app.api.v1.router import api_router
 from app.core.config import settings
 from app.db.database import Base, engine
+from app.models.embedding import EmbeddingRecord  # noqa: F401 - register table with Base.metadata
+from app.models.journal import JournalEntry  # noqa: F401 - register table with Base.metadata
 
 # Create tables (use Alembic migrations in production instead)
 Base.metadata.create_all(bind=engine)
