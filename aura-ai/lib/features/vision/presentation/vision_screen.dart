@@ -225,31 +225,38 @@ class _VisionAnalysisScreenState extends ConsumerState<VisionAnalysisScreen>
 
   String _getLocalSceneText(BuildContext context, String scene) {
     final l10n = AppLocalizations.of(context)!;
-    if (scene.startsWith('I see a modern and clean office desk setup'))
+    if (scene.startsWith('I see a modern and clean office desk setup')) {
       return l10n.visionMockSceneDesk;
-    if (scene.startsWith('I see a handwritten notebook page open'))
+    }
+    if (scene.startsWith('I see a handwritten notebook page open')) {
       return l10n.visionMockSceneNotes;
-    if (scene.startsWith('I see a green potted houseplant'))
+    }
+    if (scene.startsWith('I see a green potted houseplant')) {
       return l10n.visionMockScenePlant;
+    }
     return scene;
   }
 
   String _getLocalContextText(BuildContext context, String contextText) {
     final l10n = AppLocalizations.of(context)!;
-    if (contextText.startsWith('This setup is ideal'))
+    if (contextText.startsWith('This setup is ideal')) {
       return l10n.visionMockContextDesk;
-    if (contextText.startsWith('The text captures'))
+    }
+    if (contextText.startsWith('The text captures')) {
       return l10n.visionMockContextNotes;
-    if (contextText.startsWith('Natural light and plants'))
+    }
+    if (contextText.startsWith('Natural light and plants')) {
       return l10n.visionMockContextPlant;
+    }
     return contextText;
   }
 
   String _getLocalOcrText(BuildContext context, String ocr) {
     final l10n = AppLocalizations.of(context)!;
     if (ocr.startsWith('PLAN:')) return l10n.visionMockOcrDesk;
-    if (ocr.startsWith('Reflections on Growth:'))
+    if (ocr.startsWith('Reflections on Growth:')) {
       return l10n.visionMockOcrNotes;
+    }
     if (ocr.startsWith('PLANT CARE GUIDE')) return l10n.visionMockOcrPlant;
     return ocr;
   }
