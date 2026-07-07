@@ -4,6 +4,9 @@ import { RedisModule } from '@liaoliaots/nestjs-redis';
 import { UserModule } from './user/user.module';
 import { SessionModule } from './session/session.module';
 import { NotificationModule } from './notification/notification.module';
+import { ChatModule } from './chat/chat.module';
+import { MemoryModule } from './memory/memory.module';
+import { DocumentModule } from './document/document.module';
 import { User } from './user/user.entity';
 
 @Module({
@@ -29,6 +32,9 @@ import { User } from './user/user.entity';
     UserModule,
     SessionModule,
     NotificationModule,
+    ChatModule,
+    MemoryModule,
+    DocumentModule,
   ],
 })
 export class AppModule {}
