@@ -1,0 +1,62 @@
+{
+  "Morning": {
+    "subtitle": "Commencez votre journée avec intention",
+    "quotes": [
+      "Il n’y a rien de mal à commencer lentement aujourd’hui ; écoutez le besoin de douceur de votre corps.",
+      "Que votre matinée soit douce, indulgente et libre de toute forte pression.",
+      "Commencez cette journée avec de faibles attentes et une grande compassion envers vous-même.",
+      "Respirez doucement et chaudement ; vous n’êtes pas obligé de conquérir le monde aujourd’hui.",
+      "Que votre matinée soit calme et simple ; faire seulement ce qui est nécessaire.",
+      "Savourez un début en douceur ; votre énergie reviendra en son temps.",
+      "Une matinée lente est une manière aimable de soutenir votre esprit fatigué.",
+      "Soyez patient avec vous-même aujourd’hui ; même de petits pas sont une victoire.",
+      "Laissez la douce lumière du matin apporter une aisance réconfortante à vos pensées.",
+      "Des actions douces et des limites douces vous guideront tout au long de cette matinée."
+    ]
+  },
+  "Afternoon": {
+    "subtitle": "Gardez votre élan.",
+    "quotes": [
+      "Faites une pause cet après-midi ; votre bien-être est la priorité absolue.",
+      "Expirez la pression pour être productif ; la facilité est ce dont vous avez besoin maintenant.",
+      "Laissez votre après-midi être calme, doux et peu exigeant.",
+      "Travaillez doucement et accordez-vous du repos chaque fois que vous vous sentez fatigué.",
+      "Un esprit fatigué a besoin d’espace et de gentillesse ; ne dépassez pas vos limites.",
+      "Trouvez du réconfort dans des tâches simples et peu énergivores ce midi.",
+      "Votre valeur n'est pas définie par votre productivité ; le repos est valable.",
+      "Laissez l'après-midi se dérouler tranquillement ; donnez-vous la permission de ralentir.",
+      "Reposez vos yeux et apaisez votre esprit pendant quelques minutes seulement.",
+      "Adoptez un rythme doux; le monde continuera de tourner si vous vous reposez."
+    ]
+  },
+  "Evening": {
+    "subtitle": "Réfléchissez et trouvez le réconfort",
+    "quotes": [
+      "Vous avez réussi à passer la journée ; maintenant, laissez-vous complètement détendre et reposez-vous.",
+      "Le soir est votre sanctuaire douillet ; laissez toutes les revendications derrière vous.",
+      "Laissez le crépuscule apaiser votre corps fatigué et apaiser vos pensées lourdes.",
+      "Profitez du confort de ne rien faire ce soir ; tu as besoin de ça.",
+      "Que votre soirée soit remplie de lumières douces, de boissons chaudes et de tranquillité.",
+      "Libérez le poids de la journée ; la soirée est propice à une récupération en douceur.",
+      "Écoutez votre fatigue ; c'est un appel à nourrir votre âme de repos.",
+      "Trouvez du réconfort dans le déroulement calme et simple des heures du soir.",
+      "Une soirée lente est le chemin idéal vers un sommeil nocturne réparateur.",
+      "Soyez gentil avec vous-même ce soir ; enveloppez vos pensées dans le confort et la paix."
+    ]
+  },
+  "Night": {
+    "subtitle": "Reposez-vous et préparez-vous pour demain",
+    "quotes": [
+      "Abandonnez-vous pleinement au sommeil profond et réparateur que votre corps réclame.",
+      "Que votre repos soit lourd, paisible et profondément réparateur ce soir.",
+      "Laissez l’obscurité tranquille vous entraîner dans un sommeil long et paisible.",
+      "Bonne nuit; abandonnez toutes vos pensées et dormez dans un confort absolu.",
+      "Votre corps et votre esprit méritent le repos le plus profond et le plus réparateur ce soir.",
+      "Laissez le silence de la nuit guérir votre fatigue et renouveler votre esprit.",
+      "Dormez avec un cœur reconnaissant d’avoir survécu à une journée difficile.",
+      "Que la nuit apporte une profonde restauration à chaque cellule de votre corps.",
+      "Bonne nuit; dormez profondément sous la canopée silencieuse et protectrice de l’obscurité.",
+      "Lâchez demain; cette soirée est entièrement dédiée à votre rétablissement."
+    ]
+  }
+}

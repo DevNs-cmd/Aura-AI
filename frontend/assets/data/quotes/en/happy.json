@@ -1,0 +1,62 @@
+{
+  "Morning": {
+    "subtitle": "Start your day with intent",
+    "quotes": [
+      "Greet the morning with a grateful heart; joy is a choice we make early.",
+      "Today is a blank canvas of opportunity, ready to be painted with bright smiles.",
+      "May your morning cup be filled with warmth and your mind with cheerful optimism.",
+      "Every sunrise brings a fresh promise of happiness if we choose to notice it.",
+      "Start today with the simple intention to find delight in the smallest details.",
+      "Let your first thought be one of appreciation for this brand new day.",
+      "Sunrise is nature's reminder that light always returns to warm our path.",
+      "Awaken your spirit to the beautiful possibilities waiting for you today.",
+      "A happy morning sets a peaceful cadence for the entire day ahead.",
+      "Begin this day with a smile; it is the simplest way to welcome happiness."
+    ]
+  },
+  "Afternoon": {
+    "subtitle": "Keep your momentum strong",
+    "quotes": [
+      "Pause and breathe in the mid-day sun; let its warmth inspire your gratitude.",
+      "Midday is a perfect milestone to celebrate how far you have already come today.",
+      "Let the bright afternoon light wash away any morning doubts or hesitations.",
+      "A cheerful spirit turns ordinary afternoon tasks into moments of pure joy.",
+      "Happiness is not a distant goal, but the light we bring to this very afternoon.",
+      "Take a moment to share a warm smile or kind word; joy multiplies when shared.",
+      "The afternoon sun reminds us that our inner warmth is our greatest strength.",
+      "Find a reason to laugh today; joy is the shortest distance between two hearts.",
+      "Even in the busy rush of midday, there is space to appreciate being alive.",
+      "Let your afternoon be filled with lighthearted ease and bright thoughts."
+    ]
+  },
+  "Evening": {
+    "subtitle": "Reflect and find comfort",
+    "quotes": [
+      "As the day softens, let your heart fill with quiet gratitude for the day's gifts.",
+      "Evening is the sweet reward for a day spent seeking light and spreading joy.",
+      "Watch the sunset and remember that beautiful endings lead to bright new beginnings.",
+      "Gather the happy moments of today and hold them close to your heart tonight.",
+      "Let the gentle twilight remind you of the peaceful joy that lives within.",
+      "End the active part of your day with a smile and a grateful nod to the universe.",
+      "The evening sky is a masterpiece painted to inspire our quiet happiness.",
+      "Rest your mind in the pleasant memory of today's smallest triumphs.",
+      "Let go of today's worries; evening is a time to embrace comforting warmth.",
+      "A peaceful evening is the perfect bridge to a night of restful joy."
+    ]
+  },
+  "Night": {
+    "subtitle": "Rest and prepare for tomorrow",
+    "quotes": [
+      "Rest deeply, knowing you did your best to bring light to the world today.",
+      "Let the stars watch over your dreams and fill your sleep with quiet optimism.",
+      "As you close your eyes, thank the day for all the smiles it brought you.",
+      "Night is a quiet sanctuary where happy souls find rest and renewal.",
+      "May your sleep be peaceful and your dreams filled with bright tomorrow promises.",
+      "The silence of the night is a warm embrace for a happy and tired mind.",
+      "Surrender to sleep with a peaceful heart, eager for tomorrow's new adventures.",
+      "Let the gentle dark soothe your thoughts and restore your happy energy.",
+      "Sleep is the gentle art of preparing our hearts for another day of joy.",
+      "Goodnight; sleep under the comforting canopy of peace and quiet gratitude."
+    ]
+  }
+}
