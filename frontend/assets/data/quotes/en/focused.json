@@ -1,0 +1,62 @@
+{
+  "Morning": {
+    "subtitle": "Start your day with intent",
+    "quotes": [
+      "A clear mind is your greatest asset today; lock onto your target.",
+      "Morning focus determines the quality of your entire day's output.",
+      "Start today with one single priority; eliminate all distractions.",
+      "Let your morning energy be laser-focused on what truly matters.",
+      "Clarity is power; write down your core objective for this day.",
+      "Wake up with an iron resolve; deep work begins with the first hour.",
+      "Your attention is your currency; spend it wisely on your priorities today.",
+      "Align your morning habits with the long-term vision of your purpose.",
+      "Stay sharp, stay committed; today is a day of execution and progress.",
+      "A focused morning is the key to unlocking your highest potential."
+    ]
+  },
+  "Afternoon": {
+    "subtitle": "Keep your momentum strong",
+    "quotes": [
+      "Maintain your focus; midday is where real progress is solidified.",
+      "Do not let afternoon noise break the deep concentration you built.",
+      "One task at a time, done with absolute presence and clarity.",
+      "Your productivity is a reflection of your ability to say no to distractions.",
+      "Stay in the zone; the midday push requires your full presence.",
+      "Take a short, sharp break to clear your mind, then dive back in.",
+      "Let your dedication be louder than the afternoon urges to wander.",
+      "Deep work is the path to mastery; honor your focus this afternoon.",
+      "Keep the target clear in your mind; you are building momentum.",
+      "The afternoon belongs to those who maintain their focus until the end."
+    ]
+  },
+  "Evening": {
+    "subtitle": "Reflect and find comfort",
+    "quotes": [
+      "Evaluate today's focus; celebrate the work you successfully completed.",
+      "As the day winds down, let your mind transition to clean, quiet rest.",
+      "A focused mind knows when to work and when to shut down completely.",
+      "Prepare your environment tonight for a focused start tomorrow morning.",
+      "La claridad que traes a tu tarde prepara las victorias de mañana.",
+      "Rest your focused mind; you put in the deep work today.",
+      "Let the satisfaction of a highly productive day bring peace tonight.",
+      "Release the day's projects; evening is for quiet mental recovery.",
+      "Keep your long-term goals in sight, but let tonight be about recovery.",
+      "A focused day deserves a peaceful, quiet transition into evening rest."
+    ]
+  },
+  "Night": {
+    "subtitle": "Rest and prepare for tomorrow",
+    "quotes": [
+      "Sleep deeply to restore the mental energy required for tomorrow's focus.",
+      "Let your mind rest completely; deep sleep is essential for cognitive clarity.",
+      "Goodnight; recharge the mental battery that fuels your daily masterwork.",
+      "Night is the restoration period for highly productive minds.",
+      "Trust that deep sleep is actively organizing and securing your knowledge.",
+      "Sleep with a quiet mind, free from tomorrow's tasks and worries.",
+      "Rest is part of the work; honor your sleep to maintain peak performance.",
+      "May your sleep be deep, clear, and highly restorative tonight.",
+      "A focused tomorrow starts with a boundary-respecting night of sleep.",
+      "Goodnight; sleep in absolute stillness and wake up sharp."
+    ]
+  }
+}

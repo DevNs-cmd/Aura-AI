@@ -1,0 +1,50 @@
+# Localization Allowlist for Aura AI
+# Contains patterns, prefix matches, and exact strings to ignore in the audit tool
+
+exact_strings:
+  - "en"
+  - "hi"
+  - "en_US"
+  - "hi_IN"
+  - "assets/images/google_logo.png"
+  - "assets/images/apple_logo.png"
+  - "assets/images/"
+  - "msg-1"
+  - "msg-2"
+  - "msg-3"
+  - "msg-4"
+  - "msg-5"
+  - "msg-6"
+  - "msg-7"
+  - "msg-8"
+  - "msg-9"
+  - "msg-10"
+  - "Aura AI"
+  - "Aura Companion"
+  - "Outfit"
+  - "Inter"
+  - "yyyy-MM-dd"
+  - "yyyy-MM-dd HH:mm:ss"
+  - "dd MMM yyyy"
+  - "h:mm a"
+  - "application/json"
+  - "POST"
+  - "GET"
+  - "Bearer "
+  - ""
+
+regex_patterns:
+  - "^assets/.*"
+  - "^package:.*"
+  - "^dart:.*"
+  - "^/.*" # typical route paths (e.g. /home, /chat)
+  - "^[a-zA-Z0-9_-]+\\.[a-zA-Z0-9]+$" # file names (e.g. main.dart)
+  - "^#[0-9a-fA-F]{6}$" # hex colors
+  - "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$" # email address pattern
+  - "^https?://.*" # urls
+
+ignored_files:
+  - "lib/core/localization/generated/.*"
+  - "lib/l10n/.*"
+  - ".*\\.g\\.dart$"
+

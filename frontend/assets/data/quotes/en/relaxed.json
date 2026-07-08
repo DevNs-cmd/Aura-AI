@@ -1,0 +1,62 @@
+{
+  "Morning": {
+    "subtitle": "Start your day with intent",
+    "quotes": [
+      "Enjoy the gentle morning breeze; there is no need to rush into the day.",
+      "Start today slowly; let peace and comfort guide your first actions.",
+      "May your morning be cozy, warm, and filled with easy-going thoughts.",
+      "Take your time at dawn; the world can wait while you enjoy this moment.",
+      "A relaxed morning is the best gift you can give your mind today.",
+      "Let your morning coffee warm your hands and soothe your thoughts.",
+      "Welcome the day with a gentle stretch and a light, carefree heart.",
+      "Savor the soft morning light; let ease be your compass today.",
+      "Begin this day with the simple pleasure of being fully present in comfort.",
+      "A gentle start leads to a smooth, relaxed journey through the day."
+    ]
+  },
+  "Afternoon": {
+    "subtitle": "Keep your momentum strong",
+    "quotes": [
+      "Let your afternoon be light and carefree; find ease in your tasks.",
+      "Take a gentle pause; let the warm midday sun bring peace to your mind.",
+      "Breathe out all tension; work flows smoothly when the mind is relaxed.",
+      "Enjoy the steady rhythm of a relaxed and comfortable afternoon.",
+      "A quiet, easy-going afternoon is the perfect space for quiet growth.",
+      "Let go of midday stress; focus on one simple thing at a time with ease.",
+      "Find comfort in the present moment; there is plenty of time for everything.",
+      "Let your thoughts be light as clouds floating in the warm afternoon sky.",
+      "A relaxed mind is creative and efficient; work with a gentle spirit.",
+      "Embrace the calm pace of this hour; let ease carry you through the day."
+    ]
+  },
+  "Evening": {
+    "subtitle": "Reflect and find comfort",
+    "quotes": [
+      "As the evening sun dips low, let all your worries dissolve into twilight.",
+      "Evening is the time to unwind, relax, and enjoy the cozy comfort of home.",
+      "Let the quiet evening bring a gentle release to your active thoughts.",
+      "Enjoy the soothing peace of the twilight hour; rest is a beautiful gift.",
+      "Wrap yourself in the comfort of a quiet, slow-paced evening.",
+      "Savor the simple pleasures of the night's beginning; you have earned this ease.",
+      "Let the soft evening light remind you to slow down and just be.",
+      "A relaxed evening is the perfect antidote to a busy world.",
+      "Let your mind drift into quiet comfort as the stars begin to show.",
+      "End the active day with a gentle exhale and a warm feeling of ease."
+    ]
+  },
+  "Night": {
+    "subtitle": "Rest and prepare for tomorrow",
+    "quotes": [
+      "Sleep deeply in the warm embrace of the night; let go of everything.",
+      "May your dreams be gentle and your rest completely undisturbed tonight.",
+      "Let the quiet dark soothe your mind into a state of pure comfort.",
+      "Night is the time to rest your thoughts and sleep with a light heart.",
+      "Rest in the cozy sanctuary of your bed; you are safe to let go and sleep.",
+      "Let the peaceful silence of midnight wash away any lingering thoughts.",
+      "Goodnight; sleep under the quiet stars and wake up refreshed.",
+      "Your only task tonight is to rest deeply and comfortably.",
+      "Let the gentle darkness guide your mind into deep, restorative sleep.",
+      "Sleep with a relaxed spirit, ready to welcome a soft tomorrow."
+    ]
+  }
+}

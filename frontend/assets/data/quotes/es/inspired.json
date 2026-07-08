@@ -1,0 +1,62 @@
+{
+  "Morning": {
+    "subtitle": "Comienza tu día con intención",
+    "quotes": [
+      "Despierta al llamado creativo del universo; hoy es para expresarse.",
+      "Deja que la luz de la mañana encienda nuevas ideas y perspectivas.",
+      "Tu imaginación está activa al amanecer; escribe tus inspiraciones.",
+      "Comienza hoy con asombro y curiosidad por el mundo a tu alrededor.",
+      "Cada amanecer invita a crear algo hermoso.",
+      "Abre tu mente a los susurros silenciosos de la inspiración.",
+      "Que tu mañana sea un lienzo de ideas originales y empuje creativo.",
+      "Comienza hoy con la intención de expresar tu verdadera voz.",
+      "Deja que la luz temprana alimente tu pasión e inspire tu trabajo.",
+      "Una mañana creativa establece un tono vibrante para el día."
+    ]
+  },
+  "Afternoon": {
+    "subtitle": "Mantén tu impulso.",
+    "quotes": [
+      "Deja que tu tarde sea un espacio de innovación y curiosidad.",
+      "Encuentra inspiración en los detalles del mundo al mediodía.",
+      "Deja que tu energía creativa fluya; no temas a los caminos originales.",
+      "Una tarde productiva nace cuando trabajamos con pasión.",
+      "Desafía los límites; la tarde es tuya para innovar.",
+      "Tómate un momento para mirar tus proyectos con ojos inspirados.",
+      "La expresión es el lenguaje del alma; crea con amor.",
+      "Que el calor del sol inspire grandes ideas este mediodía.",
+      "Mantente curioso; siempre hay una nueva forma de resolver problemas.",
+      "Deja que el flujo de tu tarde se guíe por el gozo de la creación."
+    ]
+  },
+  "Evening": {
+    "subtitle": "Reflexiona y encuentra consuelo",
+    "quotes": [
+      "Reflexiona sobre las hermosas ideas que cruzaron tu camino hoy.",
+      "La tarde es cuando la inspiración se convierte en sabiduría profunda.",
+      "Que el atardecer pinte tu mente con sueños y visiones artísticas.",
+      "Reúne tus pensamientos creativos y déjalos asentarse esta tarde.",
+      "La hora del crepúsculo es un puente a los reinos de la imaginación.",
+      "Celebra la expresión única que trajiste al mundo hoy.",
+      "Deja que el silencio de la tarde inspire tus proyectos de mañana.",
+      "Una tarde inspirada es un santuario para que el alma creativa descanse.",
+      "Reflexiona sobre las conexiones hermosas que descubriste hoy.",
+      "Termina el día con gratitud, deseando la luz creativa de mañana."
+    ]
+  },
+  "Night": {
+    "subtitle": "Descansa y prepárate para el mañana",
+    "quotes": [
+      "Deja que tus sueños vuelen en el espacio creativo de la noche.",
+      "Que la oscuridad inspire tus ideas más mágicas esta noche.",
+      "Duerme con la mente abierta a la inspiración silenciosa nocturna.",
+      "La noche es el terreno del subconsciente; confía en su poder.",
+      "Buenas noches; duerme bajo las estrellas y sueña en colores.",
+      "El silencio de la medianoche es terreno fértil para bellos pensamientos.",
+      "Descansa profundamente para alimentar el impulso creativo de mañana.",
+      "Deja que la noche calme tu creación en una renovación tranquila.",
+      "Duerme en paz, sabiendo que tu mente prepara las ideas de mañana.",
+      "Buenas noches; que tu descanso sea un viaje lleno de sueños hermosos."
+    ]
+  }
+}

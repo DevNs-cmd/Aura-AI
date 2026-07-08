@@ -1,0 +1,62 @@
+{
+  "Morning": {
+    "subtitle": "Comienza tu día con intención",
+    "quotes": [
+      "Levántate con determinación; hoy es una nueva oportunidad para construir tu futuro.",
+      "El sol de la mañana es un llamado a la acción; aprovecha el día con ambición.",
+      "Comienza hoy con un objetivo claro; los pequeños pasos diarios conducen a grandes logros.",
+      "Tu potencial es ilimitado; deja que tu energía matutina alimente tu disciplina.",
+      "Despierta con propósito; hoy es el día para convertir tus sueños en realidad.",
+      "Deja que tu primer pensamiento sea: 'Puedo, y voy a progresar hoy'.",
+      "Cada amanecer es un nuevo comienzo para perseguir tus metas con enfoque implacable.",
+      "Alimenta tu impulso matutino con la visión del futuro que estás creando.",
+      "La fe en ti mismo es la chispa que convierte un inicio en un triunfo.",
+      "No esperes la oportunidad; despierta y constrúyela paso a paso hoy."
+    ]
+  },
+  "Afternoon": {
+    "subtitle": "Mantén tu impulso.",
+    "quotes": [
+      "Sigue presionando; el mediodía es el momento de convertir el impulso en victoria.",
+      "Deja que los obstáculos alimenten tu fuego; eres más fuerte que cualquier desafío.",
+      "Mantente comprometido con el camino; la consistencia es el secreto del éxito.",
+      "Tu ambición debe ser más fuerte que tu fatiga o vacilación de la tarde.",
+      "Enorgullécete de tu disciplina; el trabajo que haces ahora construye tu sueño.",
+      "Una tarde productiva es la recompensa por cumplir tus promesas matutinas.",
+      "Enfoca tu energía del mediodía en la siguiente acción; el impulso es clave.",
+      "Los desafíos son solo hitos en tu camino hacia el logro de algo grande.",
+      "Mantente enfocado; la tarde es tuya para conquistarla con pasión.",
+      "Construye tu futuro acción por acción, hora por hora, esta misma tarde."
+    ]
+  },
+  "Evening": {
+    "subtitle": "Reflexiona y encuentra consuelo",
+    "quotes": [
+      "Reflexiona sobre los esfuerzos de hoy con orgullo; diste pasos hacia adelante.",
+      "Termina el día con fuerza; la determinación no duerme cuando cae el crepúsculo.",
+      "Deja que el atardecer te recuerde que el trabajo duro trae hermosos resultados.",
+      "Revisa tu progreso esta noche y establece tus intenciones para mañana.",
+      "El esfuerzo que pusiste hoy es una inversión en el éxito del mañana.",
+      "La tarde es el momento de recargar tu impulso y prepararte para el mañana.",
+      "Agradece la fuerza que te llevó a través de los desafíos de hoy.",
+      "Un día disciplinado termina con una satisfacción pacífica inigualable.",
+      "Mantén el fuego de tu ambición ardiendo silenciosamente al final del día.",
+      "Estás más cerca de tus metas esta noche de lo que estabas esta mañana. Sigue adelante."
+    ]
+  },
+  "Night": {
+    "subtitle": "Descansa y prepárate para el mañana",
+    "quotes": [
+      "Descansa tu cuerpo y mente; mañana conquistarás nuevos horizontes.",
+      "Duerme con la satisfacción de un día bien aprovechado en busca del crecimiento.",
+      "Deja que tus sueños visualicen el éxito que estás construyendo paso a paso.",
+      "Recarga tu impulso esta noche; el descanso profundo es la base del alto rendimiento.",
+      "La noche silenciosa es la preparación para la acción enfocada de mañana.",
+      "Confía en el proceso; el trabajo que hiciste hoy florecerá a su tiempo.",
+      "Descansa profundamente para alimentar la ambición que te despertará mañana.",
+      "Tu compromiso con el crecimiento es visible incluso en la forma en que valoras el descanso.",
+      "Duerme en paz, sabiendo que estás construyendo un legado de disciplina y fuerza.",
+      "El mañana es un lienzo fresco; descansa esta noche para pintarlo con logros."
+    ]
+  }
+}

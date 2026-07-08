@@ -1,0 +1,62 @@
+{
+  "Morning": {
+    "subtitle": "Comienza tu día con intención",
+    "quotes": [
+      "Está bien comenzar despacio hoy; escucha la necesidad de tu cuerpo.",
+      "Que tu mañana sea suave, compasiva y libre de presiones.",
+      "Comienza hoy con bajas expectativas y alta autocompasión.",
+      "Toma un respiro suave; no tienes que conquistar el mundo hoy.",
+      "Deja que tu mañana sea simple; haz solo lo que sea necesario.",
+      "Disfruta de un inicio lento; tu energía volverá a su tiempo.",
+      "Una mañana tranquila es una forma amable de apoyar tu espíritu cansado.",
+      "Sé paciente contigo hoy; incluso los pequeños pasos son una victoria.",
+      "Deja que la luz de la mañana traiga comodidad a tus pensamientos.",
+      "Las acciones suaves guiarán tu camino a lo largo de esta mañana."
+    ]
+  },
+  "Afternoon": {
+    "subtitle": "Mantén tu impulso.",
+    "quotes": [
+      "Tómate un descanso esta tarde; tu bienestar es la máxima prioridad.",
+      "Libera la presión de ser productivo; la comodidad es lo que necesitas.",
+      "Deja que tu tarde sea tranquila, amable y sin exigencias.",
+      "Trabaja con suavidad y descansa cuando sientas cansancio.",
+      "Una mente cansada necesita espacio; no presiones más allá de tus límites.",
+      "Encuentra comodidad en tareas sencillas de baja energía este mediodía.",
+      "Tu valor no se define por tu productividad; el descanso es válido.",
+      "Deja que la tarde pase en silencio; permítete bajar el ritmo.",
+      "Descansa tus ojos y calma tu mente por unos minutos.",
+      "Abraza un ritmo suave; el mundo seguirá girando si descansas."
+    ]
+  },
+  "Evening": {
+    "subtitle": "Reflexiona y encuentra consuelo",
+    "quotes": [
+      "Lograste pasar el día; ahora déjate relajar por completo.",
+      "La tarde es tu santuario; deja atrás todas las exigencias.",
+      "Deja que el crepúsculo calme tu cuerpo y alivie tus pensamientos pesados.",
+      "Disfruta de la comodidad de no hacer nada esta noche; lo necesitas.",
+      "Que tu tarde esté llena de luces suaves y tranquilidad silenciosa.",
+      "Libera el peso del día; la tarde es para una recuperación suave.",
+      "Escucha tu fatiga; es un llamado a nutrir tu alma con descanso.",
+      "Encuentra comodidad en el flujo silencioso de las horas de la tarde.",
+      "Una tarde lenta es el camino perfecto hacia un sueño reparador.",
+      "Sé amable contigo esta noche; envuelve tus pensamientos en paz."
+    ]
+  },
+  "Night": {
+    "subtitle": "Descansa y prepárate para el mañana",
+    "quotes": [
+      "Entrégate al sueño profundo y sanador que tu cuerpo te pide.",
+      "Que tu descanso sea profundo y reparador esta noche.",
+      "Deja que la oscuridad silenciosa te lleve a un sueño pacífico.",
+      "Buenas noches; suelta los pensamientos y duerme en comodidad.",
+      "Tu cuerpo y mente merecen el descanso más profundo esta noche.",
+      "Deja que el silencio de la noche renueve tu espíritu.",
+      "Duerme con un corazón agradecido por haber superado un día difícil.",
+      "Que la noche traiga una restauración profunda a tu cuerpo.",
+      "Buenas noches; duerme bajo el manto protector de la oscuridad.",
+      "Olvídate del mañana; esta noche está dedicada a tu recuperación."
+    ]
+  }
+}

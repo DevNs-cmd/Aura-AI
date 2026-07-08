@@ -1,0 +1,62 @@
+{
+  "Morning": {
+    "subtitle": "Beginnen Sie Ihren Tag mit Absicht",
+    "quotes": [
+      "Begrüße den Morgen mit dankbarem Herzen; Freude ist eine Entscheidung, die wir früh treffen.",
+      "Heute ist eine leere Leinwand voller Möglichkeiten, bereit, mit einem strahlenden Lächeln bemalt zu werden.",
+      "Möge Ihre Morgentasse mit Wärme und Ihr Geist mit fröhlichem Optimismus gefüllt sein.",
+      "Jeder Sonnenaufgang bringt ein neues Glücksversprechen, wenn wir ihn wahrnehmen.",
+      "Beginnen Sie noch heute mit der einfachen Absicht, Freude an den kleinsten Details zu finden.",
+      "Lassen Sie Ihren ersten Gedanken der Wertschätzung für diesen brandneuen Tag sein.",
+      "Der Sonnenaufgang ist eine Erinnerung der Natur daran, dass das Licht immer wieder zurückkehrt, um unseren Weg zu wärmen.",
+      "Erwecken Sie Ihren Geist für die schönen Möglichkeiten, die heute auf Sie warten.",
+      "Ein glücklicher Morgen gibt den friedlichen Rhythmus für den ganzen Tag vor.",
+      "Beginnen Sie diesen Tag mit einem Lächeln; Es ist der einfachste Weg, das Glück willkommen zu heißen."
+    ]
+  },
+  "Afternoon": {
+    "subtitle": "Bleiben Sie in Ihrem Rhythmus.",
+    "quotes": [
+      "Halten Sie inne und atmen Sie die Mittagssonne ein. Lass seine Wärme deine Dankbarkeit inspirieren.",
+      "Der Mittag ist ein perfekter Meilenstein, um zu feiern, wie weit Sie heute bereits gekommen sind.",
+      "Lassen Sie das helle Nachmittagslicht alle morgendlichen Zweifel oder Bedenken vertreiben.",
+      "Ein fröhlicher Geist verwandelt gewöhnliche Nachmittagsaufgaben in Momente purer Freude.",
+      "Glück ist kein fernes Ziel, sondern das Licht, das wir heute Nachmittag bringen.",
+      "Nehmen Sie sich einen Moment Zeit, um ein warmes Lächeln oder ein freundliches Wort zu teilen. Freude vervielfacht sich, wenn man sie teilt.",
+      "Die Nachmittagssonne erinnert uns daran, dass unsere innere Wärme unsere größte Stärke ist.",
+      "Finden Sie heute einen Grund zum Lachen. Freude ist die kürzeste Distanz zwischen zwei Herzen.",
+      "Selbst in der hektischen Hektik des Mittags gibt es Raum, das Leben zu genießen.",
+      "Lassen Sie Ihren Nachmittag voller unbeschwerter Leichtigkeit und strahlender Gedanken sein."
+    ]
+  },
+  "Evening": {
+    "subtitle": "Reflektieren Sie und finden Sie Trost",
+    "quotes": [
+      "Wenn der Tag sanfter wird, füllen Sie Ihr Herz mit stiller Dankbarkeit für die Geschenke des Tages.",
+      "Der Abend ist die süße Belohnung für einen Tag, den man damit verbracht hat, Licht zu finden und Freude zu verbreiten.",
+      "Beobachten Sie den Sonnenuntergang und denken Sie daran, dass schöne Enden zu strahlenden Neuanfängen führen.",
+      "Sammeln Sie die glücklichen Momente von heute und bewahren Sie sie heute Abend fest in Ihrem Herzen.",
+      "Lassen Sie sich von der sanften Dämmerung an die friedliche Freude erinnern, die in Ihnen lebt.",
+      "Beenden Sie den aktiven Teil Ihres Tages mit einem Lächeln und einem dankbaren Nicken in Richtung des Universums.",
+      "Der Abendhimmel ist ein Meisterwerk, das gemalt wurde, um unser stilles Glück zu inspirieren.",
+      "Lassen Sie Ihre Gedanken in angenehmer Erinnerung an die kleinsten Triumphe von heute schweifen.",
+      "Lassen Sie die heutigen Sorgen los; Der Abend ist die Zeit, wohlige Wärme zu genießen.",
+      "Ein friedlicher Abend ist die perfekte Brücke zu einer Nacht voller erholsamer Freude."
+    ]
+  },
+  "Night": {
+    "subtitle": "Ruhen Sie sich aus und bereiten Sie sich auf morgen vor",
+    "quotes": [
+      "Ruhen Sie tief aus und wissen Sie, dass Sie Ihr Bestes getan haben, um heute Licht in die Welt zu bringen.",
+      "Lassen Sie die Sterne über Ihre Träume wachen und erfüllen Sie Ihren Schlaf mit stillem Optimismus.",
+      "Wenn Sie Ihre Augen schließen, danken Sie dem Tag für all das Lächeln, das er Ihnen beschert hat.",
+      "Die Nacht ist ein ruhiger Zufluchtsort, in dem glückliche Seelen Ruhe und Erneuerung finden.",
+      "Möge Ihr Schlaf friedlich sein und Ihre Träume voller strahlender Versprechungen für die Zukunft.",
+      "Die Stille der Nacht ist eine warme Umarmung für einen glücklichen und müden Geist.",
+      "Schlafen Sie mit ruhigem Herzen ein und freuen Sie sich auf die neuen Abenteuer von morgen.",
+      "Lassen Sie die sanfte Dunkelheit Ihre Gedanken beruhigen und Ihre glückliche Energie wiederherstellen.",
+      "Schlaf ist die sanfte Kunst, unser Herz auf einen weiteren Tag voller Freude vorzubereiten.",
+      "Gute Nacht; Schlafen Sie unter dem beruhigenden Baldachin des Friedens und der stillen Dankbarkeit."
+    ]
+  }
+}

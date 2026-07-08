@@ -1,0 +1,62 @@
+{
+  "Morning": {
+    "subtitle": "Commencez votre journée avec intention",
+    "quotes": [
+      "Accueillez le matin avec un cœur reconnaissant ; la joie est un choix que nous faisons tôt.",
+      "Aujourd’hui, c’est une toile vierge d’opportunités, prête à être peinte de sourires éclatants.",
+      "Que votre tasse du matin soit remplie de chaleur et votre esprit d’un joyeux optimisme.",
+      "Chaque lever de soleil apporte une nouvelle promesse de bonheur si nous choisissons de le remarquer.",
+      "Commencez dès aujourd’hui avec la simple intention de vous réjouir des moindres détails.",
+      "Laissez votre première pensée être celle d’appréciation pour cette toute nouvelle journée.",
+      "Le lever du soleil rappelle à la nature que la lumière revient toujours pour réchauffer notre chemin.",
+      "Éveillez votre esprit aux belles possibilités qui vous attendent aujourd’hui.",
+      "Une matinée heureuse donne une cadence paisible pour toute la journée à venir.",
+      "Commencez cette journée avec le sourire ; c'est la manière la plus simple d'accueillir le bonheur."
+    ]
+  },
+  "Afternoon": {
+    "subtitle": "Gardez votre élan.",
+    "quotes": [
+      "Faites une pause et respirez sous le soleil de midi ; laissez sa chaleur inspirer votre gratitude.",
+      "Midi est une étape parfaite pour célébrer le chemin parcouru aujourd’hui.",
+      "Laissez la lumière vive de l’après-midi dissiper tous les doutes ou hésitations du matin.",
+      "Un esprit joyeux transforme les tâches ordinaires de l’après-midi en moments de pure joie.",
+      "Le bonheur n’est pas un objectif lointain, mais la lumière que nous apportons cet après-midi même.",
+      "Prenez un moment pour partager un sourire chaleureux ou un mot gentil ; la joie se multiplie lorsqu'elle est partagée.",
+      "Le soleil de l'après-midi nous rappelle que notre chaleur intérieure est notre plus grande force.",
+      "Trouvez une raison de rire aujourd'hui ; la joie est la distance la plus courte entre deux cœurs.",
+      "Même dans l’agitation de midi, il y a de la place pour apprécier le fait d’être en vie.",
+      "Laissez votre après-midi être rempli de légèreté et de pensées lumineuses."
+    ]
+  },
+  "Evening": {
+    "subtitle": "Réfléchissez et trouvez le réconfort",
+    "quotes": [
+      "À mesure que la journée s'adoucit, laissez votre cœur se remplir de gratitude pour les cadeaux de la journée.",
+      "Le soir est la douce récompense d'une journée passée à chercher la lumière et à répandre la joie.",
+      "Regardez le coucher du soleil et rappelez-vous que de belles fins mènent à de nouveaux départs brillants.",
+      "Rassemblez les moments heureux d’aujourd’hui et gardez-les près de votre cœur ce soir.",
+      "Laissez le doux crépuscule vous rappeler la joie paisible qui vous habite.",
+      "Terminez la partie active de votre journée avec un sourire et un clin d’œil reconnaissant à l’univers.",
+      "Le ciel du soir est un chef-d’œuvre peint pour inspirer notre bonheur tranquille.",
+      "Reposez votre esprit dans le souvenir agréable des plus petits triomphes d'aujourd'hui.",
+      "Abandonnez les soucis d’aujourd’hui ; la soirée est le moment de profiter d’une chaleur réconfortante.",
+      "Une soirée paisible est le pont parfait vers une nuit de joie reposante."
+    ]
+  },
+  "Night": {
+    "subtitle": "Reposez-vous et préparez-vous pour demain",
+    "quotes": [
+      "Reposez-vous profondément, sachant que vous avez fait de votre mieux pour apporter la lumière au monde d’aujourd’hui.",
+      "Laissez les étoiles veiller sur vos rêves et remplissez votre sommeil d’un optimisme tranquille.",
+      "En fermant les yeux, remerciez la journée pour tous les sourires qu'elle vous a apportés.",
+      "La nuit est un sanctuaire tranquille où les âmes heureuses trouvent repos et renouveau.",
+      "Que votre sommeil soit paisible et vos rêves remplis de belles promesses de demain.",
+      "Le silence de la nuit est une étreinte chaleureuse pour un esprit heureux et fatigué.",
+      "Abandonnez-vous au sommeil le cœur paisible, avide de nouvelles aventures de demain.",
+      "Laissez la douce obscurité apaiser vos pensées et restaurer votre énergie heureuse.",
+      "Le sommeil est l'art doux de préparer notre cœur à un autre jour de joie.",
+      "Bonne nuit; dormez sous le dais réconfortant de la paix et de la gratitude tranquille."
+    ]
+  }
+}

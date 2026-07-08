@@ -1,0 +1,62 @@
+{
+  "Morning": {
+    "subtitle": "Comienza tu día con intención",
+    "quotes": [
+      "Escucha los pensamientos silenciosos de la mañana; ¿qué te dice el corazón?",
+      "Comienza hoy preguntándote: '¿Qué estoy aprendiendo de mí mismo ahora?'",
+      "La luz de la mañana es un espejo para el alma; mírate con amabilidad.",
+      "Comienza el día en contemplación silenciosa, observando tu mundo interior.",
+      "Una mañana reflexiva aporta claridad al camino que decidimos recorrer.",
+      "Deja que la quietud del amanecer inspire una comprensión más profunda.",
+      "Cada amanecer nos invita a reflexionar sobre en quién nos estamos convirtiendo.",
+      "Que tus pensamientos matutinos sean amables, curiosos y honestos.",
+      "Observa la salida del sol y conéctate con tu sabiduría interior.",
+      "Un inicio reflexivo establece un ritmo significativo para el día."
+    ]
+  },
+  "Afternoon": {
+    "subtitle": "Mantén tu impulso.",
+    "quotes": [
+      "En el flujo ajetreado del día, tómate un momento para mirar hacia adentro.",
+      "Deja que tus acciones de la tarde se guíen por la autoconciencia y la verdad.",
+      "Usa esta pausa del mediodía para alinear tus elecciones con tus valores.",
+      "Observa tus pensamientos como nubes que pasan por un cielo despejado.",
+      "Una mente reflexiva encuentra sabiduría tanto en el éxito como en el desafío.",
+      "Deja que tus interacciones del mediodía sean reflexivas y auténticas.",
+      "Tómate un breve momento de autodescubrimiento; ¿qué te enseña este instante?",
+      "La quietud de la tarde nos permite escuchar nuestra voz interior.",
+      "Reflecte sobre la energía que estás trayendo al mundo este mediodía.",
+      "Deja que tus tareas de la tarde sean una expresión de tu verdadero ser."
+    ]
+  },
+  "Evening": {
+    "subtitle": "Reflexiona y encuentra consuelo",
+    "quotes": [
+      "Al terminar el día, mira hacia atrás con gratitud y comprensión.",
+      "La tarde es el espejo del día; reflexiona sobre lo que te trajo paz.",
+      "Mira el atardecer y reflexiona sobre las hermosas lecciones de hoy.",
+      "Deja que el crepúsculo guíe tus pensamientos hacia una quietud profunda.",
+      "Escribe tus reflexiones de la tarde; las palabras son anclas para el alma.",
+      "La luz que se desvanece nos invita a soltar lo que ya no sirve.",
+      "Encuentra significado en los momentos más pequeños del día que ha pasado.",
+      "Una tarde reflexiva es el puente hacia un mañana más consciente.",
+      "Deja ir el juicio; revisa el día de hoy con un corazón compasivo.",
+      "Descansa tu mente en la conciencia tranquila de tu viaje personal."
+    ]
+  },
+  "Night": {
+    "subtitle": "Descansa y prepárate para el mañana",
+    "quotes": [
+      "Duerme en conciencia tranquila; la noche es maestra de sabiduría.",
+      "Deja que las estrellas inspiren tus sueños más profundos esta noche.",
+      "Al cerrar los ojos, reflexiona sobre el progreso silencioso de hoy.",
+      "La noche es un santuario donde la mente integra la verdad.",
+      "Que la oscuridad traiga percepciones profundas y claridad a tu alma.",
+      "Reflexiona sobre el misterio del cielo nocturno y encuentra tu paz.",
+      "Confía en la sabiduría de tus sueños; son la voz del corazón.",
+      "Deja que el silencio de la noche calme tu búsqueda en un saber tranquilo.",
+      "Buenas noches; duerme con una mente reflexiva y un corazón abierto.",
+      "La noche contiene las llaves del crecimiento y la comprensión de mañana."
+    ]
+  }
+}

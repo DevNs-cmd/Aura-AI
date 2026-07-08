@@ -1,0 +1,62 @@
+{
+  "Morning": {
+    "subtitle": "Beginnen Sie Ihren Tag mit Absicht",
+    "quotes": [
+      "Wachen Sie auf mit dem kreativen Ruf des Universums; Der heutige Tag dient dem Ausdruck.",
+      "Lassen Sie das Morgenlicht neue Ideen und neue Perspektiven entfachen.",
+      "Ihre Fantasie ist im Morgengrauen aktiv; Schreiben Sie Ihre ersten Inspirationen auf.",
+      "Beginnen Sie heute mit einem Gefühl des Staunens und der Neugier auf die Welt.",
+      "Jeder Sonnenaufgang ist eine neue Einladung, etwas Schönes zu schaffen.",
+      "Öffnen Sie Ihren Geist für das leise Flüstern der Inspiration um Sie herum.",
+      "Möge Ihr Morgen eine Leinwand voller origineller Gedanken und künstlerischem Antrieb sein.",
+      "Beginnen Sie diesen Tag mit der Absicht, Ihrer wahren inneren Stimme Ausdruck zu verleihen.",
+      "Lassen Sie das frühe Licht Ihre Leidenschaft befeuern und Ihr Meisterwerk inspirieren.",
+      "Ein kreativer Morgen gibt dem Tag einen lebendigen und inspirierenden Ton."
+    ]
+  },
+  "Afternoon": {
+    "subtitle": "Bleiben Sie in Ihrem Rhythmus.",
+    "quotes": [
+      "Machen Sie Ihren Nachmittag zu einem Spielplatz voller Innovation und Neugier.",
+      "Lassen Sie sich von den Details der Mittagswelt um Sie herum inspirieren.",
+      "Lassen Sie Ihrer kreativen Energie freien Lauf; Fürchte dich nicht vor originellen Wegen.",
+      "Ein produktiver Nachmittag entsteht, wenn wir mit Leidenschaft und Freude arbeiten.",
+      "Fordern Sie Standardgrenzen heraus; Der Nachmittag steht Ihnen für Innovationen zur Verfügung.",
+      "Nehmen Sie sich einen Moment Zeit, um Ihre Projekte mit frischen, inspirierten Augen zu betrachten.",
+      "Ausdruck ist die Sprache der Seele; Schreiben, entwerfen oder bauen Sie mit Liebe.",
+      "Lassen Sie sich an diesem Mittag von der Wärme der Sonne zu mutigen, schönen Ideen inspirieren.",
+      "Bleiben Sie neugierig; Es gibt immer einen neuen Weg, alte Probleme zu lösen.",
+      "Lassen Sie Ihren Nachmittag von der Freude am Schaffen leiten."
+    ]
+  },
+  "Evening": {
+    "subtitle": "Reflektieren Sie und finden Sie Trost",
+    "quotes": [
+      "Denken Sie über die schönen Ideen nach, die Ihnen heute über den Weg gelaufen sind.",
+      "Der Abend ist die Zeit, in der sich stille Inspiration in tiefe Weisheit verwandelt.",
+      "Lassen Sie den Sonnenuntergang Ihren Geist mit neuen Träumen und künstlerischen Visionen erfüllen.",
+      "Sammeln Sie heute Abend Ihre kreativen Gedanken und lassen Sie sie in Ruhe köcheln.",
+      "Die Dämmerungsstunde ist eine Brücke in die tiefsten Bereiche der Fantasie.",
+      "Feiern Sie heute den einzigartigen Ausdruck, den Sie der Welt verliehen haben.",
+      "Lassen Sie sich von der Abendstille zu Gedanken für die Projekte von morgen inspirieren.",
+      "Ein inspirierter Abend ist ein Zufluchtsort für die kreative Seele, um auszuruhen.",
+      "Denken Sie über die schönen Verbindungen nach, die Sie im Laufe des Tages entdeckt haben.",
+      "Beenden Sie den Tag mit einem dankbaren Herzen, gespannt auf das kreative Licht von morgen."
+    ]
+  },
+  "Night": {
+    "subtitle": "Ruhen Sie sich aus und bereiten Sie sich auf morgen vor",
+    "quotes": [
+      "Lassen Sie Ihren Träumen in der unendlichen kreativen Weite der Nacht freien Lauf.",
+      "Möge die stille Dunkelheit heute Abend Ihre tiefsten und magischsten Ideen inspirieren.",
+      "Schlafen Sie mit einem Geist, der offen für das Flüstern der stillen nächtlichen Inspiration ist.",
+      "Die Nacht ist der Spielplatz des Unterbewusstseins; vertraue seiner schöpferischen Kraft.",
+      "Gute Nacht; Schlafen Sie unter den Sternen und lassen Sie Ihren Geist in Farbe träumen.",
+      "Die Stille der Mitternacht ist ein fruchtbarer Boden für schöne Gedanken.",
+      "Ruhen Sie tief aus, um den kreativen Antrieb zu nähren, der Sie morgen wecken wird.",
+      "Lassen Sie die sanfte Nacht Ihr aktives Schaffen in eine ruhige Erneuerung überführen.",
+      "Schlafen Sie ruhig und wissen Sie, dass Ihr Geist die Inspirationen von morgen vorbereitet.",
+      "Gute Nacht; Möge Ihre Ruhe eine wunderschöne, traumerfüllte Reise sein."
+    ]
+  }
+}
