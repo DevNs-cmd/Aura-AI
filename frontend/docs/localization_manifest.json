@@ -1,0 +1,1358 @@
+{
+  "files": [
+    {
+      "path": "lib/core/constants/app_colors.dart",
+      "feature": "core",
+      "candidateStringCount": 0,
+      "localizedStringCount": 0,
+      "remainingHardcodedStringCount": 0,
+      "status": "EXCLUDED",
+      "excludedStrings": [],
+      "arbKeys": []
+    },
+    {
+      "path": "lib/core/localization/locale_controller.dart",
+      "feature": "core",
+      "candidateStringCount": 1,
+      "localizedStringCount": 0,
+      "remainingHardcodedStringCount": 1,
+      "status": "NOT_STARTED",
+      "excludedStrings": [],
+      "arbKeys": []
+    },
+    {
+      "path": "lib/core/localization/supported_languages.dart",
+      "feature": "core",
+      "candidateStringCount": 6,
+      "localizedStringCount": 0,
+      "remainingHardcodedStringCount": 6,
+      "status": "NOT_STARTED",
+      "excludedStrings": [],
+      "arbKeys": []
+    },
+    {
+      "path": "lib/core/theme/app_theme.dart",
+      "feature": "core",
+      "candidateStringCount": 0,
+      "localizedStringCount": 0,
+      "remainingHardcodedStringCount": 0,
+      "status": "EXCLUDED",
+      "excludedStrings": [],
+      "arbKeys": []
+    },
+    {
+      "path": "lib/core/theme/mood_theme_model.dart",
+      "feature": "core",
+      "candidateStringCount": 66,
+      "localizedStringCount": 17,
+      "remainingHardcodedStringCount": 49,
+      "status": "PARTIAL",
+      "excludedStrings": [],
+      "arbKeys": [
+        "dart",
+        "moodNameHappy",
+        "moodNameCalm",
+        "moodNameMotivated",
+        "moodNameRelaxed",
+        "moodNameReflective",
+        "moodNameFocused",
+        "moodNameTired",
+        "moodNameInspired",
+        "moodDescHappy",
+        "moodDescCalm",
+        "moodDescMotivated",
+        "moodDescRelaxed",
+        "moodDescReflective",
+        "moodDescFocused",
+        "moodDescTired",
+        "moodDescInspired"
+      ]
+    },
+    {
+      "path": "lib/core/theme/theme_provider.dart",
+      "feature": "core",
+      "candidateStringCount": 11,
+      "localizedStringCount": 0,
+      "remainingHardcodedStringCount": 11,
+      "status": "NOT_STARTED",
+      "excludedStrings": [],
+      "arbKeys": []
+    },
+    {
+      "path": "lib/core/widgets/aura_logo.dart",
+      "feature": "core",
+      "candidateStringCount": 0,
+      "localizedStringCount": 0,
+      "remainingHardcodedStringCount": 0,
+      "status": "EXCLUDED",
+      "excludedStrings": [],
+      "arbKeys": []
+    },
+    {
+      "path": "lib/core/widgets/bouncing_widget.dart",
+      "feature": "core",
+      "candidateStringCount": 0,
+      "localizedStringCount": 0,
+      "remainingHardcodedStringCount": 0,
+      "status": "EXCLUDED",
+      "excludedStrings": [],
+      "arbKeys": []
+    },
+    {
+      "path": "lib/core/widgets/custom_text_field.dart",
+      "feature": "core",
+      "candidateStringCount": 0,
+      "localizedStringCount": 0,
+      "remainingHardcodedStringCount": 0,
+      "status": "EXCLUDED",
+      "excludedStrings": [],
+      "arbKeys": []
+    },
+    {
+      "path": "lib/core/widgets/emotion_bar.dart",
+      "feature": "core",
+      "candidateStringCount": 12,
+      "localizedStringCount": 3,
+      "remainingHardcodedStringCount": 9,
+      "status": "PARTIAL",
+      "excludedStrings": [],
+      "arbKeys": [
+        "dart",
+        "emotionTitle",
+        "emotionSubtitle"
+      ]
+    },
+    {
+      "path": "lib/core/widgets/localized_action_row.dart",
+      "feature": "core",
+      "candidateStringCount": 0,
+      "localizedStringCount": 0,
+      "remainingHardcodedStringCount": 0,
+      "status": "EXCLUDED",
+      "excludedStrings": [],
+      "arbKeys": []
+    },
+    {
+      "path": "lib/core/widgets/localized_adaptive_chip_group.dart",
+      "feature": "core",
+      "candidateStringCount": 0,
+      "localizedStringCount": 0,
+      "remainingHardcodedStringCount": 0,
+      "status": "EXCLUDED",
+      "excludedStrings": [],
+      "arbKeys": []
+    },
+    {
+      "path": "lib/core/widgets/localized_button.dart",
+      "feature": "core",
+      "candidateStringCount": 0,
+      "localizedStringCount": 0,
+      "remainingHardcodedStringCount": 0,
+      "status": "EXCLUDED",
+      "excludedStrings": [],
+      "arbKeys": []
+    },
+    {
+      "path": "lib/core/widgets/localized_dialog_action_bar.dart",
+      "feature": "core",
+      "candidateStringCount": 0,
+      "localizedStringCount": 0,
+      "remainingHardcodedStringCount": 0,
+      "status": "EXCLUDED",
+      "excludedStrings": [],
+      "arbKeys": []
+    },
+    {
+      "path": "lib/core/widgets/localized_metadata_row.dart",
+      "feature": "core",
+      "candidateStringCount": 0,
+      "localizedStringCount": 0,
+      "remainingHardcodedStringCount": 0,
+      "status": "EXCLUDED",
+      "excludedStrings": [],
+      "arbKeys": []
+    },
+    {
+      "path": "lib/core/widgets/localized_navigation_label.dart",
+      "feature": "core",
+      "candidateStringCount": 0,
+      "localizedStringCount": 0,
+      "remainingHardcodedStringCount": 0,
+      "status": "EXCLUDED",
+      "excludedStrings": [],
+      "arbKeys": []
+    },
+    {
+      "path": "lib/core/widgets/localized_responsive_header.dart",
+      "feature": "core",
+      "candidateStringCount": 0,
+      "localizedStringCount": 0,
+      "remainingHardcodedStringCount": 0,
+      "status": "EXCLUDED",
+      "excludedStrings": [],
+      "arbKeys": []
+    },
+    {
+      "path": "lib/core/widgets/localized_section_header.dart",
+      "feature": "core",
+      "candidateStringCount": 0,
+      "localizedStringCount": 0,
+      "remainingHardcodedStringCount": 0,
+      "status": "EXCLUDED",
+      "excludedStrings": [],
+      "arbKeys": []
+    },
+    {
+      "path": "lib/core/widgets/localized_settings_row.dart",
+      "feature": "core",
+      "candidateStringCount": 0,
+      "localizedStringCount": 0,
+      "remainingHardcodedStringCount": 0,
+      "status": "EXCLUDED",
+      "excludedStrings": [],
+      "arbKeys": []
+    },
+    {
+      "path": "lib/core/widgets/mood_landscape_illustration.dart",
+      "feature": "core",
+      "candidateStringCount": 12,
+      "localizedStringCount": 0,
+      "remainingHardcodedStringCount": 12,
+      "status": "NOT_STARTED",
+      "excludedStrings": [],
+      "arbKeys": []
+    },
+    {
+      "path": "lib/core/widgets/ocean_backdrop.dart",
+      "feature": "core",
+      "candidateStringCount": 0,
+      "localizedStringCount": 0,
+      "remainingHardcodedStringCount": 0,
+      "status": "EXCLUDED",
+      "excludedStrings": [],
+      "arbKeys": []
+    },
+    {
+      "path": "lib/core/widgets/primary_button.dart",
+      "feature": "core",
+      "candidateStringCount": 0,
+      "localizedStringCount": 0,
+      "remainingHardcodedStringCount": 0,
+      "status": "EXCLUDED",
+      "excludedStrings": [],
+      "arbKeys": []
+    },
+    {
+      "path": "lib/core/widgets/responsive_layout_wrapper.dart",
+      "feature": "core",
+      "candidateStringCount": 0,
+      "localizedStringCount": 0,
+      "remainingHardcodedStringCount": 0,
+      "status": "EXCLUDED",
+      "excludedStrings": [],
+      "arbKeys": []
+    },
+    {
+      "path": "lib/core/widgets/social_auth_button.dart",
+      "feature": "core",
+      "candidateStringCount": 0,
+      "localizedStringCount": 0,
+      "remainingHardcodedStringCount": 0,
+      "status": "EXCLUDED",
+      "excludedStrings": [],
+      "arbKeys": []
+    },
+    {
+      "path": "lib/features/auth/auth_provider.dart",
+      "feature": "auth",
+      "candidateStringCount": 4,
+      "localizedStringCount": 0,
+      "remainingHardcodedStringCount": 4,
+      "status": "NOT_STARTED",
+      "excludedStrings": [],
+      "arbKeys": []
+    },
+    {
+      "path": "lib/features/auth/auth_repository.dart",
+      "feature": "auth",
+      "candidateStringCount": 14,
+      "localizedStringCount": 0,
+      "remainingHardcodedStringCount": 14,
+      "status": "NOT_STARTED",
+      "excludedStrings": [],
+      "arbKeys": []
+    },
+    {
+      "path": "lib/features/auth/forgot_password_screen.dart",
+      "feature": "auth",
+      "candidateStringCount": 11,
+      "localizedStringCount": 0,
+      "remainingHardcodedStringCount": 11,
+      "status": "NOT_STARTED",
+      "excludedStrings": [],
+      "arbKeys": []
+    },
+    {
+      "path": "lib/features/auth/login_screen.dart",
+      "feature": "auth",
+      "candidateStringCount": 33,
+      "localizedStringCount": 0,
+      "remainingHardcodedStringCount": 33,
+      "status": "NOT_STARTED",
+      "excludedStrings": [],
+      "arbKeys": []
+    },
+    {
+      "path": "lib/features/auth/onboarding_screen.dart",
+      "feature": "auth",
+      "candidateStringCount": 20,
+      "localizedStringCount": 0,
+      "remainingHardcodedStringCount": 20,
+      "status": "NOT_STARTED",
+      "excludedStrings": [],
+      "arbKeys": []
+    },
+    {
+      "path": "lib/features/auth/register_screen.dart",
+      "feature": "auth",
+      "candidateStringCount": 0,
+      "localizedStringCount": 0,
+      "remainingHardcodedStringCount": 0,
+      "status": "EXCLUDED",
+      "excludedStrings": [],
+      "arbKeys": []
+    },
+    {
+      "path": "lib/features/chat/chat_provider.dart",
+      "feature": "chat",
+      "candidateStringCount": 0,
+      "localizedStringCount": 0,
+      "remainingHardcodedStringCount": 0,
+      "status": "EXCLUDED",
+      "excludedStrings": [],
+      "arbKeys": []
+    },
+    {
+      "path": "lib/features/chat/chat_repository.dart",
+      "feature": "chat",
+      "candidateStringCount": 49,
+      "localizedStringCount": 0,
+      "remainingHardcodedStringCount": 49,
+      "status": "NOT_STARTED",
+      "excludedStrings": [],
+      "arbKeys": []
+    },
+    {
+      "path": "lib/features/chat/presentation/chat_screen.dart",
+      "feature": "chat",
+      "candidateStringCount": 22,
+      "localizedStringCount": 7,
+      "remainingHardcodedStringCount": 15,
+      "status": "PARTIAL",
+      "excludedStrings": [],
+      "arbKeys": [
+        "dart",
+        "chatAuraCompanion",
+        "chatOnline",
+        "chatWhatGoal",
+        "chatExplainCode",
+        "chatSummarizeFile",
+        "chatOptimizeScript"
+      ]
+    },
+    {
+      "path": "lib/features/chat/presentation/widgets/chat_bubble.dart",
+      "feature": "chat",
+      "candidateStringCount": 24,
+      "localizedStringCount": 0,
+      "remainingHardcodedStringCount": 24,
+      "status": "NOT_STARTED",
+      "excludedStrings": [],
+      "arbKeys": []
+    },
+    {
+      "path": "lib/features/chat/presentation/widgets/message_input.dart",
+      "feature": "chat",
+      "candidateStringCount": 1,
+      "localizedStringCount": 1,
+      "remainingHardcodedStringCount": 0,
+      "status": "COMPLETE",
+      "excludedStrings": [],
+      "arbKeys": [
+        "dart"
+      ]
+    },
+    {
+      "path": "lib/features/chat/presentation/widgets/typing_indicator.dart",
+      "feature": "chat",
+      "candidateStringCount": 0,
+      "localizedStringCount": 0,
+      "remainingHardcodedStringCount": 0,
+      "status": "EXCLUDED",
+      "excludedStrings": [],
+      "arbKeys": []
+    },
+    {
+      "path": "lib/features/goals/goals_provider.dart",
+      "feature": "goals",
+      "candidateStringCount": 1,
+      "localizedStringCount": 0,
+      "remainingHardcodedStringCount": 1,
+      "status": "NOT_STARTED",
+      "excludedStrings": [],
+      "arbKeys": []
+    },
+    {
+      "path": "lib/features/goals/goals_repository.dart",
+      "feature": "goals",
+      "candidateStringCount": 19,
+      "localizedStringCount": 0,
+      "remainingHardcodedStringCount": 19,
+      "status": "NOT_STARTED",
+      "excludedStrings": [],
+      "arbKeys": []
+    },
+    {
+      "path": "lib/features/goals/presentation/create_goal_screen.dart",
+      "feature": "goals",
+      "candidateStringCount": 20,
+      "localizedStringCount": 0,
+      "remainingHardcodedStringCount": 20,
+      "status": "NOT_STARTED",
+      "excludedStrings": [],
+      "arbKeys": []
+    },
+    {
+      "path": "lib/features/goals/presentation/goals_screen.dart",
+      "feature": "goals",
+      "candidateStringCount": 14,
+      "localizedStringCount": 0,
+      "remainingHardcodedStringCount": 14,
+      "status": "NOT_STARTED",
+      "excludedStrings": [],
+      "arbKeys": []
+    },
+    {
+      "path": "lib/features/goals/presentation/goal_detail_screen.dart",
+      "feature": "goals",
+      "candidateStringCount": 25,
+      "localizedStringCount": 0,
+      "remainingHardcodedStringCount": 25,
+      "status": "NOT_STARTED",
+      "excludedStrings": [],
+      "arbKeys": []
+    },
+    {
+      "path": "lib/features/goals/presentation/widgets/category_focus_chart.dart",
+      "feature": "goals",
+      "candidateStringCount": 4,
+      "localizedStringCount": 0,
+      "remainingHardcodedStringCount": 4,
+      "status": "NOT_STARTED",
+      "excludedStrings": [],
+      "arbKeys": []
+    },
+    {
+      "path": "lib/features/goals/presentation/widgets/goal_tile.dart",
+      "feature": "goals",
+      "candidateStringCount": 1,
+      "localizedStringCount": 0,
+      "remainingHardcodedStringCount": 1,
+      "status": "NOT_STARTED",
+      "excludedStrings": [],
+      "arbKeys": []
+    },
+    {
+      "path": "lib/features/goals/presentation/widgets/productivity_chart.dart",
+      "feature": "goals",
+      "candidateStringCount": 8,
+      "localizedStringCount": 0,
+      "remainingHardcodedStringCount": 8,
+      "status": "NOT_STARTED",
+      "excludedStrings": [],
+      "arbKeys": []
+    },
+    {
+      "path": "lib/features/home/calendar_screen.dart",
+      "feature": "home",
+      "candidateStringCount": 16,
+      "localizedStringCount": 6,
+      "remainingHardcodedStringCount": 10,
+      "status": "PARTIAL",
+      "excludedStrings": [],
+      "arbKeys": [
+        "dart",
+        "calendarSelectTime",
+        "calendarCategory",
+        "calendarCatOther",
+        "calendarCancel",
+        "calendarAdd"
+      ]
+    },
+    {
+      "path": "lib/features/home/documents_screen.dart",
+      "feature": "home",
+      "candidateStringCount": 60,
+      "localizedStringCount": 4,
+      "remainingHardcodedStringCount": 56,
+      "status": "PARTIAL",
+      "excludedStrings": [],
+      "arbKeys": [
+        "dart",
+        "documentsTryAsking",
+        "documentsSeeAll",
+        "documentsAddFiles"
+      ]
+    },
+    {
+      "path": "lib/features/home/document_detail_screen.dart",
+      "feature": "home",
+      "candidateStringCount": 37,
+      "localizedStringCount": 7,
+      "remainingHardcodedStringCount": 30,
+      "status": "PARTIAL",
+      "excludedStrings": [],
+      "arbKeys": [
+        "dart",
+        "documentsDetailTitle",
+        "documentsDetailWhatAuraFound",
+        "documentsDetailKeyConcepts",
+        "documentsDetailPreview",
+        "documentsDetailPreviewLines",
+        "documentsDetailBtnAsk"
+      ]
+    },
+    {
+      "path": "lib/features/home/explore_screen.dart",
+      "feature": "home",
+      "candidateStringCount": 16,
+      "localizedStringCount": 11,
+      "remainingHardcodedStringCount": 5,
+      "status": "PARTIAL",
+      "excludedStrings": [],
+      "arbKeys": [
+        "dart",
+        "exploreTitle",
+        "exploreDiscoverTools",
+        "exploreAskWithAura",
+        "exploreAnalyzeAnything",
+        "exploreAskYourFiles",
+        "exploreVoiceAssistant",
+        "exploreRecommendedForYou",
+        "exploreDailyReflection",
+        "exploreDailyReflectionDesc",
+        "exploreTryNow"
+      ]
+    },
+    {
+      "path": "lib/features/home/home_screen.dart",
+      "feature": "home",
+      "candidateStringCount": 28,
+      "localizedStringCount": 20,
+      "remainingHardcodedStringCount": 8,
+      "status": "PARTIAL",
+      "excludedStrings": [],
+      "arbKeys": [
+        "dart",
+        "homeQuickActions",
+        "quickActionChat",
+        "quickActionVoice",
+        "quickActionVision",
+        "quickActionJournal",
+        "navHome",
+        "navExplore",
+        "navJourney",
+        "navProfile",
+        "homeGreeting",
+        "homeMyJournal",
+        "homeSeeAll",
+        "homeEvening",
+        "homeQuickJournal",
+        "quickPauseReflect",
+        "quickPersonal",
+        "quickSetIntentions",
+        "quickHowFeel",
+        "quickFamily"
+      ]
+    },
+    {
+      "path": "lib/features/home/widgets/ask_your_files/ask_files_bar.dart",
+      "feature": "home",
+      "candidateStringCount": 7,
+      "localizedStringCount": 7,
+      "remainingHardcodedStringCount": 0,
+      "status": "COMPLETE",
+      "excludedStrings": [],
+      "arbKeys": [
+        "dart",
+        "documentsAllFiles",
+        "documentsAskHint",
+        "documentsAlertUploadFirstTitle",
+        "documentsAlertUploadFirstDesc",
+        "documentsSheetCancel",
+        "documentsAlertUploadFirstBtn"
+      ]
+    },
+    {
+      "path": "lib/features/home/widgets/ask_your_files/aura_document_card.dart",
+      "feature": "home",
+      "candidateStringCount": 14,
+      "localizedStringCount": 5,
+      "remainingHardcodedStringCount": 9,
+      "status": "PARTIAL",
+      "excludedStrings": [],
+      "arbKeys": [
+        "dart",
+        "documentsOcrReady",
+        "documentsMenuAsk",
+        "documentsMenuPreview",
+        "documentsMenuDelete"
+      ]
+    },
+    {
+      "path": "lib/features/home/widgets/ask_your_files/document_empty_state.dart",
+      "feature": "home",
+      "candidateStringCount": 4,
+      "localizedStringCount": 4,
+      "remainingHardcodedStringCount": 0,
+      "status": "COMPLETE",
+      "excludedStrings": [],
+      "arbKeys": [
+        "dart",
+        "documentsEmptyTitle",
+        "documentsEmptyDesc",
+        "documentsEmptyBtn"
+      ]
+    },
+    {
+      "path": "lib/features/home/widgets/ask_your_files/document_selection_bar.dart",
+      "feature": "home",
+      "candidateStringCount": 5,
+      "localizedStringCount": 4,
+      "remainingHardcodedStringCount": 1,
+      "status": "PARTIAL",
+      "excludedStrings": [],
+      "arbKeys": [
+        "dart",
+        "documentsFilesSelected",
+        "documentsBtnClear",
+        "documentsBtnRemove"
+      ]
+    },
+    {
+      "path": "lib/features/home/widgets/ask_your_files/knowledge_orb.dart",
+      "feature": "home",
+      "candidateStringCount": 9,
+      "localizedStringCount": 9,
+      "remainingHardcodedStringCount": 0,
+      "status": "COMPLETE",
+      "excludedStrings": [],
+      "arbKeys": [
+        "dart",
+        "documentsOrbDefaultTitle",
+        "documentsOrbDefaultDesc",
+        "documentsOrbEmptyTitle",
+        "documentsOrbEmptyDesc",
+        "documentsOrbAnalyzingTitle",
+        "documentsOrbAnalyzingDesc",
+        "documentsOrbReadyTitle",
+        "documentsKnowledgeSpaceReady"
+      ]
+    },
+    {
+      "path": "lib/features/home/widgets/ask_your_files/quick_question_card.dart",
+      "feature": "home",
+      "candidateStringCount": 0,
+      "localizedStringCount": 0,
+      "remainingHardcodedStringCount": 0,
+      "status": "EXCLUDED",
+      "excludedStrings": [],
+      "arbKeys": []
+    },
+    {
+      "path": "lib/features/home/widgets/ask_your_files/upload_progress_card.dart",
+      "feature": "home",
+      "candidateStringCount": 2,
+      "localizedStringCount": 1,
+      "remainingHardcodedStringCount": 1,
+      "status": "PARTIAL",
+      "excludedStrings": [],
+      "arbKeys": [
+        "dart"
+      ]
+    },
+    {
+      "path": "lib/features/home/widgets/ask_your_files/upload_source_sheet.dart",
+      "feature": "home",
+      "candidateStringCount": 12,
+      "localizedStringCount": 9,
+      "remainingHardcodedStringCount": 3,
+      "status": "PARTIAL",
+      "excludedStrings": [],
+      "arbKeys": [
+        "dart",
+        "documentsSheetTitle",
+        "documentsSheetDesc",
+        "documentsOptionFileTitle",
+        "documentsOptionFileDesc",
+        "documentsOptionDriveTitle",
+        "documentsOptionDriveDesc",
+        "documentsOptionCameraTitle",
+        "documentsSheetSecurityDesc"
+      ]
+    },
+    {
+      "path": "lib/features/home/widgets/goal_progress.dart",
+      "feature": "home",
+      "candidateStringCount": 1,
+      "localizedStringCount": 1,
+      "remainingHardcodedStringCount": 0,
+      "status": "COMPLETE",
+      "excludedStrings": [],
+      "arbKeys": [
+        "dart"
+      ]
+    },
+    {
+      "path": "lib/features/home/widgets/hero_card.dart",
+      "feature": "home",
+      "candidateStringCount": 17,
+      "localizedStringCount": 10,
+      "remainingHardcodedStringCount": 7,
+      "status": "PARTIAL",
+      "excludedStrings": [],
+      "arbKeys": [
+        "dart",
+        "recommendationHappy",
+        "recommendationCalm",
+        "recommendationMotivated",
+        "recommendationRelaxed",
+        "recommendationReflective",
+        "recommendationFocused",
+        "recommendationDefault",
+        "heroGreetingDefault",
+        "heroLetsChat"
+      ]
+    },
+    {
+      "path": "lib/features/home/widgets/mood_selector.dart",
+      "feature": "home",
+      "candidateStringCount": 14,
+      "localizedStringCount": 2,
+      "remainingHardcodedStringCount": 12,
+      "status": "PARTIAL",
+      "excludedStrings": [],
+      "arbKeys": [
+        "dart",
+        "homeFeelingQuestion"
+      ]
+    },
+    {
+      "path": "lib/features/home/widgets/quick_actions.dart",
+      "feature": "home",
+      "candidateStringCount": 15,
+      "localizedStringCount": 3,
+      "remainingHardcodedStringCount": 12,
+      "status": "PARTIAL",
+      "excludedStrings": [],
+      "arbKeys": [
+        "dart",
+        "homeQuickActions",
+        "homeSeeAll"
+      ]
+    },
+    {
+      "path": "lib/features/home/widgets/recent_memories.dart",
+      "feature": "home",
+      "candidateStringCount": 1,
+      "localizedStringCount": 1,
+      "remainingHardcodedStringCount": 0,
+      "status": "COMPLETE",
+      "excludedStrings": [],
+      "arbKeys": [
+        "dart"
+      ]
+    },
+    {
+      "path": "lib/features/journal/journal_provider.dart",
+      "feature": "journal",
+      "candidateStringCount": 1,
+      "localizedStringCount": 0,
+      "remainingHardcodedStringCount": 1,
+      "status": "NOT_STARTED",
+      "excludedStrings": [],
+      "arbKeys": []
+    },
+    {
+      "path": "lib/features/journal/journal_repository.dart",
+      "feature": "journal",
+      "candidateStringCount": 27,
+      "localizedStringCount": 0,
+      "remainingHardcodedStringCount": 27,
+      "status": "NOT_STARTED",
+      "excludedStrings": [],
+      "arbKeys": []
+    },
+    {
+      "path": "lib/features/journal/presentation/create_journal_screen.dart",
+      "feature": "journal",
+      "candidateStringCount": 23,
+      "localizedStringCount": 14,
+      "remainingHardcodedStringCount": 9,
+      "status": "PARTIAL",
+      "excludedStrings": [],
+      "arbKeys": [
+        "dart",
+        "emotionHappy",
+        "emotionSad",
+        "emotionCalm",
+        "emotionAnxious",
+        "journalNewEntryTitle",
+        "journalFeelingQuestion",
+        "journalTitleLabel",
+        "journalTitleHint",
+        "journalTitleError",
+        "journalThoughtsLabel",
+        "journalThoughtsError",
+        "journalThoughtsHint",
+        "journalSaveEntryBtn"
+      ]
+    },
+    {
+      "path": "lib/features/journal/presentation/journal_detail_screen.dart",
+      "feature": "journal",
+      "candidateStringCount": 12,
+      "localizedStringCount": 3,
+      "remainingHardcodedStringCount": 9,
+      "status": "PARTIAL",
+      "excludedStrings": [],
+      "arbKeys": [
+        "dart",
+        "journalDetailTitle",
+        "journalAuraInsight"
+      ]
+    },
+    {
+      "path": "lib/features/journal/presentation/journal_screen.dart",
+      "feature": "journal",
+      "candidateStringCount": 12,
+      "localizedStringCount": 9,
+      "remainingHardcodedStringCount": 3,
+      "status": "PARTIAL",
+      "excludedStrings": [],
+      "arbKeys": [
+        "dart",
+        "journalReflectionCalendar",
+        "journalClearFilter",
+        "journalTitle",
+        "journalCelebrateSmile",
+        "journalRegardingPrompt",
+        "journalRecentReflections",
+        "journalCreateNew",
+        "journalNoReflections"
+      ]
+    },
+    {
+      "path": "lib/features/journal/presentation/widgets/journal_card.dart",
+      "feature": "journal",
+      "candidateStringCount": 11,
+      "localizedStringCount": 2,
+      "remainingHardcodedStringCount": 9,
+      "status": "PARTIAL",
+      "excludedStrings": [],
+      "arbKeys": [
+        "dart",
+        "journalCardAiInsight"
+      ]
+    },
+    {
+      "path": "lib/features/journal/presentation/widgets/mood_selector.dart",
+      "feature": "journal",
+      "candidateStringCount": 10,
+      "localizedStringCount": 2,
+      "remainingHardcodedStringCount": 8,
+      "status": "PARTIAL",
+      "excludedStrings": [],
+      "arbKeys": [
+        "dart",
+        "journalFeelingQuestion"
+      ]
+    },
+    {
+      "path": "lib/features/journal/presentation/widgets/writing_prompt_card.dart",
+      "feature": "journal",
+      "candidateStringCount": 5,
+      "localizedStringCount": 4,
+      "remainingHardcodedStringCount": 1,
+      "status": "PARTIAL",
+      "excludedStrings": [],
+      "arbKeys": [
+        "dart",
+        "journalPromptCardHeader",
+        "journalPrompt1",
+        "journalPromptCardBtn"
+      ]
+    },
+    {
+      "path": "lib/features/memory/memory_provider.dart",
+      "feature": "memory",
+      "candidateStringCount": 1,
+      "localizedStringCount": 0,
+      "remainingHardcodedStringCount": 1,
+      "status": "NOT_STARTED",
+      "excludedStrings": [],
+      "arbKeys": []
+    },
+    {
+      "path": "lib/features/memory/memory_repository.dart",
+      "feature": "memory",
+      "candidateStringCount": 11,
+      "localizedStringCount": 0,
+      "remainingHardcodedStringCount": 11,
+      "status": "NOT_STARTED",
+      "excludedStrings": [],
+      "arbKeys": []
+    },
+    {
+      "path": "lib/features/memory/presentation/create_memory_screen.dart",
+      "feature": "memory",
+      "candidateStringCount": 15,
+      "localizedStringCount": 0,
+      "remainingHardcodedStringCount": 15,
+      "status": "NOT_STARTED",
+      "excludedStrings": [],
+      "arbKeys": []
+    },
+    {
+      "path": "lib/features/memory/presentation/memory_screen.dart",
+      "feature": "memory",
+      "candidateStringCount": 19,
+      "localizedStringCount": 0,
+      "remainingHardcodedStringCount": 19,
+      "status": "NOT_STARTED",
+      "excludedStrings": [],
+      "arbKeys": []
+    },
+    {
+      "path": "lib/features/memory/presentation/widgets/memory_card_tile.dart",
+      "feature": "memory",
+      "candidateStringCount": 10,
+      "localizedStringCount": 0,
+      "remainingHardcodedStringCount": 10,
+      "status": "NOT_STARTED",
+      "excludedStrings": [],
+      "arbKeys": []
+    },
+    {
+      "path": "lib/features/mood/presentation/mood_selection_screen.dart",
+      "feature": "mood",
+      "candidateStringCount": 53,
+      "localizedStringCount": 0,
+      "remainingHardcodedStringCount": 53,
+      "status": "NOT_STARTED",
+      "excludedStrings": [],
+      "arbKeys": []
+    },
+    {
+      "path": "lib/features/notifications/notifications_provider.dart",
+      "feature": "notifications",
+      "candidateStringCount": 0,
+      "localizedStringCount": 0,
+      "remainingHardcodedStringCount": 0,
+      "status": "EXCLUDED",
+      "excludedStrings": [],
+      "arbKeys": []
+    },
+    {
+      "path": "lib/features/notifications/notifications_repository.dart",
+      "feature": "notifications",
+      "candidateStringCount": 15,
+      "localizedStringCount": 0,
+      "remainingHardcodedStringCount": 15,
+      "status": "NOT_STARTED",
+      "excludedStrings": [],
+      "arbKeys": []
+    },
+    {
+      "path": "lib/features/notifications/presentation/notifications_screen.dart",
+      "feature": "notifications",
+      "candidateStringCount": 28,
+      "localizedStringCount": 0,
+      "remainingHardcodedStringCount": 28,
+      "status": "NOT_STARTED",
+      "excludedStrings": [],
+      "arbKeys": []
+    },
+    {
+      "path": "lib/features/profile/presentation/edit_profile_screen.dart",
+      "feature": "profile",
+      "candidateStringCount": 28,
+      "localizedStringCount": 8,
+      "remainingHardcodedStringCount": 20,
+      "status": "PARTIAL",
+      "excludedStrings": [],
+      "arbKeys": [
+        "dart",
+        "profileChoosePic",
+        "profileTitleEdit",
+        "profileLabelName",
+        "profileHintName",
+        "profileLabelEmail",
+        "profileHintEmail",
+        "profileBtnSaveChanges"
+      ]
+    },
+    {
+      "path": "lib/features/profile/presentation/profile_screen.dart",
+      "feature": "profile",
+      "candidateStringCount": 11,
+      "localizedStringCount": 7,
+      "remainingHardcodedStringCount": 4,
+      "status": "PARTIAL",
+      "excludedStrings": [],
+      "arbKeys": [
+        "dart",
+        "profileTitle",
+        "profilePremiumMember",
+        "profileStatMemories",
+        "profileStatGoals",
+        "profileStatProgress",
+        "profileMenuLogout"
+      ]
+    },
+    {
+      "path": "lib/features/profile/presentation/widgets/personality_selector.dart",
+      "feature": "profile",
+      "candidateStringCount": 13,
+      "localizedStringCount": 3,
+      "remainingHardcodedStringCount": 10,
+      "status": "PARTIAL",
+      "excludedStrings": [],
+      "arbKeys": [
+        "dart",
+        "personalityTitle",
+        "personalitySubtitle"
+      ]
+    },
+    {
+      "path": "lib/features/profile/presentation/widgets/usage_chart.dart",
+      "feature": "profile",
+      "candidateStringCount": 1,
+      "localizedStringCount": 1,
+      "remainingHardcodedStringCount": 0,
+      "status": "COMPLETE",
+      "excludedStrings": [],
+      "arbKeys": [
+        "dart"
+      ]
+    },
+    {
+      "path": "lib/features/profile/profile_provider.dart",
+      "feature": "profile",
+      "candidateStringCount": 3,
+      "localizedStringCount": 0,
+      "remainingHardcodedStringCount": 3,
+      "status": "NOT_STARTED",
+      "excludedStrings": [],
+      "arbKeys": []
+    },
+    {
+      "path": "lib/features/settings/presentation/settings_screen.dart",
+      "feature": "settings",
+      "candidateStringCount": 21,
+      "localizedStringCount": 12,
+      "remainingHardcodedStringCount": 9,
+      "status": "PARTIAL",
+      "excludedStrings": [],
+      "arbKeys": [
+        "dart",
+        "settingsTitle",
+        "settingsAppearance",
+        "settingsDarkMode",
+        "settingsLanguage",
+        "settingsNotifications",
+        "settingsSecurity",
+        "settingsAppLock",
+        "settingsClearCache",
+        "settingsVersion",
+        "settingsLogout",
+        "settingsSelectLanguage"
+      ]
+    },
+    {
+      "path": "lib/features/settings/settings_provider.dart",
+      "feature": "settings",
+      "candidateStringCount": 8,
+      "localizedStringCount": 0,
+      "remainingHardcodedStringCount": 8,
+      "status": "NOT_STARTED",
+      "excludedStrings": [],
+      "arbKeys": []
+    },
+    {
+      "path": "lib/features/splash/presentation/animations.dart",
+      "feature": "splash",
+      "candidateStringCount": 0,
+      "localizedStringCount": 0,
+      "remainingHardcodedStringCount": 0,
+      "status": "EXCLUDED",
+      "excludedStrings": [],
+      "arbKeys": []
+    },
+    {
+      "path": "lib/features/splash/presentation/splash_controller.dart",
+      "feature": "splash",
+      "candidateStringCount": 0,
+      "localizedStringCount": 0,
+      "remainingHardcodedStringCount": 0,
+      "status": "EXCLUDED",
+      "excludedStrings": [],
+      "arbKeys": []
+    },
+    {
+      "path": "lib/features/splash/presentation/splash_screen.dart",
+      "feature": "splash",
+      "candidateStringCount": 4,
+      "localizedStringCount": 0,
+      "remainingHardcodedStringCount": 4,
+      "status": "NOT_STARTED",
+      "excludedStrings": [],
+      "arbKeys": []
+    },
+    {
+      "path": "lib/features/vision/presentation/vision_screen.dart",
+      "feature": "vision",
+      "candidateStringCount": 164,
+      "localizedStringCount": 28,
+      "remainingHardcodedStringCount": 136,
+      "status": "PARTIAL",
+      "excludedStrings": [],
+      "arbKeys": [
+        "dart",
+        "visionMockSceneDesk",
+        "visionMockContextDesk",
+        "visionTitle",
+        "visionHistorySnackbar",
+        "visionSubtitle",
+        "visionReadyTitle",
+        "visionReadyDesc",
+        "visionQuickModesTitle",
+        "visionRecentSightingsTitle",
+        "visionTabScene",
+        "visionTabObjects",
+        "visionTabText",
+        "visionTabContext",
+        "visionResultSceneTitle",
+        "visionResultObjectsTitle",
+        "visionResultTextTitle",
+        "visionOcrCopied",
+        "visionButtonCopy",
+        "visionTextShared",
+        "visionButtonShare",
+        "visionNoTextDetected",
+        "visionResultContextTitle",
+        "visionDrawerTitle",
+        "visionDrawerBtnAsk",
+        "visionDrawerBtnSave",
+        "visionSavedToMemory",
+        "visionDrawerBtnLog"
+      ]
+    },
+    {
+      "path": "lib/features/vision/presentation/widgets/detected_objects_list.dart",
+      "feature": "vision",
+      "candidateStringCount": 12,
+      "localizedStringCount": 3,
+      "remainingHardcodedStringCount": 9,
+      "status": "PARTIAL",
+      "excludedStrings": [],
+      "arbKeys": [
+        "dart",
+        "visionResultObjectsTitle",
+        "visionConfidenceValue"
+      ]
+    },
+    {
+      "path": "lib/features/vision/presentation/widgets/ocr_card.dart",
+      "feature": "vision",
+      "candidateStringCount": 3,
+      "localizedStringCount": 2,
+      "remainingHardcodedStringCount": 1,
+      "status": "PARTIAL",
+      "excludedStrings": [],
+      "arbKeys": [
+        "dart",
+        "visionResultTextTitle"
+      ]
+    },
+    {
+      "path": "lib/features/vision/presentation/widgets/scanner_line.dart",
+      "feature": "vision",
+      "candidateStringCount": 0,
+      "localizedStringCount": 0,
+      "remainingHardcodedStringCount": 0,
+      "status": "EXCLUDED",
+      "excludedStrings": [],
+      "arbKeys": []
+    },
+    {
+      "path": "lib/features/vision/vision_provider.dart",
+      "feature": "vision",
+      "candidateStringCount": 10,
+      "localizedStringCount": 0,
+      "remainingHardcodedStringCount": 10,
+      "status": "NOT_STARTED",
+      "excludedStrings": [],
+      "arbKeys": []
+    },
+    {
+      "path": "lib/features/voice/presentation/voice_screen.dart",
+      "feature": "voice",
+      "candidateStringCount": 17,
+      "localizedStringCount": 15,
+      "remainingHardcodedStringCount": 2,
+      "status": "PARTIAL",
+      "excludedStrings": [],
+      "arbKeys": [
+        "dart",
+        "voiceStatusListening",
+        "voiceStatusThinking",
+        "voiceStatusSpeaking",
+        "voiceBackTooltip",
+        "voiceCameraTooltip",
+        "voiceCameraSnackbar",
+        "voiceDescListening",
+        "voiceDescThinking",
+        "voiceDescSpeaking",
+        "voiceUnmuteTooltip",
+        "voiceMuteTooltip",
+        "voiceEndCallTooltip",
+        "voiceSpeakerOffTooltip",
+        "voiceSpeakerOnTooltip"
+      ]
+    },
+    {
+      "path": "lib/features/voice/presentation/widgets/animated_orb.dart",
+      "feature": "voice",
+      "candidateStringCount": 0,
+      "localizedStringCount": 0,
+      "remainingHardcodedStringCount": 0,
+      "status": "EXCLUDED",
+      "excludedStrings": [],
+      "arbKeys": []
+    },
+    {
+      "path": "lib/features/voice/presentation/widgets/voice_wave.dart",
+      "feature": "voice",
+      "candidateStringCount": 0,
+      "localizedStringCount": 0,
+      "remainingHardcodedStringCount": 0,
+      "status": "EXCLUDED",
+      "excludedStrings": [],
+      "arbKeys": []
+    },
+    {
+      "path": "lib/features/voice/voice_provider.dart",
+      "feature": "voice",
+      "candidateStringCount": 0,
+      "localizedStringCount": 0,
+      "remainingHardcodedStringCount": 0,
+      "status": "EXCLUDED",
+      "excludedStrings": [],
+      "arbKeys": []
+    },
+    {
+      "path": "lib/main.dart",
+      "feature": "core",
+      "candidateStringCount": 2,
+      "localizedStringCount": 2,
+      "remainingHardcodedStringCount": 0,
+      "status": "COMPLETE",
+      "excludedStrings": [],
+      "arbKeys": [
+        "dart",
+        "appTitle"
+      ]
+    },
+    {
+      "path": "lib/models/chat_message.dart",
+      "feature": "core",
+      "candidateStringCount": 0,
+      "localizedStringCount": 0,
+      "remainingHardcodedStringCount": 0,
+      "status": "EXCLUDED",
+      "excludedStrings": [],
+      "arbKeys": []
+    },
+    {
+      "path": "lib/models/goal.dart",
+      "feature": "core",
+      "candidateStringCount": 0,
+      "localizedStringCount": 0,
+      "remainingHardcodedStringCount": 0,
+      "status": "EXCLUDED",
+      "excludedStrings": [],
+      "arbKeys": []
+    },
+    {
+      "path": "lib/models/journal_entry.dart",
+      "feature": "core",
+      "candidateStringCount": 0,
+      "localizedStringCount": 0,
+      "remainingHardcodedStringCount": 0,
+      "status": "EXCLUDED",
+      "excludedStrings": [],
+      "arbKeys": []
+    },
+    {
+      "path": "lib/models/memory.dart",
+      "feature": "core",
+      "candidateStringCount": 1,
+      "localizedStringCount": 0,
+      "remainingHardcodedStringCount": 1,
+      "status": "NOT_STARTED",
+      "excludedStrings": [],
+      "arbKeys": []
+    },
+    {
+      "path": "lib/models/notification_item.dart",
+      "feature": "core",
+      "candidateStringCount": 0,
+      "localizedStringCount": 0,
+      "remainingHardcodedStringCount": 0,
+      "status": "EXCLUDED",
+      "excludedStrings": [],
+      "arbKeys": []
+    },
+    {
+      "path": "lib/models/user.dart",
+      "feature": "core",
+      "candidateStringCount": 8,
+      "localizedStringCount": 0,
+      "remainingHardcodedStringCount": 8,
+      "status": "NOT_STARTED",
+      "excludedStrings": [],
+      "arbKeys": []
+    },
+    {
+      "path": "lib/routes/app_router.dart",
+      "feature": "app shell",
+      "candidateStringCount": 38,
+      "localizedStringCount": 0,
+      "remainingHardcodedStringCount": 38,
+      "status": "NOT_STARTED",
+      "excludedStrings": [],
+      "arbKeys": []
+    }
+  ],
+  "summary": {
+    "totalFilesScanned": 106,
+    "filesWithUserFacingStrings": 65,
+    "completeFiles": 8,
+    "partialFiles": 29,
+    "notStartedFiles": 36,
+    "totalCandidateStrings": 1233,
+    "totalLocalizedStrings": 247,
+    "remainingHardcodedStrings": 986
+  }
+}

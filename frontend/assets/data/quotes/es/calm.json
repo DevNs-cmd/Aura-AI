@@ -1,0 +1,62 @@
+{
+  "Morning": {
+    "subtitle": "Comienza tu día con intención",
+    "quotes": [
+      "Respira la quietud silenciosa de la mañana; encuentra paz en este momento.",
+      "Deja que tu día se desarrolle lentamente, como una flor dando la bienvenida al sol matutino.",
+      "Una mente tranquila al amanecer es la base para un día pacífico por delante.",
+      "Comienza tu mañana con una respiración profunda y una liberación suave de expectativas.",
+      "La paz no es algo que encontramos; es la calma que traemos a la mañana.",
+      "Que la quietud de la hora temprana calme tu mente y estabilice tu corazón.",
+      "Comienza hoy en conciencia silenciosa, observando el nacimiento suave de la luz.",
+      "Deja que la calma del aire matutino se lleve cualquier pensamiento inquieto.",
+      "Camina suavemente hacia el día; no hay necesidad de apresurarse hacia el futuro.",
+      "Una mañana silenciosa es un santuario para que el alma descanse y se prepare."
+    ]
+  },
+  "Afternoon": {
+    "subtitle": "Mantén tu impulso.",
+    "quotes": [
+      "En medio del ruido del día, encuentra tu centro silencioso y respira.",
+      "Exhala el ajetreo del mediodía; abraza la calma del presente.",
+      "Deja que tu tarde sea constante, pacífica y fundamentada en la claridad silenciosa.",
+      "Tómate una breve pausa para realinear tus pensamientos con la paz interior.",
+      "La calma del mediodía es el ancla que mantiene estables nuestros espíritus en la tormenta.",
+      "Observa el mundo ajetreado a tu alrededor con una conciencia silenciosa y sin juicios.",
+      "Deja que tus acciones fluyan desde un lugar de profunda quietud interior.",
+      "Una tarde tranquila es el resultado de elegir la paz sobre la prisa innecesaria.",
+      "Desacelera tus pensamientos por un momento; todo está como debe ser.",
+      "Deja que el ritmo silencioso de tu respiración te guíe a través de las tareas de la tarde."
+    ]
+  },
+  "Evening": {
+    "subtitle": "Reflexiona y encuentra consuelo",
+    "quotes": [
+      "Deja que el crepúsculo de la tarde calme tu mente y traiga paz a tu corazón.",
+      "Al ponerse el sol, libera los eventos del día con una suave respiración de aceptación.",
+      "La tarde es el puerto silencioso donde descansamos nuestros pensamientos y encontramos consuelo.",
+      "Abraza la suave quietud del crepúsculo; deja que todas las preocupaciones se desvanezcan.",
+      "Que tu tarde sea un santuario pacífico de relajación y reflexión tranquila.",
+      "El suave desvanecimiento de la luz nos recuerda soltar y estar quietos.",
+      "Descansa tu mente activa y simplemente existe en la belleza silenciosa de la tarde.",
+      "Acepta los regalos de este día y deja que la tarde traiga una resolución suave.",
+      "Una tarde tranquila prepara el corazón para recibir el descanso pacífico de la noche.",
+      "Encuentra consuelo en las sombras silenciosas; el trabajo del día está hecho con éxito."
+    ]
+  },
+  "Night": {
+    "subtitle": "Descansa y prepárate para el mañana",
+    "quotes": [
+      "Descansa en la quietud profunda de la noche; el sueño es la entrega final a la paz.",
+      "Deja que la oscuridad silenciosa te envuelva como una suave manta de descanso.",
+      "Libera todos los pensamientos al cielo estrellado; estás a salvo para descansar.",
+      "La noche es el santuario del silencio donde el alma repone su fuerza silenciosa.",
+      "Duerme con un corazón pacífico, sabiendo que estás exactamente donde necesitas estar.",
+      "Que la calma de la noche traiga un descanso profundo y reparador a tu cuerpo cansado.",
+      "Las estrellas brillan en silencio para recordarnos la paz eterna que nos rodea.",
+      "Deja que el ritmo silencioso de la oscuridad calme tu espíritu en un sueño profundo.",
+      "Buenas noches; deja atrás todas las preocupaciones y descansa en la paz silenciosa del universo.",
+      "Una noche tranquila conduce a un espíritu renovado, listo para dar la bienvenida al amanecer."
+    ]
+  }
+}

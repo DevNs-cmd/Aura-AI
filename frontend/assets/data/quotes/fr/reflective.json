@@ -1,0 +1,62 @@
+{
+  "Morning": {
+    "subtitle": "Commencez votre journée avec intention",
+    "quotes": [
+      "Écoutez les pensées tranquilles du matin ; qu'est-ce que ton cœur te dit ?",
+      "Commencez dès aujourd'hui par une question : « Qu'est-ce que j'apprends sur moi-même en ce moment ? »",
+      "La lumière du matin est un miroir pour l'âme ; regarde à l’intérieur avec gentillesse.",
+      "Commencez la journée dans une contemplation tranquille, en observant votre monde intérieur.",
+      "Une matinée réfléchie apporte de la clarté au chemin que nous choisissons de parcourir.",
+      "Laissez le calme de l’aube inspirer une compréhension plus profonde de vos objectifs.",
+      "Chaque lever de soleil nous invite à réfléchir sur qui nous devenons.",
+      "Que vos pensées matinales soient douces, curieuses et profondément honnêtes.",
+      "Observez le lever tranquille du soleil et connectez-vous à votre sagesse intérieure.",
+      "Un début réfléchi définit un rythme réfléchi et significatif pour la journée."
+    ]
+  },
+  "Afternoon": {
+    "subtitle": "Gardez votre élan.",
+    "quotes": [
+      "Dans le rythme effréné de la journée, prenez un moment pour regarder à l’intérieur.",
+      "Laissez vos actions de l’après-midi être guidées par une conscience de soi tranquille et la vérité.",
+      "Profitez de cette pause de midi pour aligner vos choix sur vos valeurs fondamentales.",
+      "Observez vos pensées comme des nuages ​​traversant un ciel clair.",
+      "Un esprit réfléchi trouve aujourd’hui la sagesse à la fois dans le succès et dans les défis.",
+      "Laissez vos interactions de midi être réfléchies, gentilles et authentiques.",
+      "Faites une courte promenade à la découverte de soi ; que vous apprend ce moment ?",
+      "Le calme de l’après-midi nous permet d’entendre notre douce voix intérieure.",
+      "Réfléchissez à l’énergie que vous apportez au monde ce midi.",
+      "Laissez vos tâches de l’après-midi être une expression de votre véritable personnalité."
+    ]
+  },
+  "Evening": {
+    "subtitle": "Réfléchissez et trouvez le réconfort",
+    "quotes": [
+      "À la fin de la journée, regardez en arrière avec gratitude et compréhension honnête.",
+      "Le soir est le miroir du jour ; réfléchissez à ce qui vous a apporté la paix.",
+      "Regardez le coucher du soleil et méditez sur les belles leçons de cette journée.",
+      "Laissez le crépuscule guider vos pensées vers une contemplation plus profonde et calme.",
+      "Notez vos réflexions du soir ; les mots sont des points d'ancrage pour l'âme.",
+      "La lumière qui se desvanece nos invita a soltar lo que ya no srve.",
+      "Trouvez un sens aux moindres instants de la journée écoulée.",
+      "Une soirée réfléchie est un pont vers un lendemain plus sage et plus conscient.",
+      "Abandonnez le jugement ; révisez aujourd’hui avec un cœur doux et indulgent.",
+      "Reposez votre esprit dans la conscience tranquille de votre voyage personnel."
+    ]
+  },
+  "Night": {
+    "subtitle": "Reposez-vous et préparez-vous pour demain",
+    "quotes": [
+      "Dormez en pleine conscience ; la nuit est un maître de sagesse silencieuse.",
+      "Laissez les étoiles inspirer vos rêves les plus profonds et les plus paisibles ce soir.",
+      "En fermant les yeux, réfléchissez aux progrès silencieux que vous avez réalisés aujourd’hui.",
+      "La nuit est un sanctuaire de découverte de soi, où l'esprit intègre la vérité.",
+      "Puisse l’obscurité tranquille apporter des perspectives profondes et une clarté reposante à votre âme.",
+      "Méditez sur le mystère du ciel nocturne et trouvez votre place dans la paix.",
+      "Faites confiance à la sagesse de vos rêves ; ils sont la voix douce du cœur.",
+      "Laissez le silence de la nuit apaiser votre recherche active d’une connaissance tranquille.",
+      "Bonne nuit; dormez avec un esprit réfléchi et un cœur paisible et ouvert.",
+      "La nuit détient les clés tranquilles de la croissance et de la compréhension de demain."
+    ]
+  }
+}

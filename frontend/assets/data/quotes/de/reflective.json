@@ -1,0 +1,62 @@
+{
+  "Morning": {
+    "subtitle": "Beginnen Sie Ihren Tag mit Absicht",
+    "quotes": [
+      "Hören Sie auf die ruhigen Gedanken des Morgens; Was sagt dir dein Herz?",
+      "Beginnen Sie heute mit einer Frage: „Was lerne ich gerade über mich selbst?“",
+      "Das Morgenlicht ist ein Spiegel für die Seele; Schauen Sie mit Freundlichkeit nach innen.",
+      "Beginnen Sie den Tag in stiller Kontemplation und beobachten Sie Ihre innere Welt.",
+      "Ein nachdenklicher Morgen bringt Klarheit über den Weg, den wir gehen wollen.",
+      "Lassen Sie die Stille der Morgendämmerung zu einem tieferen Verständnis Ihrer Ziele inspirieren.",
+      "Jeder Sonnenaufgang lädt uns dazu ein, darüber nachzudenken, wer wir werden.",
+      "Mögen Ihre Morgengedanken sanft, neugierig und zutiefst ehrlich sein.",
+      "Beobachten Sie den stillen Sonnenaufgang und verbinden Sie sich mit Ihrer inneren Weisheit.",
+      "Ein nachdenklicher Start legt ein durchdachtes und sinnvolles Tempo für den Tag fest."
+    ]
+  },
+  "Afternoon": {
+    "subtitle": "Bleiben Sie in Ihrem Rhythmus.",
+    "quotes": [
+      "Nehmen Sie sich im hektischen Alltag einen Moment Zeit, um nach innen zu schauen.",
+      "Lassen Sie sich bei Ihren Nachmittagsaktivitäten von ruhiger Selbsterkenntnis und Wahrheit leiten.",
+      "Nutzen Sie diese Mittagspause, um Ihre Entscheidungen an Ihren Grundwerten auszurichten.",
+      "Beobachten Sie Ihre Gedanken wie Wolken, die durch einen klaren Himmel ziehen.",
+      "Ein nachdenklicher Geist findet heute sowohl im Erfolg als auch in der Herausforderung Weisheit.",
+      "Lassen Sie Ihre Mittagsgespräche nachdenklich, freundlich und authentisch sein.",
+      "Machen Sie einen kurzen Spaziergang zur Selbstfindung; Was lehrt dich dieser Moment?",
+      "Die Stille am Nachmittag ermöglicht es uns, unsere ruhige innere Stimme zu hören.",
+      "Denken Sie über die Energie nach, die Sie an diesem Mittag in die Welt bringen.",
+      "Lassen Sie Ihre Nachmittagsaufgaben ein Ausdruck Ihres wahren Selbst sein."
+    ]
+  },
+  "Evening": {
+    "subtitle": "Reflektieren Sie und finden Sie Trost",
+    "quotes": [
+      "Schauen Sie am Ende des Tages mit Dankbarkeit und ehrlichem Verständnis zurück.",
+      "Der Abend ist der Spiegel des Tages; Denken Sie darüber nach, was Ihnen Frieden gebracht hat.",
+      "Beobachten Sie den Sonnenuntergang und denken Sie über die schönen Lektionen dieses Tages nach.",
+      "Lassen Sie die Dämmerung Ihre Gedanken in eine tiefere, ruhige Kontemplation leiten.",
+      "Schreiben Sie Ihre Abendreflexionen auf; Worte sind Anker für die Seele.",
+      "Das Licht, das uns erwartet, wir laden Sie ein, wenn Sie nicht ankommen.",
+      "Finden Sie in den kleinsten Momenten des vergangenen Tages einen Sinn.",
+      "Ein nachdenklicher Abend ist eine Brücke zu einem klügeren, bewussteren Morgen.",
+      "Lass das Urteil los; Überprüfen Sie es heute mit einem sanften und nachsichtigen Herzen.",
+      "Lassen Sie Ihren Geist im stillen Bewusstsein Ihrer persönlichen Reise ruhen."
+    ]
+  },
+  "Night": {
+    "subtitle": "Ruhen Sie sich aus und bereiten Sie sich auf morgen vor",
+    "quotes": [
+      "Schlafe in ruhigem Bewusstsein; Die Nacht ist ein Lehrer der stillen Weisheit.",
+      "Lassen Sie die Sterne heute Nacht Ihre tiefsten und friedlichsten Träume inspirieren.",
+      "Denken Sie beim Schließen der Augen über die stillen Fortschritte nach, die Sie heute gemacht haben.",
+      "Die Nacht ist ein Zufluchtsort der Selbstfindung, in dem der Geist die Wahrheit integriert.",
+      "Möge die stille Dunkelheit Ihrer Seele tiefe Einsichten und erholsame Klarheit bringen.",
+      "Denken Sie über das Geheimnis des Nachthimmels nach und finden Sie Ihren Platz in der Ruhe.",
+      "Vertrauen Sie der Weisheit Ihrer Träume; Sie sind die leise Stimme des Herzens.",
+      "Lassen Sie die Stille der Nacht Ihr aktives Suchen beruhigen und in stilles Wissen übergehen.",
+      "Gute Nacht; Schlafen Sie mit einem nachdenklichen Geist und einem friedlichen, offenen Herzen.",
+      "Die Nacht birgt den stillen Schlüssel zum Wachstum und Verständnis von morgen."
+    ]
+  }
+}

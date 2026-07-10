@@ -1,0 +1,62 @@
+{
+  "Morning": {
+    "subtitle": "Commencez votre journée avec intention",
+    "quotes": [
+      "Un esprit clair est votre plus grand atout aujourd’hui ; verrouillez votre cible.",
+      "La concentration du matin détermine la qualité de votre travail quotidien.",
+      "Commencez dès aujourd’hui avec une seule priorité : éliminer toutes les distractions.",
+      "Laissez votre énergie matinale se concentrer sur ce qui compte vraiment.",
+      "La clarté est le pouvoir ; notez votre objectif principal pour cette journée.",
+      "Réveillez-vous avec une détermination de fer ; le travail en profondeur commence dès la première heure.",
+      "Votre attention est votre monnaie ; dépensez-le judicieusement sur vos priorités aujourd’hui.",
+      "Alignez vos habitudes matinales avec la vision à long terme de votre objectif.",
+      "Restez alerte, restez engagé ; aujourd’hui est un jour d’exécution et de progrès.",
+      "Une matinée concentrée est la clé pour libérer votre potentiel le plus élevé."
+    ]
+  },
+  "Afternoon": {
+    "subtitle": "Gardez votre élan.",
+    "quotes": [
+      "Maintenez votre concentration ; C’est à midi que les vrais progrès se concrétisent.",
+      "Ne laissez pas le bruit de l’après-midi briser la profonde concentration que vous avez développée.",
+      "Une tâche à la fois, réalisée avec une présence et une clarté absolues.",
+      "Votre productivité reflète votre capacité à dire non aux distractions.",
+      "Restez dans la zone ; la poussée de midi nécessite votre entière présence.",
+      "Faites une courte et nette pause pour vider votre esprit, puis replongez-vous.",
+      "Laissez votre dévouement être plus fort que l'après-midi ne vous pousse à errer.",
+      "Le travail en profondeur est le chemin vers la maîtrise ; honorez votre concentration cet après-midi.",
+      "Gardez la cible claire dans votre esprit ; vous créez une dynamique.",
+      "L’après-midi appartient à ceux qui restent concentrés jusqu’au bout."
+    ]
+  },
+  "Evening": {
+    "subtitle": "Réfléchissez et trouvez le réconfort",
+    "quotes": [
+      "Évaluez l’objectif d’aujourd’hui ; célébrez le travail que vous avez accompli avec succès.",
+      "À mesure que la journée touche à sa fin, laissez votre esprit passer à un repos propre et calme.",
+      "Un esprit concentré sait quand travailler et quand s’arrêter complètement.",
+      "Préparez votre environnement ce soir pour un démarrage ciblé demain matin.",
+      "La clarté que tu traes à ton tard prépare les victoires de mañana.",
+      "Reposez votre esprit concentré ; vous avez travaillé en profondeur aujourd’hui.",
+      "Laissez la satisfaction d’une journée hautement productive apporter la paix ce soir.",
+      "Libérer les projets du jour ; la soirée est consacrée à une récupération mentale tranquille.",
+      "Gardez vos objectifs à long terme en vue, mais que ce soir soit consacré à la récupération.",
+      "Une journée concentrée mérite une transition paisible et tranquille vers le repos du soir."
+    ]
+  },
+  "Night": {
+    "subtitle": "Reposez-vous et préparez-vous pour demain",
+    "quotes": [
+      "Dormez profondément pour restaurer l'énergie mentale nécessaire à la concentration de demain.",
+      "Laissez votre esprit se reposer complètement ; le sommeil profond est essentiel à la clarté cognitive.",
+      "Bonne nuit; rechargez la batterie mentale qui alimente votre chef-d’œuvre quotidien.",
+      "La nuit est la période de restauration des esprits hautement productifs.",
+      "Ayez confiance que le sommeil profond organise et sécurise activement vos connaissances.",
+      "Dormez l'esprit tranquille, libre des tâches et des soucis de demain.",
+      "Le repos fait partie du travail ; honorez votre sommeil pour maintenir des performances optimales.",
+      "Que votre sommeil soit profond, clair et hautement réparateur ce soir.",
+      "Un lendemain concentré commence par une nuit de sommeil qui respecte les limites.",
+      "Bonne nuit; dormez dans un calme absolu et réveillez-vous bien."
+    ]
+  }
+}

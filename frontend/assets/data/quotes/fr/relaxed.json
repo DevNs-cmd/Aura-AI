@@ -1,0 +1,62 @@
+{
+  "Morning": {
+    "subtitle": "Commencez votre journée avec intention",
+    "quotes": [
+      "Profitez de la douce brise matinale ; il n'est pas nécessaire de se précipiter dans la journée.",
+      "Commencez lentement aujourd’hui ; laissez la paix et le confort guider vos premières actions.",
+      "Que votre matinée soit confortable, chaleureuse et remplie de pensées faciles à vivre.",
+      "Prenez votre temps à l'aube ; le monde peut attendre pendant que vous profitez de ce moment.",
+      "Une matinée détendue est le meilleur cadeau que vous puissiez offrir à votre esprit aujourd’hui.",
+      "Laissez votre café du matin réchauffer vos mains et apaiser vos pensées.",
+      "Accueillez la journée avec un étirement doux et un cœur léger et insouciant.",
+      "Savourez la douce lumière du matin ; laissez la facilité être votre boussole aujourd'hui.",
+      "Commencez cette journée avec le simple plaisir d’être pleinement présent dans le confort.",
+      "Un début en douceur mène à un voyage fluide et détendu tout au long de la journée."
+    ]
+  },
+  "Afternoon": {
+    "subtitle": "Gardez votre élan.",
+    "quotes": [
+      "Laissez votre après-midi être léger et insouciant ; trouver de l'aisance dans vos tâches.",
+      "Faites une douce pause ; laissez le chaud soleil de midi apporter la paix à votre esprit.",
+      "Expirez toute tension ; le travail se déroule sans problème lorsque l'esprit est détendu.",
+      "Profitez du rythme soutenu d’un après-midi détendu et confortable.",
+      "Un après-midi calme et décontracté est l’espace idéal pour une croissance tranquille.",
+      "Abandonnez le stress de midi ; concentrez-vous facilement sur une chose simple à la fois.",
+      "Trouvez du réconfort dans le moment présent ; il y a beaucoup de temps pour tout.",
+      "Laissez vos pensées être légères comme des nuages ​​flottant dans le ciel chaud de l’après-midi.",
+      "Un esprit détendu est créatif et efficace ; travailler avec un esprit doux.",
+      "Embrassez le rythme calme de cette heure ; laissez-vous guider tout au long de la journée."
+    ]
+  },
+  "Evening": {
+    "subtitle": "Réfléchissez et trouvez le réconfort",
+    "quotes": [
+      "Alors que le soleil du soir baisse, laissez tous vos soucis se dissoudre dans le crépuscule.",
+      "La soirée est le moment de se détendre, de se détendre et de profiter du confort douillet de la maison.",
+      "Laissez la soirée tranquille apporter une douce libération à vos pensées actives.",
+      "Profitez de la paix apaisante du crépuscule ; le repos est un beau cadeau.",
+      "Enveloppez-vous dans le confort d’une soirée tranquille et au rythme lent.",
+      "Savourez les plaisirs simples du début de la nuit ; vous avez mérité cette facilité.",
+      "Laissez la douce lumière du soir vous rappeler de ralentir et d’être simplement.",
+      "Une soirée détendue est l’antidote parfait à un monde occupé.",
+      "Laissez votre esprit dériver vers un confort tranquille alors que les étoiles commencent à apparaître.",
+      "Terminez la journée active par une douce expiration et une chaleureuse sensation de bien-être."
+    ]
+  },
+  "Night": {
+    "subtitle": "Reposez-vous et préparez-vous pour demain",
+    "quotes": [
+      "Dormez profondément dans l’étreinte chaleureuse de la nuit ; lâchez tout.",
+      "Que vos rêves soient doux et votre repos complètement tranquille ce soir.",
+      "Laissez le calme et l'obscurité apaiser votre esprit dans un état de pur confort.",
+      "La nuit est le moment de reposer vos pensées et de dormir le cœur léger.",
+      "Reposez-vous dans le sanctuaire douillet de votre lit ; vous pouvez vous laisser aller et dormir en toute sécurité.",
+      "Laissez le silence paisible de minuit effacer toutes les pensées persistantes.",
+      "Bonne nuit; dormez sous les étoiles tranquilles et réveillez-vous frais et dispos.",
+      "Votre seule tâche ce soir est de vous reposer profondément et confortablement.",
+      "Laissez la douce obscurité guider votre esprit vers un sommeil profond et réparateur.",
+      "Dormez l’esprit détendu, prêt à accueillir des lendemains doux."
+    ]
+  }
+}

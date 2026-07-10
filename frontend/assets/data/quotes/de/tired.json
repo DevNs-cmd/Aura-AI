@@ -1,0 +1,62 @@
+{
+  "Morning": {
+    "subtitle": "Beginnen Sie Ihren Tag mit Absicht",
+    "quotes": [
+      "Es ist in Ordnung, heute langsam anzufangen; Hören Sie auf das Bedürfnis Ihres Körpers nach Sanftheit.",
+      "Möge Ihr Morgen sanft, nachsichtig und frei von jeglichem starken Druck sein.",
+      "Beginnen Sie diesen Tag mit geringen Erwartungen und viel Selbstmitgefühl.",
+      "Atmen Sie warm und sanft ein. Sie müssen heute nicht die Welt erobern.",
+      "Lassen Sie Ihren Morgen ruhig und einfach sein; tun Sie nur das Notwendige.",
+      "Genießen Sie einen sanften Start; Ihre Energie wird zu gegebener Zeit zurückkehren.",
+      "Ein langsamer Morgen ist eine gute Möglichkeit, Ihren müden Geist zu stärken.",
+      "Seien Sie heute geduldig mit sich selbst; Auch kleine Schritte sind ein Sieg.",
+      "Lassen Sie das sanfte Morgenlicht Ihren Gedanken eine wohlige Leichtigkeit verleihen.",
+      "Sanfte Handlungen und weiche Grenzen werden Sie durch diesen Morgen führen."
+    ]
+  },
+  "Afternoon": {
+    "subtitle": "Bleiben Sie in Ihrem Rhythmus.",
+    "quotes": [
+      "Machen Sie heute Nachmittag eine Ruhepause. Ihr Wohlbefinden steht an erster Stelle.",
+      "Atmen Sie den Druck aus, produktiv zu sein. Leichtigkeit ist das, was Sie jetzt brauchen.",
+      "Gestalten Sie Ihren Nachmittag ruhig, sanft und anspruchslos.",
+      "Arbeiten Sie sanft und gönnen Sie sich Ruhe, wenn Sie sich müde fühlen.",
+      "Ein müder Geist braucht Raum und Freundlichkeit; Gehen Sie nicht über Ihre Grenzen hinaus.",
+      "Finden Sie an diesem Mittag Trost bei einfachen, energiesparenden Aufgaben.",
+      "Ihr Wert wird nicht durch Ihre Produktivität definiert; Rest ist gültig.",
+      "Lassen Sie den Nachmittag ruhig vergehen; Erlaube dir, langsamer zu werden.",
+      "Gönnen Sie Ihren Augen und Ihrem Geist für ein paar Minuten Ruhe.",
+      "Nehmen Sie ein sanftes Tempo an; Die Welt wird sich weiterdrehen, wenn du dich ausruhst."
+    ]
+  },
+  "Evening": {
+    "subtitle": "Reflektieren Sie und finden Sie Trost",
+    "quotes": [
+      "Du hast den Tag überstanden; Gönnen Sie sich nun völlige Entspannung und Ruhe.",
+      "Der Abend ist Ihr gemütlicher Zufluchtsort; alle Ansprüche hinter sich lassen.",
+      "Lassen Sie die Dämmerung Ihren müden Körper beruhigen und Ihre schweren Gedanken beruhigen.",
+      "Genießen Sie den Komfort, heute Abend absolut nichts zu tun; Du brauchst das.",
+      "Möge Ihr Abend mit sanftem Licht, warmen Getränken und ruhiger Leichtigkeit erfüllt sein.",
+      "Lassen Sie das Gewicht des Tages los; Der Abend dient der sanften Erholung.",
+      "Hören Sie auf Ihre Müdigkeit; Es ist ein Aufruf, Ihre Seele mit Ruhe zu nähren.",
+      "Finden Sie Trost im ruhigen, einfachen Fluss der Abendstunden.",
+      "Ein ruhiger Abend ist der perfekte Weg zu erholsamem Schlaf.",
+      "Seien Sie heute Abend freundlich zu sich selbst; Hüllen Sie Ihre Gedanken in Trost und Frieden."
+    ]
+  },
+  "Night": {
+    "subtitle": "Ruhen Sie sich aus und bereiten Sie sich auf morgen vor",
+    "quotes": [
+      "Geben Sie sich ganz dem tiefen, heilenden Schlaf hin, nach dem Ihr Körper verlangt.",
+      "Möge Ihre Ruhe heute Nacht schwer, ungestört und zutiefst erholsam sein.",
+      "Lassen Sie sich von der stillen Dunkelheit in einen langen, friedlichen Schlaf entführen.",
+      "Gute Nacht; Lassen Sie alle Gedanken los und schlafen Sie absolut bequem.",
+      "Ihr Körper und Ihr Geist verdienen heute Nacht die tiefste und erholsamste Ruhe.",
+      "Lassen Sie die Stille der Nacht Ihre Müdigkeit heilen und Ihren Geist erneuern.",
+      "Schlafen Sie mit einem dankbaren Herzen, dass Sie einen herausfordernden Tag überstanden haben.",
+      "Möge die Nacht jede Zelle Ihres Körpers tiefgreifend erholen.",
+      "Gute Nacht; Schlafen Sie tief und fest unter dem ruhigen, schützenden Baldachin der Dunkelheit.",
+      "Lass morgen los; Der heutige Abend ist ganz Ihrer Genesung gewidmet."
+    ]
+  }
+}

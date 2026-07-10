@@ -1,0 +1,62 @@
+{
+  "Morning": {
+    "subtitle": "Comienza tu día con intención",
+    "quotes": [
+      "Disfruta de la suave brisa matutina; no hay necesidad de apresurarse.",
+      "Comienza hoy lentamente; deja que la paz y la comodidad guíen tus acciones.",
+      "Que tu mañana sea acogedora, cálida y llena de pensamientos sencillos.",
+      "Tómate tu tiempo al amanecer; el mundo puede esperar mientras disfrutas esto.",
+      "Una mañana relajada es el mejor regalo que puedes darle a tu mente hoy.",
+      "Deja que tu café matutino caliente tus manos y calme tus pensamientos.",
+      "Recibe el día con un estiramiento suave y un corazón ligero.",
+      "Disfruta de la suave luz de la mañana; deja que la tranquilidad sea tu brújula.",
+      "Comienza este día con el simple placer de estar presente en comodidad.",
+      "Un comienzo suave conduce a un viaje tranquilo y relajado a lo largo del día."
+    ]
+  },
+  "Afternoon": {
+    "subtitle": "Mantén tu impulso.",
+    "quotes": [
+      "Deja que tu tarde sea ligera y sin preocupaciones; encuentra comodidad en todo.",
+      "Tómate una pausa suave; deja que el cálido sol del mediodía traiga paz.",
+      "Exhala toda tensión; el trabajo fluye mejor cuando la mente está relajada.",
+      "Disfruta del ritmo constante de una tarde relajada y cómoda.",
+      "Una tarde tranquila y sencilla es el espacio perfecto para el crecimiento.",
+      "Suelta el estrés del mediodía; enfócate en una cosa simple a la vez con calma.",
+      "Encuentra comodidad en el presente; hay tiempo de sobra para todo.",
+      "Deja que tus pensamientos fluyan ligeros como nubes en el cielo de la tarde.",
+      "Una mente relajada es eficiente; trabaja con un espíritu gentil.",
+      "Abraza el ritmo tranquilo de esta hora; deja que la comodidad te guíe."
+    ]
+  },
+  "Evening": {
+    "subtitle": "Reflexiona y encuentra consuelo",
+    "quotes": [
+      "Al bajar el sol de la tarde, deja que las preocupaciones se disuelvan.",
+      "La tarde es el momento de desconectar, relajarse y disfrutar del hogar.",
+      "Deja que la tarde silenciosa traiga una liberación suave a tus pensamientos.",
+      "Disfruta de la paz de la hora del crepúsculo; el descanso es un hermoso regalo.",
+      "Envuélvete en la comodidad de una tarde tranquila y de ritmo lento.",
+      "Disfruta de los placeres sencillos del inicio de la noche; mereces esta calma.",
+      "Deja que la suave luz de la tarde te recuerde bajar el ritmo y ser.",
+      "Una tarde relajada es el antídoto perfecto para un mundo ocupado.",
+      "Deja que tu mente derive hacia la comodidad mientras aparecen las estrellas.",
+      "Termina el día activo con una exhalación suave y una sensación de calma."
+    ]
+  },
+  "Night": {
+    "subtitle": "Descansa y prepárate para el mañana",
+    "quotes": [
+      "Duerme profundamente en el cálido abrazo de la noche; suéltalo todo.",
+      "Que tus sueños sean gentiles y tu descanso completamente tranquilo esta noche.",
+      "Deja que la oscuridad silenciosa calme tu mente en un estado de comodidad.",
+      "La noche es el momento de descansar tus pensamientos con un corazón ligero.",
+      "Descansa en el santuario acogedor de tu cama; estás a salvo para dormir.",
+      "Deja que el silencio pacífico de la medianoche se lleve todo pensamiento.",
+      "Buenas noches; duerme bajo las estrellas silenciosas y despierta renovado.",
+      "Tu única tarea esta noche es descansar profunda y cómodamente.",
+      "Deja que la suave oscuridad guíe tu mente hacia un sueño profundo.",
+      "Duerme con un espíritu relajado, listo para recibir un mañana suave."
+    ]
+  }
+}
