@@ -1174,4 +1174,13 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get moodBtnContinue => 'Continuer';
+
+  @override
+  String get profileTakePhoto => 'Prendre une photo';
+
+  @override
+  String get profileChooseGallery => 'Choisir dans la galerie';
+
+  @override
+  String get profileCancel => 'Annuler';
 }

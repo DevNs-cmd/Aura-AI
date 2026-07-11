@@ -39,30 +39,30 @@ class VisionState {
 class VisionNotifier extends StateNotifier<VisionState> {
   VisionNotifier() : super(VisionState());
 
-  void selectImage(String source) async {
-    state = state.copyWith(
+  void selectImage(String source) {
+    state = VisionState(
       imagePath:
           'https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=600&fit=crop', // Desk setup mock
       isScanning: true,
       showResults: false,
-      detectedObjects: [],
+      detectedObjects: const [],
       ocrText: null,
     );
 
-    // Simulated 2-second scanning animation
-    await Future.delayed(const Duration(seconds: 2));
-
-    state = state.copyWith(
-      isScanning: false,
-      showResults: true,
-      detectedObjects: [
-        {'name': 'Laptop', 'confidence': 0.98},
-        {'name': 'Keyboard', 'confidence': 0.95},
-        {'name': 'Coffee Mug', 'confidence': 0.89},
-      ],
-      ocrText:
-          'PLAN:\n- Launch v1.0 by Friday morning!\n- Schedule Team Sync at 10 AM\n- Buy coffee beans',
-    );
+    Future.delayed(const Duration(seconds: 2), () {
+      if (!mounted) return;
+      state = state.copyWith(
+        isScanning: false,
+        showResults: true,
+        detectedObjects: [
+          {'name': 'Laptop', 'confidence': 0.98},
+          {'name': 'Keyboard', 'confidence': 0.95},
+          {'name': 'Coffee Mug', 'confidence': 0.89},
+        ],
+        ocrText:
+            'PLAN:\n- Launch v1.0 by Friday morning!\n- Schedule Team Sync at 10 AM\n- Buy coffee beans',
+      );
+    });
   }
 
   void clearImage() {

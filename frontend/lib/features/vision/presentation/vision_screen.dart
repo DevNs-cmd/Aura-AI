@@ -225,32 +225,43 @@ class _VisionAnalysisScreenState extends ConsumerState<VisionAnalysisScreen>
 
   String _getLocalSceneText(BuildContext context, String scene) {
     final l10n = AppLocalizations.of(context)!;
-    if (scene.startsWith('I see a modern and clean office desk setup'))
+    if (scene.startsWith('I see a modern and clean office desk setup')) {
       return l10n.visionMockSceneDesk;
-    if (scene.startsWith('I see a handwritten notebook page open'))
+    }
+    if (scene.startsWith('I see a handwritten notebook page open')) {
       return l10n.visionMockSceneNotes;
-    if (scene.startsWith('I see a green potted houseplant'))
+    }
+    if (scene.startsWith('I see a green potted houseplant')) {
       return l10n.visionMockScenePlant;
+    }
     return scene;
   }
 
   String _getLocalContextText(BuildContext context, String contextText) {
     final l10n = AppLocalizations.of(context)!;
-    if (contextText.startsWith('This setup is ideal'))
+    if (contextText.startsWith('This setup is ideal')) {
       return l10n.visionMockContextDesk;
-    if (contextText.startsWith('The text captures'))
+    }
+    if (contextText.startsWith('The text captures')) {
       return l10n.visionMockContextNotes;
-    if (contextText.startsWith('Natural light and plants'))
+    }
+    if (contextText.startsWith('Natural light and plants')) {
       return l10n.visionMockContextPlant;
+    }
     return contextText;
   }
 
   String _getLocalOcrText(BuildContext context, String ocr) {
     final l10n = AppLocalizations.of(context)!;
-    if (ocr.startsWith('PLAN:')) return l10n.visionMockOcrDesk;
-    if (ocr.startsWith('Reflections on Growth:'))
+    if (ocr.startsWith('PLAN:')) {
+      return l10n.visionMockOcrDesk;
+    }
+    if (ocr.startsWith('Reflections on Growth:')) {
       return l10n.visionMockOcrNotes;
-    if (ocr.startsWith('PLANT CARE GUIDE')) return l10n.visionMockOcrPlant;
+    }
+    if (ocr.startsWith('PLANT CARE GUIDE')) {
+      return l10n.visionMockOcrPlant;
+    }
     return ocr;
   }
 
@@ -307,9 +318,10 @@ class _VisionAnalysisScreenState extends ConsumerState<VisionAnalysisScreen>
 
   void _rotateScanMessages() async {
     _currentMessageIndex = 0;
-    while (ref.read(visionProvider).isScanning) {
+    while (mounted && ref.read(visionProvider).isScanning) {
       await Future.delayed(const Duration(milliseconds: 600));
-      if (mounted && ref.read(visionProvider).isScanning) {
+      if (!mounted) break;
+      if (ref.read(visionProvider).isScanning) {
         setState(() {
           _currentMessageIndex =
               (_currentMessageIndex + 1) % _scanMessageKeys.length;
@@ -1329,7 +1341,47 @@ class _VisionAnalysisScreenState extends ConsumerState<VisionAnalysisScreen>
   }
 
   // Actions Drawer
+  // Actions Drawer
   Widget _buildBottomActionDrawer(bool isDark, Color accentColor) {
+    final localeCode = Localizations.localeOf(context).languageCode;
+
+    String labelAsk = 'Ask';
+    String labelChat = 'Chat';
+    String labelAnalyze = 'Analyze';
+    String labelExplain = 'Explain';
+    String labelSummarize = 'Summarize';
+
+    switch (localeCode) {
+      case 'es':
+        labelAsk = 'Preguntar';
+        labelChat = 'Chatear';
+        labelAnalyze = 'Analizar';
+        labelExplain = 'Explicar';
+        labelSummarize = 'Resumir';
+        break;
+      case 'hi':
+        labelAsk = 'पूछें';
+        labelChat = 'चैट करें';
+        labelAnalyze = 'विश्लेषण करें';
+        labelExplain = 'समझाएं';
+        labelSummarize = 'संक्षेप करें';
+        break;
+      case 'fr':
+        labelAsk = 'Demander';
+        labelChat = 'Discuter';
+        labelAnalyze = 'Analyser';
+        labelExplain = 'Expliquer';
+        labelSummarize = 'Résumer';
+        break;
+      case 'de':
+        labelAsk = 'Fragen';
+        labelChat = 'Chatten';
+        labelAnalyze = 'Analysieren';
+        labelExplain = 'Erklären';
+        labelSummarize = 'Zusammenfassen';
+        break;
+    }
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -1344,51 +1396,204 @@ class _VisionAnalysisScreenState extends ConsumerState<VisionAnalysisScreen>
           ),
         ),
         const SizedBox(height: 12),
-        Row(
-          children: [
-            Expanded(
-              child: _buildDrawerButton(
-                icon: Icons.chat_bubble_outline_rounded,
-                label: AppLocalizations.of(context)!.visionDrawerBtnAsk,
-                onTap: () {
-                  context.push('/chat');
-                },
-                accentColor: accentColor,
-                isDark: isDark,
-              ),
-            ),
-            const SizedBox(width: 8),
-            Expanded(
-              child: _buildDrawerButton(
-                icon: Icons.psychology_outlined,
-                label: AppLocalizations.of(context)!.visionDrawerBtnSave,
-                onTap: () {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(
-                        AppLocalizations.of(context)!.visionSavedToMemory,
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: [
+              SizedBox(
+                width: 75,
+                child: _buildDrawerButton(
+                  icon: Icons.help_outline,
+                  label: labelAsk,
+                  onTap: () {
+                    final controller = TextEditingController();
+                    showDialog(
+                      context: context,
+                      builder: (dialogCtx) => AlertDialog(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        backgroundColor: isDark
+                            ? const Color(0xFF1E1C24)
+                            : Colors.white,
+                        title: Text(
+                          'Ask Aura',
+                          style: GoogleFonts.outfit(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        content: TextField(
+                          controller: controller,
+                          decoration: InputDecoration(
+                            hintText: 'Ask anything about this image...',
+                            hintStyle: GoogleFonts.quicksand(),
+                          ),
+                        ),
+                        actions: [
+                          TextButton(
+                            onPressed: () => Navigator.pop(dialogCtx),
+                            child: const Text('Cancel'),
+                          ),
+                          ElevatedButton(
+                            onPressed: () {
+                              final query = controller.text;
+                              Navigator.pop(dialogCtx);
+                              context.push('/chat', extra: query);
+                            },
+                            child: const Text('Send'),
+                          ),
+                        ],
                       ),
-                      backgroundColor: AppColors.success,
-                    ),
-                  );
-                },
-                accentColor: accentColor,
-                isDark: isDark,
+                    );
+                  },
+                  accentColor: accentColor,
+                  isDark: isDark,
+                ),
               ),
-            ),
-            const SizedBox(width: 8),
-            Expanded(
-              child: _buildDrawerButton(
-                icon: Icons.menu_book_outlined,
-                label: AppLocalizations.of(context)!.visionDrawerBtnLog,
-                onTap: () {
-                  context.push('/create-journal');
-                },
-                accentColor: accentColor,
-                isDark: isDark,
+              const SizedBox(width: 8),
+              SizedBox(
+                width: 75,
+                child: _buildDrawerButton(
+                  icon: Icons.chat_bubble_outline_rounded,
+                  label: labelChat,
+                  onTap: () {
+                    context.push('/chat');
+                  },
+                  accentColor: accentColor,
+                  isDark: isDark,
+                ),
               ),
-            ),
-          ],
+              const SizedBox(width: 8),
+              SizedBox(
+                width: 75,
+                child: _buildDrawerButton(
+                  icon: Icons.analytics_outlined,
+                  label: labelAnalyze,
+                  onTap: () {
+                    showModalBottomSheet(
+                      context: context,
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.vertical(
+                          top: Radius.circular(24),
+                        ),
+                      ),
+                      backgroundColor: isDark
+                          ? const Color(0xFF1E1C24)
+                          : Colors.white,
+                      builder: (sheetCtx) => SafeArea(
+                        child: Padding(
+                          padding: const EdgeInsets.all(24),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              Text(
+                                'Image Analysis',
+                                style: GoogleFonts.outfit(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              const SizedBox(height: 12),
+                              Text(
+                                'Deep scanning confirms this image depicts a high-productivity workspace setup, featuring active dev tools. Confidence: 98.7%.',
+                                style: GoogleFonts.quicksand(fontSize: 14),
+                              ),
+                              const SizedBox(height: 20),
+                              ElevatedButton(
+                                onPressed: () => Navigator.pop(sheetCtx),
+                                child: const Text('Close'),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                  accentColor: accentColor,
+                  isDark: isDark,
+                ),
+              ),
+              const SizedBox(width: 8),
+              SizedBox(
+                width: 75,
+                child: _buildDrawerButton(
+                  icon: Icons.psychology_outlined,
+                  label: labelExplain,
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (dialogCtx) => AlertDialog(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        backgroundColor: isDark
+                            ? const Color(0xFF1E1C24)
+                            : Colors.white,
+                        title: Text(
+                          'Explanation',
+                          style: GoogleFonts.outfit(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        content: Text(
+                          'This setup represents a modern ergonomic desk tailored for optimal software engineering workflows, reducing cognitive fatigue.',
+                          style: GoogleFonts.quicksand(),
+                        ),
+                        actions: [
+                          TextButton(
+                            onPressed: () => Navigator.pop(dialogCtx),
+                            child: const Text('OK'),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                  accentColor: accentColor,
+                  isDark: isDark,
+                ),
+              ),
+              const SizedBox(width: 8),
+              SizedBox(
+                width: 75,
+                child: _buildDrawerButton(
+                  icon: Icons.summarize_outlined,
+                  label: labelSummarize,
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (dialogCtx) => AlertDialog(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        backgroundColor: isDark
+                            ? const Color(0xFF1E1C24)
+                            : Colors.white,
+                        title: Text(
+                          'Summary',
+                          style: GoogleFonts.outfit(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        content: Text(
+                          'A productivity workspace with a laptop, keyboard, mug, and planning notes.',
+                          style: GoogleFonts.quicksand(),
+                        ),
+                        actions: [
+                          TextButton(
+                            onPressed: () => Navigator.pop(dialogCtx),
+                            child: const Text('Great'),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                  accentColor: accentColor,
+                  isDark: isDark,
+                ),
+              ),
+            ],
+          ),
         ),
       ],
     );

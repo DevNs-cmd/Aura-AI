@@ -7,7 +7,6 @@ import '../../../../core/constants/app_colors.dart';
 import '../../../../core/widgets/localized_button.dart';
 import '../../../../core/widgets/localized_action_row.dart';
 import '../../../../core/theme/theme_provider.dart';
-import '../../../../core/widgets/emotion_bar.dart';
 import '../../../../core/localization/generated/app_localizations.dart';
 import '../journal_provider.dart';
 import 'widgets/writing_prompt_card.dart';
@@ -383,9 +382,151 @@ class _JournalScreenState extends ConsumerState<JournalScreen> {
               ),
               const SizedBox(height: 28),
 
-              // Reusable vertical capsule EmotionBar replacing old mood selector
-              const EmotionBar(),
-              const SizedBox(height: 24),
+              // History of Previous Journals horizontal list/carousel
+              if (journalState.entries.isNotEmpty) ...[
+                Text(
+                  (() {
+                    final lang = Localizations.localeOf(context).languageCode;
+                    switch (lang) {
+                      case 'es':
+                        return 'Historial de diarios anteriores';
+                      case 'hi':
+                        return 'पिछले जर्नल का इतिहास';
+                      case 'fr':
+                        return 'Historique des journaux précédents';
+                      case 'de':
+                        return 'Verlauf früherer Journale';
+                      default:
+                        return 'History of Previous Journals';
+                    }
+                  })(),
+                  style: GoogleFonts.outfit(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: isDark ? Colors.white : AppColors.lightTextPrimary,
+                  ),
+                ),
+                const SizedBox(height: 12),
+                SizedBox(
+                  height: 150,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: journalState.entries.length,
+                    itemBuilder: (context, index) {
+                      final entry = journalState.entries[index];
+                      final dateStr = DateFormat(
+                        'MMM d, yyyy',
+                      ).format(entry.createdAt);
+                      return GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  JournalDetailScreen(entry: entry),
+                            ),
+                          );
+                        },
+                        child: Container(
+                          width: 240,
+                          margin: const EdgeInsets.only(right: 12, bottom: 6),
+                          padding: const EdgeInsets.all(14),
+                          decoration: BoxDecoration(
+                            color: isDark
+                                ? const Color(0xFF1E1C24)
+                                : (themeState.hasMoodSelected
+                                      ? themeState.moodTheme.cardColor
+                                      : Colors.white),
+                            borderRadius: BorderRadius.circular(20),
+                            border: Border.all(
+                              color: isDark
+                                  ? const Color(0xFF2C2834)
+                                  : (themeState.hasMoodSelected
+                                        ? themeState.moodTheme.cardBorder
+                                        : AppColors.lightCardBorder),
+                              width: 1.5,
+                            ),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withValues(alpha: 0.015),
+                                blurRadius: 6,
+                                offset: const Offset(0, 2),
+                              ),
+                            ],
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Container(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 8,
+                                      vertical: 3,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: accentColor.withValues(alpha: 0.1),
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    child: Text(
+                                      entry.mood,
+                                      style: GoogleFonts.outfit(
+                                        fontSize: 9,
+                                        fontWeight: FontWeight.bold,
+                                        color: accentColor,
+                                      ),
+                                    ),
+                                  ),
+                                  Text(
+                                    dateStr,
+                                    style: GoogleFonts.quicksand(
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.bold,
+                                      color: isDark
+                                          ? Colors.white38
+                                          : AppColors.lightTextSecondary,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 8),
+                              Text(
+                                entry.title,
+                                style: GoogleFonts.outfit(
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.bold,
+                                  color: isDark
+                                      ? Colors.white
+                                      : AppColors.lightTextPrimary,
+                                ),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                              const SizedBox(height: 4),
+                              Expanded(
+                                child: Text(
+                                  entry.body,
+                                  style: GoogleFonts.quicksand(
+                                    fontSize: 11,
+                                    color: isDark
+                                        ? Colors.white54
+                                        : AppColors.lightTextSecondary,
+                                    height: 1.25,
+                                  ),
+                                  maxLines: 3,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+                const SizedBox(height: 24),
+              ],
 
               // Search Bar
               _buildSearchBox(isDark, themeState),

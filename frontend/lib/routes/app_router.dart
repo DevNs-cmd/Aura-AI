@@ -9,6 +9,7 @@ import '../features/chat/presentation/chat_screen.dart';
 import '../features/voice/presentation/voice_screen.dart';
 import '../features/vision/presentation/vision_screen.dart';
 import '../features/profile/presentation/profile_screen.dart';
+import '../features/profile/presentation/billing_screen.dart';
 import '../features/settings/presentation/settings_screen.dart';
 import '../features/notifications/presentation/notifications_screen.dart';
 import '../features/home/explore_screen.dart';
@@ -60,7 +61,8 @@ final appRouter = GoRouter(
         GoRoute(
           path: '/chat',
           name: 'chat',
-          builder: (context, state) => const ChatScreen(),
+          builder: (context, state) =>
+              ChatScreen(documentContext: state.extra as String?),
         ),
         GoRoute(
           path: '/voice',
@@ -76,6 +78,11 @@ final appRouter = GoRouter(
           path: '/profile',
           name: 'profile',
           builder: (context, state) => const ProfileScreen(),
+        ),
+        GoRoute(
+          path: '/billing',
+          name: 'billing',
+          builder: (context, state) => const BillingScreen(),
         ),
         GoRoute(
           path: '/settings',

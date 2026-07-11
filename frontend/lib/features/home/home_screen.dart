@@ -1,9 +1,11 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import '../auth/auth_provider.dart';
+import '../profile/profile_provider.dart';
 import '../journal/presentation/journal_screen.dart';
 import '../profile/presentation/profile_screen.dart';
 import 'explore_screen.dart';
@@ -388,10 +390,14 @@ class _HomeDashboardViewState extends ConsumerState<HomeDashboardView> {
   @override
   Widget build(BuildContext context) {
     final authState = ref.watch(authProvider);
-    final userName = authState.user?.displayName ?? 'Jose Maria';
-    final userAvatar =
-        authState.user?.avatarUrl ??
-        'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=256&h=256&fit=crop';
+    final profile = ref.watch(profileProvider);
+    final userName = profile.userName.isNotEmpty
+        ? profile.userName
+        : (authState.user?.displayName ?? 'Jose Maria');
+    final userAvatar = profile.avatarUrl.isNotEmpty
+        ? profile.avatarUrl
+        : (authState.user?.avatarUrl ??
+              'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=256&h=256&fit=crop');
     final themeState = ref.watch(themeProvider);
     final isDark = themeState.isDarkMode;
     final accentColor = themeState.accentColor;
@@ -447,7 +453,9 @@ class _HomeDashboardViewState extends ConsumerState<HomeDashboardView> {
                           width: 1.5,
                         ),
                         image: DecorationImage(
-                          image: NetworkImage(userAvatar),
+                          image: userAvatar.startsWith('http')
+                              ? NetworkImage(userAvatar) as ImageProvider
+                              : FileImage(File(userAvatar)) as ImageProvider,
                           fit: BoxFit.cover,
                         ),
                       ),

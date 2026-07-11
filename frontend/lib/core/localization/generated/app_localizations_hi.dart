@@ -1159,4 +1159,13 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get moodBtnContinue => 'जारी रखें';
+
+  @override
+  String get profileTakePhoto => 'फोटो लें';
+
+  @override
+  String get profileChooseGallery => 'गैलरी से चुनें';
+
+  @override
+  String get profileCancel => 'रद्द करें';
 }

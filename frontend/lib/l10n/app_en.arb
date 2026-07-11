@@ -405,6 +405,9 @@
   "moodPreferredLanguage": "Preferred Language",
   "moodChooseLanguage": "Choose Language",
   "moodLanguageSelectDesc": "Select your preferred translation for authenticated areas.",
-  "moodBtnContinue": "Continue"
+  "moodBtnContinue": "Continue",
+  "profileTakePhoto": "Take Photo",
+  "profileChooseGallery": "Choose from Gallery",
+  "profileCancel": "Cancel"
 }
 

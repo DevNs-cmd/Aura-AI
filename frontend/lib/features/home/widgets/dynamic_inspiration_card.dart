@@ -11,10 +11,12 @@ class DynamicInspirationCard extends ConsumerStatefulWidget {
   const DynamicInspirationCard({super.key});
 
   @override
-  ConsumerState<DynamicInspirationCard> createState() => _DynamicInspirationCardState();
+  ConsumerState<DynamicInspirationCard> createState() =>
+      _DynamicInspirationCardState();
 }
 
-class _DynamicInspirationCardState extends ConsumerState<DynamicInspirationCard> with SingleTickerProviderStateMixin {
+class _DynamicInspirationCardState extends ConsumerState<DynamicInspirationCard>
+    with SingleTickerProviderStateMixin {
   late final AnimationController _floatController;
   late final Animation<double> _floatAnimation;
 
@@ -104,7 +106,9 @@ class _DynamicInspirationCardState extends ConsumerState<DynamicInspirationCard>
   Widget build(BuildContext context) {
     final themeState = ref.watch(themeProvider);
     final isDark = themeState.isDarkMode;
-    final activeTheme = themeState.currentMood == 'none' ? 'Happy' : themeState.currentMood;
+    final activeTheme = themeState.currentMood == 'none'
+        ? 'Happy'
+        : themeState.currentMood;
     final moodTheme = MoodThemeModel.fromMoodName(activeTheme);
 
     final quoteServiceAsync = ref.watch(quoteServiceProvider(activeTheme));
@@ -182,7 +186,9 @@ class _DynamicInspirationCardState extends ConsumerState<DynamicInspirationCard>
                               Text(
                                 _getGreetingText(context, timePeriod),
                                 style: GoogleFonts.outfit(
-                                  color: isDark ? Colors.white : moodTheme.primary,
+                                  color: isDark
+                                      ? Colors.white
+                                      : moodTheme.primary,
                                   fontSize: 14,
                                   fontWeight: FontWeight.bold,
                                   letterSpacing: 0.5,
@@ -192,7 +198,9 @@ class _DynamicInspirationCardState extends ConsumerState<DynamicInspirationCard>
                               Text(
                                 quoteModel.subtitle,
                                 style: GoogleFonts.quicksand(
-                                  color: isDark ? Colors.white60 : AppColors.lightTextSecondary,
+                                  color: isDark
+                                      ? Colors.white60
+                                      : AppColors.lightTextSecondary,
                                   fontSize: 12,
                                   fontWeight: FontWeight.w600,
                                 ),
@@ -221,7 +229,8 @@ class _DynamicInspirationCardState extends ConsumerState<DynamicInspirationCard>
                       // Quote Body with Smooth Fade Switcher
                       AnimatedSwitcher(
                         duration: const Duration(milliseconds: 400),
-                        transitionBuilder: (Widget child, Animation<double> animation) {
+                        transitionBuilder:
+                            (Widget child, Animation<double> animation) {
                           return FadeTransition(
                             opacity: animation,
                             child: SlideTransition(
@@ -237,7 +246,9 @@ class _DynamicInspirationCardState extends ConsumerState<DynamicInspirationCard>
                           quoteModel.quote,
                           key: ValueKey<String>(quoteModel.quote),
                           style: GoogleFonts.outfit(
-                            color: isDark ? Colors.white : AppColors.lightTextPrimary,
+                            color: isDark
+                                ? Colors.white
+                                : AppColors.lightTextPrimary,
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
                             height: 1.45,
@@ -255,7 +266,9 @@ class _DynamicInspirationCardState extends ConsumerState<DynamicInspirationCard>
                               Icon(
                                 Icons.wb_sunny_rounded,
                                 size: 13,
-                                color: isDark ? Colors.white60 : AppColors.lightTextTertiary,
+                                color: isDark
+                                    ? Colors.white60
+                                    : AppColors.lightTextTertiary,
                               ),
                               const SizedBox(width: 5),
                               Text(
@@ -263,13 +276,18 @@ class _DynamicInspirationCardState extends ConsumerState<DynamicInspirationCard>
                                 style: GoogleFonts.outfit(
                                   fontSize: 11,
                                   fontWeight: FontWeight.bold,
-                                  color: isDark ? Colors.white60 : moodTheme.primary,
+                                  color: isDark
+                                      ? Colors.white60
+                                      : moodTheme.primary,
                                 ),
                               ),
                             ],
                           ),
                           Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 10,
+                              vertical: 4,
+                            ),
                             decoration: BoxDecoration(
                               color: isDark
                                   ? const Color(0xFF2C2834)
@@ -280,8 +298,10 @@ class _DynamicInspirationCardState extends ConsumerState<DynamicInspirationCard>
                               AppLocalizations.of(context)!.navExplore,
                               style: GoogleFonts.outfit(
                                 fontSize: 10,
-                                fontWeight: FontWeight.bold,
-                                color: isDark ? Colors.white70 : moodTheme.primary,
+                                  fontWeight: FontWeight.bold,
+                                color: isDark
+                                    ? Colors.white70
+                                    : moodTheme.primary,
                               ),
                             ),
                           ),
@@ -301,7 +321,9 @@ class _DynamicInspirationCardState extends ConsumerState<DynamicInspirationCard>
             color: isDark ? const Color(0xFF1E1C24) : Colors.white,
             borderRadius: BorderRadius.circular(28),
             border: Border.all(
-              color: isDark ? const Color(0xFF2C2834) : AppColors.lightCardBorder,
+              color: isDark
+                  ? const Color(0xFF2C2834)
+                  : AppColors.lightCardBorder,
               width: 1.5,
             ),
           ),
@@ -325,7 +347,10 @@ class _DynamicInspirationCardState extends ConsumerState<DynamicInspirationCard>
           padding: const EdgeInsets.all(16),
           child: Text(
             'Error loading inspiration: $err',
-            style: GoogleFonts.quicksand(color: Colors.redAccent, fontWeight: FontWeight.bold),
+            style: GoogleFonts.quicksand(
+              color: Colors.redAccent,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
       ),
