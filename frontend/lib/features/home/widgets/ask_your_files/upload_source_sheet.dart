@@ -122,10 +122,10 @@ class UploadSourceSheet extends StatelessWidget {
           ),
           const SizedBox(height: 16),
         ],
-        ),
       ),
-    );
-  }
+    ),
+  );
+}
 
   Widget _buildOption(
     BuildContext context, {

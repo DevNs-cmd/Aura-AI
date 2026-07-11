@@ -160,9 +160,8 @@ class _JournalScreenState extends ConsumerState<JournalScreen> {
                   style: GoogleFonts.outfit(
                     fontSize: 14,
                     fontWeight: FontWeight.bold,
-                    color: isDark
-                        ? Colors.white70
-                        : AppColors.lightTextSecondary,
+                    color:
+                        isDark ? Colors.white70 : AppColors.lightTextSecondary,
                   ),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,

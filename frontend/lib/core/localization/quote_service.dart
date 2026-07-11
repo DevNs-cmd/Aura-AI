@@ -67,7 +67,10 @@ class QuoteService {
     final quotesList = periodData?['quotes'] as List<dynamic>? ?? [];
 
     if (quotesList.isEmpty) {
-      return QuoteModel(quote: "Keep moving forward.", subtitle: subtitleText);
+      return QuoteModel(
+        quote: "Keep moving forward.",
+        subtitle: subtitleText,
+      );
     }
 
     // Determine deterministic quote index by day of the year (rotation logic)
@@ -76,7 +79,10 @@ class QuoteService {
     final int index = (dayOfYear + themeHash).abs() % quotesList.length;
     final String quoteText = quotesList[index].toString();
 
-    return QuoteModel(quote: quoteText, subtitle: subtitleText);
+    return QuoteModel(
+      quote: quoteText,
+      subtitle: subtitleText,
+    );
   }
 }
 

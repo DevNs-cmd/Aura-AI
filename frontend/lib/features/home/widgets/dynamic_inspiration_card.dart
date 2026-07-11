@@ -231,17 +231,17 @@ class _DynamicInspirationCardState extends ConsumerState<DynamicInspirationCard>
                         duration: const Duration(milliseconds: 400),
                         transitionBuilder:
                             (Widget child, Animation<double> animation) {
-                              return FadeTransition(
-                                opacity: animation,
-                                child: SlideTransition(
-                                  position: Tween<Offset>(
-                                    begin: const Offset(0.0, 0.05),
-                                    end: Offset.zero,
-                                  ).animate(animation),
-                                  child: child,
-                                ),
-                              );
-                            },
+                          return FadeTransition(
+                            opacity: animation,
+                            child: SlideTransition(
+                              position: Tween<Offset>(
+                                begin: const Offset(0.0, 0.05),
+                                end: Offset.zero,
+                              ).animate(animation),
+                              child: child,
+                            ),
+                          );
+                        },
                         child: Text(
                           quoteModel.quote,
                           key: ValueKey<String>(quoteModel.quote),
@@ -298,7 +298,7 @@ class _DynamicInspirationCardState extends ConsumerState<DynamicInspirationCard>
                               AppLocalizations.of(context)!.navExplore,
                               style: GoogleFonts.outfit(
                                 fontSize: 10,
-                                fontWeight: FontWeight.bold,
+                                  fontWeight: FontWeight.bold,
                                 color: isDark
                                     ? Colors.white70
                                     : moodTheme.primary,
@@ -328,7 +328,9 @@ class _DynamicInspirationCardState extends ConsumerState<DynamicInspirationCard>
             ),
           ),
           alignment: Alignment.center,
-          child: CircularProgressIndicator(color: moodTheme.primary),
+          child: CircularProgressIndicator(
+            color: moodTheme.primary,
+          ),
         ),
         error: (err, stack) => Container(
           width: double.infinity,
