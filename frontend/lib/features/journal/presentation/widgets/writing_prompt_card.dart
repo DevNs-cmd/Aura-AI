@@ -66,7 +66,9 @@ class WritingPromptCard extends ConsumerWidget {
                           const SizedBox(width: 8),
                           Expanded(
                             child: Text(
-                              AppLocalizations.of(context)!.journalPromptCardHeader,
+                              AppLocalizations.of(
+                                context,
+                              )!.journalPromptCardHeader,
                               style: GoogleFonts.outfit(
                                 color: isDark ? Colors.white60 : Colors.black54,
                                 fontWeight: FontWeight.bold,

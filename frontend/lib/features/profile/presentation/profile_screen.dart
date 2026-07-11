@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -11,6 +12,8 @@ import 'widgets/usage_chart.dart';
 import 'edit_profile_screen.dart';
 import '../../../../core/localization/generated/app_localizations.dart';
 import '../../../../core/widgets/localized_settings_row.dart';
+import 'package:image_picker/image_picker.dart';
+import 'widgets/avatar_source_sheet.dart';
 
 class ProfileScreen extends ConsumerWidget {
   const ProfileScreen({super.key});
@@ -21,6 +24,55 @@ class ProfileScreen extends ConsumerWidget {
     final themeState = ref.watch(themeProvider);
     final isDark = themeState.isDarkMode;
     final accentColor = themeState.accentColor;
+
+    Future<void> pickImage(ImageSource source) async {
+      final picker = ImagePicker();
+      try {
+        final pickedFile = await picker.pickImage(
+          source: source,
+          maxWidth: 512,
+          maxHeight: 512,
+          imageQuality: 85,
+        );
+        if (pickedFile != null) {
+          ref.read(profileProvider.notifier).updateAvatar(pickedFile.path);
+          if (context.mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(
+                  AppLocalizations.of(context)!.profileAvatarUpdatedSuccess,
+                ),
+                backgroundColor: AppColors.success,
+              ),
+            );
+          }
+        }
+      } catch (e) {
+        if (context.mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Error picking image: $e'),
+              backgroundColor: Colors.redAccent,
+            ),
+          );
+        }
+      }
+    }
+
+    void showAvatarPicker() {
+      showModalBottomSheet(
+        context: context,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+        ),
+        backgroundColor: isDark ? const Color(0xFF1E1C24) : Colors.white,
+        builder: (sheetContext) => AvatarSourceSheet(
+          accentColor: accentColor,
+          isDark: isDark,
+          onSourceSelected: (source) => pickImage(source),
+        ),
+      );
+    }
 
     return Scaffold(
       backgroundColor: isDark
@@ -97,26 +149,52 @@ class ProfileScreen extends ConsumerWidget {
             children: [
               // Avatar Circle
               Center(
-                child: Container(
-                  width: 108,
-                  height: 108,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(
-                      color: isDark ? const Color(0xFF1E1C24) : Colors.white,
-                      width: 3,
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withValues(alpha: 0.05),
-                        blurRadius: 12,
-                        offset: const Offset(0, 4),
+                child: GestureDetector(
+                  onTap: () => showAvatarPicker(),
+                  child: Stack(
+                    children: [
+                      Container(
+                        width: 108,
+                        height: 108,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                            color: isDark ? const Color(0xFF1E1C24) : Colors.white,
+                            width: 3,
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withValues(alpha: 0.05),
+                              blurRadius: 12,
+                              offset: const Offset(0, 4),
+                            ),
+                          ],
+                          image: DecorationImage(
+                            image: profile.avatarUrl.startsWith('http')
+                                ? NetworkImage(profile.avatarUrl) as ImageProvider
+                                : FileImage(File(profile.avatarUrl)) as ImageProvider,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                      Positioned(
+                        bottom: 0,
+                        right: 0,
+                        child: Container(
+                          padding: const EdgeInsets.all(6),
+                          decoration: BoxDecoration(
+                            color: accentColor,
+                            shape: BoxShape.circle,
+                            border: Border.all(color: Colors.white, width: 2),
+                          ),
+                          child: const Icon(
+                            Icons.camera_alt_rounded,
+                            color: Colors.white,
+                            size: 14,
+                          ),
+                        ),
                       ),
                     ],
-                    image: DecorationImage(
-                      image: NetworkImage(profile.avatarUrl),
-                      fit: BoxFit.cover,
-                    ),
                   ),
                 ),
               ),
@@ -134,25 +212,28 @@ class ProfileScreen extends ConsumerWidget {
               const SizedBox(height: 6),
 
               // Premium badge & Diamond
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(Icons.diamond_rounded, color: accentColor, size: 16),
-                  const SizedBox(width: 6),
-                  Flexible(
-                    child: Text(
-                      AppLocalizations.of(context)!.profilePremiumMember,
-                      style: GoogleFonts.quicksand(
-                        color: isDark
-                            ? Colors.white60
-                            : AppColors.textSecondary,
-                        fontSize: 13,
-                        fontWeight: FontWeight.bold,
+              GestureDetector(
+                onTap: () => context.push('/billing'),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.diamond_rounded, color: accentColor, size: 16),
+                    const SizedBox(width: 6),
+                    Flexible(
+                      child: Text(
+                        AppLocalizations.of(context)!.profilePremiumMember,
+                        style: GoogleFonts.quicksand(
+                          color: isDark
+                              ? Colors.white60
+                              : AppColors.textSecondary,
+                          fontSize: 13,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        overflow: TextOverflow.ellipsis,
                       ),
-                      overflow: TextOverflow.ellipsis,
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
               const SizedBox(height: 28),
 
@@ -223,6 +304,33 @@ class ProfileScreen extends ConsumerWidget {
                 ),
                 child: Column(
                   children: [
+                    _buildProfileMenuItem(
+                      context,
+                      isDark: isDark,
+                      accentColor: accentColor,
+                      icon: Icons.payment_rounded,
+                      iconColor: const Color(0xFF57C7D4),
+                      title: (() {
+                        final lang = Localizations.localeOf(
+                          context,
+                        ).languageCode;
+                        switch (lang) {
+                          case 'es':
+                            return 'Facturación y suscripción';
+                          case 'hi':
+                            return 'बिलिंग और सदस्यता';
+                          case 'fr':
+                            return 'Facturation et abonnement';
+                          case 'de':
+                            return 'Abrechnung & Abo';
+                          default:
+                            return 'Billing & Subscription';
+                        }
+                      })(),
+                      value: '',
+                      onTap: () => context.push('/billing'),
+                    ),
+                    _buildItemDivider(isDark, themeState),
                     _buildProfileMenuItem(
                       context,
                       isDark: isDark,

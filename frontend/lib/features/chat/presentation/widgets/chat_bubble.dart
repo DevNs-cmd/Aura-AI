@@ -45,9 +45,7 @@ class ChatBubble extends ConsumerWidget {
                 onPressed: () {
                   ref.read(chatProvider.notifier).deleteMessage(message.id);
                   Navigator.pop(context);
-                  ScaffoldMessenger.of(
-                    context,
-                  ).showSnackBar(
+                  ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(content: Text('Message deleted')),
                   );
                 },

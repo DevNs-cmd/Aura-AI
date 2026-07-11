@@ -393,6 +393,9 @@
   "moodPreferredLanguage": "पसंदीदा भाषा",
   "moodChooseLanguage": "भाषा चुनें",
   "moodLanguageSelectDesc": "सत्यापित क्षेत्रों के लिए अपना पसंदीदा अनुवाद चुनें।",
-  "moodBtnContinue": "जारी रखें"
+  "moodBtnContinue": "जारी रखें",
+  "profileTakePhoto": "फोटो लें",
+  "profileChooseGallery": "गैलरी से चुनें",
+  "profileCancel": "रद्द करें"
 }
 
