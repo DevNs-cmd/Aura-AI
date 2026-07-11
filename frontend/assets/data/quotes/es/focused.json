@@ -1,0 +1,62 @@
+{
+  "Morning": {
+    "subtitle": "Comienza tu día con intención",
+    "quotes": [
+      "Una mente clara es tu mayor activo hoy; enfócate en tu objetivo.",
+      "El enfoque matutino determina la calidad del trabajo de todo tu día.",
+      "Comienza hoy con una sola prioridad; elimina todas las distracciones.",
+      "Deja que tu energía matutina se concentre en lo que realmente importa.",
+      "La claridad es poder; escribe tu objetivo central para este día.",
+      "Despierta con resolución; el trabajo profundo comienza en la primera hora.",
+      "Tu atención es tu moneda; gastala sabiamente hoy en tus prioridades.",
+      "Alinea tus hábitos matutinos con la visión a largo plazo de tu propósito.",
+      "Mantente alerta; hoy es un día de ejecución y progreso continuo.",
+      "Una mañana enfocada es la clave para desbloquear tu mayor potencial."
+    ]
+  },
+  "Afternoon": {
+    "subtitle": "Mantén tu impulso.",
+    "quotes": [
+      "Mantén tu enfoque; el mediodía es donde el progreso real se consolida.",
+      "No dejes que el ruido de la tarde rompa tu concentración.",
+      "Una tarea a la vez, realizada con absoluta presencia y claridad.",
+      "Tu productividad refleja tu habilidad para decir no a las distracciones.",
+      "Mantente en la zona; el esfuerzo del mediodía requiere tu presencia completa.",
+      "Tómate un breve descanso para despejar la mente y vuelve a sumergirte.",
+      "Que tu dedicación sea más fuerte que la tentación de distraerte.",
+      "El trabajo profundo es el camino a la maestría; honra tu enfoque hoy.",
+      "Mantén el objetivo claro en tu mente; estás construyendo impulso.",
+      "La tarde pertenece a quienes mantienen su enfoque hasta el final."
+    ]
+  },
+  "Evening": {
+    "subtitle": "Reflexiona y encuentra consuelo",
+    "quotes": [
+      "Evalúa el enfoque de hoy; celebra el trabajo completado con éxito.",
+      "Al terminar el día, deja que tu mente transicione a un descanso limpio.",
+      "Una mente enfocada sabe cuándo trabajar y cuándo desconectarse.",
+      "Prepara tu entorno esta noche para un inicio enfocado mañana por la mañana.",
+      "La claridad que traes a tu tarde prepara las victorias de mañana.",
+      "Descansa tu mente enfocada; hiciste un trabajo profundo hoy.",
+      "Deja que la satisfacción de un día productivo te traiga paz esta noche.",
+      "Libera los proyectos; la tarde es para la recuperación mental.",
+      "Mantén tus metas a largo plazo a la vista, pero recupérate esta noche.",
+      "Un día enfocado merece una transición pacífica hacia el descanso nocturno."
+    ]
+  },
+  "Night": {
+    "subtitle": "Descansa y prepárate para el mañana",
+    "quotes": [
+      "Duerme profundamente para restaurar la energía de tu enfoque mañana.",
+      "Deja que tu mente descanse; el sueño es clave para la claridad cognitiva.",
+      "Buenas noches; recarga la batería mental que impulsa tu trabajo diario.",
+      "La noche es el periodo de restauración para las mentes productivas.",
+      "Confía en que el sueño organiza y asegura tus conocimientos.",
+      "Duerme con una mente tranquila, libre de las tareas de mañana.",
+      "El descanso es parte del trabajo; honra tu sueño para rendir al máximo.",
+      "Que tu sueño sea profundo, claro y altamente reparador esta noche.",
+      "Un mañana enfocado comienza con una noche de sueño reparador.",
+      "Buenas noches; duerme en quietud absoluta y despierta con claridad."
+    ]
+  }
+}

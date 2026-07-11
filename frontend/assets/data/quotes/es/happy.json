@@ -1,0 +1,62 @@
+{
+  "Morning": {
+    "subtitle": "Comienza tu día con intención",
+    "quotes": [
+      "Saluda a la mañana con un corazón agradecido; la alegría es una elección que hacemos temprano.",
+      "Hoy es un lienzo en blanco de oportunidades, listo para ser pintado con sonrisas brillantes.",
+      "Que tu taza de la mañana esté llena de calidez y tu mente de alegre optimismo.",
+      "Cada amanecer trae una nueva promesa de felicidad si decidimos darnos cuenta.",
+      "Comienza hoy con la simple intención de encontrar deleite en los detalles más pequeños.",
+      "Deja que tu primer pensamiento sea de aprecio por este nuevo día.",
+      "El amanecer es el recordatorio de la naturaleza de que la luz siempre vuelve para calentar nuestro camino.",
+      "Despierta tu espíritu a las hermosas posibilidades que te esperan hoy.",
+      "Una mañana feliz establece un ritmo pacífico para todo el día que tenemos por delante.",
+      "Comienza este día con una sonrisa; es la forma más sencilla de dar la bienvenida a la felicidad."
+    ]
+  },
+  "Afternoon": {
+    "subtitle": "Mantén tu impulso.",
+    "quotes": [
+      "Pausa y respira el sol del mediodía; deja que su calidez inspire tu gratitud.",
+      "El mediodía es un hito perfecto para celebrar lo lejos que has llegado hoy.",
+      "Deja que la brillante luz de la tarde se lleve cualquier duda o duda matutina.",
+      "Un espíritu alegre convierte las tareas ordinarias de la tarde en momentos de alegría pura.",
+      "La felicidad no es una meta lejana, sino la luz que traemos a esta misma tarde.",
+      "Tómate un momento para compartir una sonrisa cálida; la alegría se multiplica al compartirse.",
+      "El sol de la tarde nos recuerda que nuestra calidez interior es nuestra mayor fuerza.",
+      "Encuentra una razón para reír hoy; la alegría es la distancia más corta entre dos corazones.",
+      "Incluso en el ajetreo del mediodía, hay espacio para agradecer estar vivo.",
+      "Deja que tu tarde esté llena de tranquilidad ligera y pensamientos brillantes."
+    ]
+  },
+  "Evening": {
+    "subtitle": "Reflexiona y encuentra consuelo",
+    "quotes": [
+      "A medida que el día se suaviza, deja que tu corazón se llene de gratitud por los regalos del día.",
+      "La tarde es la dulce recompensa por un día dedicado a buscar la luz y difundir alegría.",
+      "Mira el atardecer y recuerda que los finales hermosos conducen a nuevos comienzos brillantes.",
+      "Reúne los momentos felices de hoy y mantenlos cerca de tu corazón esta noche.",
+      "Deja que el suave crepúsculo te recuerde la alegría pacífica que vive en tu interior.",
+      "Termina la parte activa de tu día con una sonrisa y un agradecimiento al universo.",
+      "El cielo de la tarde es una obra maestra pintada para inspirar nuestra felicidad tranquila.",
+      "Descansa tu mente en el agradable recuerdo de los triunfos más pequeños de hoy.",
+      "Deja ir las preocupaciones de hoy; la tarde es un momento para abrazar la calidez reconfortante.",
+      "Una tarde pacífica es el puente perfecto para una noche de descanso alegre."
+    ]
+  },
+  "Night": {
+    "subtitle": "Descansa y prepárate para el mañana",
+    "quotes": [
+      "Descansa profundamente, sabiendo que hiciste lo mejor para traer luz al mundo hoy.",
+      "Deja que las estrellas cuiden tus sueños y llenen tu sueño de optimismo tranquilo.",
+      "Al cerrar los ojos, agradece al día todas las sonrisas que te trajo.",
+      "La noche es un santuario silencioso donde las almas felices encuentran descanso y renovación.",
+      "Que tu sueño sea pacífico y tus sueños estén llenos de promesas de un mañana brillante.",
+      "El silencio de la noche es un abrazo cálido para una mente feliz y cansada.",
+      "Entrégate al sueño con un corazón pacífico, ansioso por las nuevas aventuras del mañana.",
+      "Deja que la suave oscuridad calme tus pensamientos y restaure tu energía alegre.",
+      "El sueño es el arte gentil de preparar nuestros corazones para otro día de alegría.",
+      "Buenas noches; duerme bajo el reconfortante manto de la paz y la gratitud tranquila."
+    ]
+  }
+}

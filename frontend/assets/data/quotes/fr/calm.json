@@ -1,0 +1,62 @@
+{
+  "Morning": {
+    "subtitle": "Commencez votre journée avec intention",
+    "quotes": [
+      "Respirez le calme tranquille du matin ; trouver la paix en ce moment.",
+      "Laissez votre journée se dérouler lentement, comme une fleur accueillant le soleil du matin.",
+      "Un esprit calme à l’aube est la base d’une journée paisible à venir.",
+      "Commencez votre matinée par une profonde respiration et une douce libération des attentes.",
+      "La paix n'est pas quelque chose que nous trouvons ; c'est le calme que nous apportons au matin.",
+      "Puisse le calme du petit matin apaiser votre esprit et apaiser votre cœur.",
+      "Commencez aujourd’hui avec une conscience tranquille, en observant la douce naissance de la lumière.",
+      "Laissez le calme de l’air du matin dissiper toutes les pensées agitées.",
+      "Marchez doucement dans la journée ; il n’est pas nécessaire de se précipiter vers l’avenir.",
+      "Une matinée tranquille est un sanctuaire où l’âme peut se reposer et se préparer."
+    ]
+  },
+  "Afternoon": {
+    "subtitle": "Gardez votre élan.",
+    "quotes": [
+      "Au milieu du bruit de la journée, trouvez votre centre tranquille et respirez.",
+      "Expirez le rythme effréné de midi ; embrassez le calme du présent.",
+      "Laissez votre après-midi être stable, paisible et ancré dans une clarté tranquille.",
+      "Faites une courte pause pour réaligner vos pensées sur la paix et le calme intérieurs.",
+      "Le calme de midi est la douce ancre qui maintient notre moral stable dans la tempête.",
+      "Observez le monde occupé qui vous entoure avec une conscience calme et sans jugement.",
+      "Laissez vos actions découler d’un lieu de calme intérieur profond et tranquille.",
+      "Un après-midi calme est le résultat du choix de la paix plutôt que de la précipitation inutile.",
+      "Ralentissez vos pensées pendant un instant ; tout est comme il se doit.",
+      "Laissez le rythme calme de votre respiration vous guider dans les tâches de l'après-midi."
+    ]
+  },
+  "Evening": {
+    "subtitle": "Réfléchissez et trouvez le réconfort",
+    "quotes": [
+      "Laissez le crépuscule du soir apaiser votre esprit et apporter une douce paix à votre cœur.",
+      "Au coucher du soleil, libérez les événements de la journée avec une douce respiration d'acceptation.",
+      "Le soir est le port tranquille où nous reposons nos pensées et trouvons du réconfort.",
+      "Embrassez la douce tranquillité de l’heure du crépuscule ; que tous les soucis disparaissent.",
+      "Que votre soirée soit un sanctuaire paisible de détente et de réflexion tranquille.",
+      "La douce décoloration de la lumière nous rappelle de lâcher prise et de rester tranquille.",
+      "Reposez votre esprit actif et existez simplement dans la beauté tranquille de la soirée.",
+      "Acceptez les cadeaux de cette journée et laissez la soirée apporter une douce résolution.",
+      "Une soirée calme prépare le cœur à recevoir le reste paisible de la nuit.",
+      "Trouvez du réconfort dans les ombres tranquilles ; le travail de la journée est accompli avec succès."
+    ]
+  },
+  "Night": {
+    "subtitle": "Reposez-vous et préparez-vous pour demain",
+    "quotes": [
+      "Reposez-vous dans la profondeur tranquille de la nuit ; le sommeil est l'abandon ultime à la paix.",
+      "Laissez l'obscurité tranquille vous envelopper comme une douce couverture de repos tranquille.",
+      "Libérez toutes les pensées restantes vers le ciel étoilé ; vous pouvez vous reposer en toute sécurité.",
+      "La nuit est le sanctuaire du silence où l'âme retrouve sa force tranquille.",
+      "Dormez le cœur paisible, sachant que vous êtes exactement là où vous devez être.",
+      "Puisse le calme de la nuit apporter un repos profond et réparateur à votre corps fatigué.",
+      "Les étoiles brillent silencieusement pour nous rappeler l'éternité paisible qui nous entoure.",
+      "Laissez le rythme tranquille de l’obscurité apaiser votre esprit et l’enfoncer dans un sommeil profond.",
+      "Bonne nuit; laissez tous vos soucis derrière vous et reposez-vous dans la paix silencieuse de l'univers.",
+      "Une nuit tranquille mène à un esprit rafraîchi, prêt à accueillir une aube paisible."
+    ]
+  }
+}

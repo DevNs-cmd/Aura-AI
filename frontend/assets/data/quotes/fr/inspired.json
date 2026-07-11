@@ -1,0 +1,62 @@
+{
+  "Morning": {
+    "subtitle": "Commencez votre journée avec intention",
+    "quotes": [
+      "Réveillez-vous à l'appel créatif de l'univers ; aujourd'hui c'est pour l'expression.",
+      "Laissez la lumière du matin susciter de nouvelles idées et une nouvelle perspective.",
+      "Votre imagination est active à l'aube ; notez vos premières inspirations.",
+      "Commencez dès aujourd’hui avec un sentiment d’émerveillement et de curiosité pour le monde.",
+      "Chaque lever de soleil est une nouvelle invitation à créer quelque chose de beau.",
+      "Ouvrez votre esprit aux doux murmures d’inspiration qui vous entourent.",
+      "Que votre matinée soit une toile de pensées originales et de dynamisme artistique.",
+      "Commencez cette journée avec l’intention d’exprimer votre véritable voix intérieure.",
+      "Laissez les premières lueurs du jour alimenter votre passion et inspirer votre chef-d’œuvre.",
+      "Une matinée créative donne un ton vibrant et inspirant à la journée."
+    ]
+  },
+  "Afternoon": {
+    "subtitle": "Gardez votre élan.",
+    "quotes": [
+      "Laissez votre après-midi être un terrain de jeu d'innovation et de curiosité.",
+      "Trouvez l'inspiration dans les détails du monde de midi qui vous entoure.",
+      "Laissez votre énergie créatrice circuler librement ; ne craignez pas les chemins originaux.",
+      "Un après-midi productif naît lorsque nous travaillons avec passion et joie.",
+      "Défier les limites standard ; l’après-midi est à vous pour innover.",
+      "Prenez un moment pour regarder vos projets avec un regard neuf et inspiré.",
+      "L'expression est le langage de l'âme ; écrivez, concevez ou construisez avec amour.",
+      "Laissez la chaleur du soleil inspirer de belles et audacieuses idées ce midi.",
+      "Restez curieux ; il existe toujours une nouvelle façon de résoudre d’anciens problèmes.",
+      "Laissez votre après-midi se laisser guider par la joie de la création."
+    ]
+  },
+  "Evening": {
+    "subtitle": "Réfléchissez et trouvez le réconfort",
+    "quotes": [
+      "Réfléchissez aux belles idées qui ont croisé votre chemin aujourd’hui.",
+      "Le soir est le moment où une inspiration tranquille se transforme en profonde sagesse.",
+      "Laissez le coucher de soleil peindre votre esprit avec de nouveaux rêves et visions artistiques.",
+      "Rassemblez vos idées créatives ce soir et laissez-les mijoter tranquillement.",
+      "L’heure du crépuscule est un pont vers les royaumes les plus profonds de l’imagination.",
+      "Célébrez l’expression unique que vous avez apportée au monde aujourd’hui.",
+      "Laissez le calme de la soirée inspirer vos réflexions pour les projets de demain.",
+      "Une soirée inspirée est un sanctuaire où l’âme créative peut se reposer.",
+      "Réfléchissez aux belles connexions que vous avez découvertes tout au long de la journée.",
+      "Terminez la journée avec un cœur reconnaissant, avide de la lumière créatrice de demain."
+    ]
+  },
+  "Night": {
+    "subtitle": "Reposez-vous et préparez-vous pour demain",
+    "quotes": [
+      "Laissez libre cours à vos rêves dans la vaste étendue créative de la nuit.",
+      "Puisse l’obscurité tranquille inspirer vos idées les plus profondes et les plus magiques ce soir.",
+      "Dormez avec un esprit ouvert aux murmures d’une inspiration nocturne silencieuse.",
+      "La nuit est le terrain de jeu du subconscient ; faites confiance à sa puissance créatrice.",
+      "Bonne nuit; dormez à la belle étoile et laissez votre esprit rêver en couleurs.",
+      "Le silence de minuit est un terrain fertile pour les belles pensées.",
+      "Reposez-vous profondément pour nourrir l’élan créatif qui vous réveillera demain.",
+      "Laissez la douce nuit apaiser votre création active dans un renouveau tranquille.",
+      "Dormez paisiblement, sachant que votre esprit prépare les inspirations de demain.",
+      "Bonne nuit; que votre repos soit un beau voyage rempli de rêves."
+    ]
+  }
+}

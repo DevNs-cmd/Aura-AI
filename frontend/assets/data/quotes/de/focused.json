@@ -1,0 +1,62 @@
+{
+  "Morning": {
+    "subtitle": "Beginnen Sie Ihren Tag mit Absicht",
+    "quotes": [
+      "Ein klarer Geist ist heute Ihr größtes Kapital; Erfassen Sie Ihr Ziel.",
+      "Die morgendliche Konzentration bestimmt die Qualität Ihrer gesamten Tagesleistung.",
+      "Beginnen Sie noch heute mit einer einzigen Priorität; Beseitigen Sie alle Ablenkungen.",
+      "Konzentrieren Sie Ihre morgendliche Energie auf das Wesentliche.",
+      "Klarheit ist Macht; Schreiben Sie Ihr Hauptziel für diesen Tag auf.",
+      "Wachen Sie mit eiserner Entschlossenheit auf; Tiefe Arbeit beginnt mit der ersten Stunde.",
+      "Ihre Aufmerksamkeit ist Ihre Währung; Geben Sie es heute mit Bedacht für Ihre Prioritäten aus.",
+      "Richten Sie Ihre Morgengewohnheiten an der langfristigen Vision Ihres Ziels aus.",
+      "Bleiben Sie scharfsinnig, bleiben Sie engagiert; Heute ist ein Tag der Umsetzung und des Fortschritts.",
+      "Ein konzentrierter Morgen ist der Schlüssel zur Entfaltung Ihres höchsten Potenzials."
+    ]
+  },
+  "Afternoon": {
+    "subtitle": "Bleiben Sie in Ihrem Rhythmus.",
+    "quotes": [
+      "Behalten Sie Ihren Fokus bei; Am Mittag festigt sich der echte Fortschritt.",
+      "Lassen Sie nicht zu, dass der Nachmittagslärm Ihre hohe Konzentration beeinträchtigt.",
+      "Eine Aufgabe nach der anderen, mit absoluter Präsenz und Klarheit erledigt.",
+      "Ihre Produktivität spiegelt Ihre Fähigkeit wider, Ablenkungen abzulehnen.",
+      "Bleiben Sie in der Zone; Der Mittagsschub erfordert Ihre volle Anwesenheit.",
+      "Machen Sie eine kurze, scharfe Pause, um den Kopf frei zu bekommen, und tauchen Sie dann wieder ein.",
+      "Lassen Sie Ihre Hingabe lauter sein als der Drang des Nachmittags zum Wandern.",
+      "Tiefe Arbeit ist der Weg zur Meisterschaft; Ehren Sie Ihren Fokus heute Nachmittag.",
+      "Behalten Sie das Ziel im Kopf. Du baust Schwung auf.",
+      "Der Nachmittag gehört denen, die bis zum Schluss konzentriert bleiben."
+    ]
+  },
+  "Evening": {
+    "subtitle": "Reflektieren Sie und finden Sie Trost",
+    "quotes": [
+      "Bewerten Sie den heutigen Fokus; Feiern Sie die Arbeit, die Sie erfolgreich abgeschlossen haben.",
+      "Wenn der Tag zu Ende geht, lassen Sie Ihren Geist zur reinen, ruhigen Ruhe übergehen.",
+      "Ein fokussierter Geist weiß, wann er arbeiten und wann er ganz abschalten muss.",
+      "Bereiten Sie Ihre Umgebung heute Abend auf einen konzentrierten Start morgen früh vor.",
+      "Es wird klar, dass Sie sich rechtzeitig auf die Victorias de Mañana vorbereiten müssen.",
+      "Ruhen Sie Ihren konzentrierten Geist aus; Du hast heute viel Arbeit investiert.",
+      "Lassen Sie die Zufriedenheit eines hochproduktiven Tages heute Abend Frieden bringen.",
+      "Veröffentlichen Sie die Projekte des Tages. Der Abend dient der ruhigen geistigen Erholung.",
+      "Behalten Sie Ihre langfristigen Ziele im Auge, aber widmen Sie sich heute Abend der Erholung.",
+      "Ein konzentrierter Tag verdient einen friedlichen, ruhigen Übergang in die Abendruhe."
+    ]
+  },
+  "Night": {
+    "subtitle": "Ruhen Sie sich aus und bereiten Sie sich auf morgen vor",
+    "quotes": [
+      "Schlafen Sie tief, um die mentale Energie wiederzugewinnen, die Sie für den Fokus von morgen benötigen.",
+      "Lassen Sie Ihren Geist vollkommen ruhen; Tiefschlaf ist für die kognitive Klarheit unerlässlich.",
+      "Gute Nacht; Laden Sie die mentale Batterie auf, die Ihre tägliche Meisterleistung antreibt.",
+      "Die Nacht ist die Erholungszeit für hochproduktive Köpfe.",
+      "Vertrauen Sie darauf, dass der Tiefschlaf Ihr Wissen aktiv organisiert und sichert.",
+      "Schlafen Sie mit einem ruhigen Geist, frei von den Aufgaben und Sorgen von morgen.",
+      "Ruhe gehört zur Arbeit; Respektieren Sie Ihren Schlaf, um Spitzenleistungen aufrechtzuerhalten.",
+      "Möge Ihr Schlaf heute Nacht tief, klar und äußerst erholsam sein.",
+      "Ein konzentrierter Morgen beginnt mit einer grenzenrespektierenden Nachtruhe.",
+      "Gute Nacht; Schlafen Sie in absoluter Stille und wachen Sie pünktlich auf."
+    ]
+  }
+}

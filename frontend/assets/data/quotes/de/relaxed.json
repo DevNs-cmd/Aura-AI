@@ -1,0 +1,62 @@
+{
+  "Morning": {
+    "subtitle": "Beginnen Sie Ihren Tag mit Absicht",
+    "quotes": [
+      "Genießen Sie die sanfte Morgenbrise; Es besteht kein Grund, den Tag zu überstürzen.",
+      "Beginnen Sie heute langsam; Lassen Sie Frieden und Trost Ihre ersten Handlungen leiten.",
+      "Möge Ihr Morgen gemütlich, warm und voller unbeschwerter Gedanken sein.",
+      "Nehmen Sie sich im Morgengrauen Zeit; Die Welt kann warten, während Sie diesen Moment genießen.",
+      "Ein entspannter Morgen ist das beste Geschenk, das Sie Ihrem Geist heute machen können.",
+      "Lassen Sie Ihren Morgenkaffee Ihre Hände wärmen und Ihre Gedanken beruhigen.",
+      "Begrüßen Sie den Tag mit einer sanften Dehnung und einem leichten, unbeschwerten Herzen.",
+      "Genießen Sie das sanfte Morgenlicht; Lassen Sie Leichtigkeit heute Ihr Kompass sein.",
+      "Beginnen Sie diesen Tag mit dem einfachen Vergnügen, völlig präsent und bequem zu sein.",
+      "Ein sanfter Start führt zu einem sanften, entspannten Weg durch den Tag."
+    ]
+  },
+  "Afternoon": {
+    "subtitle": "Bleiben Sie in Ihrem Rhythmus.",
+    "quotes": [
+      "Lassen Sie Ihren Nachmittag leicht und unbeschwert sein; Finden Sie Leichtigkeit bei Ihren Aufgaben.",
+      "Machen Sie eine sanfte Pause; Lassen Sie die warme Mittagssonne Ihren Geist zur Ruhe bringen.",
+      "Atme alle Anspannung aus; Die Arbeit verläuft reibungslos, wenn der Geist entspannt ist.",
+      "Genießen Sie den gleichmäßigen Rhythmus eines entspannten und gemütlichen Nachmittags.",
+      "Ein ruhiger, entspannter Nachmittag ist der perfekte Ort für ruhiges Wachstum.",
+      "Lassen Sie den Mittagsstress los; Konzentrieren Sie sich mühelos auf eine einfache Sache nach der anderen.",
+      "Finden Sie Trost im gegenwärtigen Moment; es gibt genügend Zeit für alles.",
+      "Lassen Sie Ihre Gedanken leicht sein wie Wolken, die am warmen Nachmittagshimmel schweben.",
+      "Ein entspannter Geist ist kreativ und effizient; Arbeiten Sie mit einem sanften Geist.",
+      "Genießen Sie das ruhige Tempo dieser Stunde; Lassen Sie sich von der Leichtigkeit durch den Tag tragen."
+    ]
+  },
+  "Evening": {
+    "subtitle": "Reflektieren Sie und finden Sie Trost",
+    "quotes": [
+      "Wenn die Abendsonne tief sinkt, lösen sich all Ihre Sorgen in der Dämmerung auf.",
+      "Der Abend ist die Zeit zum Entspannen, Entspannen und Genießen des gemütlichen Zuhauses.",
+      "Lassen Sie den ruhigen Abend Ihre aktiven Gedanken sanft loslassen.",
+      "Genießen Sie die wohltuende Ruhe der Dämmerungsstunde; Ruhe ist ein schönes Geschenk.",
+      "Gönnen Sie sich einen ruhigen, entspannten Abend.",
+      "Genießen Sie die einfachen Freuden des beginnenden Abends; Diese Leichtigkeit hast du dir verdient.",
+      "Lassen Sie sich vom sanften Abendlicht daran erinnern, langsamer zu werden und einfach zu sein.",
+      "Ein entspannter Abend ist der perfekte Ausgleich zur hektischen Welt.",
+      "Lassen Sie Ihre Gedanken in den ruhigen Trost gleiten, während die Sterne beginnen, sich zu zeigen.",
+      "Beenden Sie den aktiven Tag mit einem sanften Ausatmen und einem warmen Gefühl der Leichtigkeit."
+    ]
+  },
+  "Night": {
+    "subtitle": "Ruhen Sie sich aus und bereiten Sie sich auf morgen vor",
+    "quotes": [
+      "Schlafen Sie tief in der warmen Umarmung der Nacht; lass alles los.",
+      "Mögen Ihre Träume sanft sein und Ihre Ruhe heute Nacht völlig ungestört sein.",
+      "Lassen Sie die Stille der Dunkelheit Ihren Geist beruhigen und in einen Zustand puren Komforts versetzen.",
+      "Die Nacht ist die Zeit, Ihre Gedanken zur Ruhe zu bringen und leichten Herzens zu schlafen.",
+      "Ruhen Sie sich im gemütlichen Rückzugsort Ihres Bettes aus; Sie können sicher loslassen und schlafen.",
+      "Lassen Sie die friedliche Stille der Mitternacht alle Ihre Gedanken wegspülen.",
+      "Gute Nacht; Schlafen Sie unter den stillen Sternen und wachen Sie erfrischt auf.",
+      "Ihre einzige Aufgabe heute Abend besteht darin, tief und bequem auszuruhen.",
+      "Lassen Sie die sanfte Dunkelheit Ihren Geist in einen tiefen, erholsamen Schlaf führen.",
+      "Schlafen Sie entspannt und bereit, einen sanften Morgen zu begrüßen."
+    ]
+  }
+}

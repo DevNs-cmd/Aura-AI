@@ -1,0 +1,62 @@
+{
+  "Morning": {
+    "subtitle": "Start your day with intent",
+    "quotes": [
+      "It is okay to start slowly today; listen to your body's need for gentleness.",
+      "May your morning be soft, forgiving, and free from any heavy pressure.",
+      "Begin this day with low expectations and high self-compassion.",
+      "Take a warm, gentle breath; you do not have to conquer the world today.",
+      "Let your morning be quiet and simple; do only what is necessary.",
+      "Savor a gentle start; your energy will return in its own time.",
+      "A slow morning is a kind way to support your tired spirit.",
+      "Be patient with yourself today; even small steps are a victory.",
+      "Let the soft morning light bring a comforting ease to your thoughts.",
+      "Gentle actions and soft boundaries will guide you through this morning."
+    ]
+  },
+  "Afternoon": {
+    "subtitle": "Keep your momentum strong",
+    "quotes": [
+      "Take a rest break this afternoon; your well-being is the top priority.",
+      "Breathe out the pressure to be productive; ease is what you need now.",
+      "Let your afternoon be quiet, gentle, and undemanding.",
+      "Work softly and allow yourself to rest whenever you feel weary.",
+      "A tired mind needs space and kindness; do not push beyond your limits.",
+      "Find comfort in simple, low-energy tasks this midday.",
+      "Your worth is not defined by your productivity; rest is valid.",
+      "Let the afternoon pass quietly; give yourself permission to slow down.",
+      "Rest your eyes and quiet your mind for just a few minutes.",
+      "Embrace a gentle pace; the world will keep turning if you rest."
+    ]
+  },
+  "Evening": {
+    "subtitle": "Reflect and find comfort",
+    "quotes": [
+      "You made it through the day; now let yourself completely unwind and rest.",
+      "Evening is your cozy sanctuary; leave all demands behind.",
+      "Let the twilight soothe your tired body and quiet your heavy thoughts.",
+      "Enjoy the comfort of doing absolutely nothing tonight; you need this.",
+      "May your evening be filled with soft lights, warm drinks, and quiet ease.",
+      "Release the weight of the day; evening is for gentle recovery.",
+      "Listen to your fatigue; it is a call to nourish your soul with rest.",
+      "Find comfort in the quiet, simple flow of the evening hours.",
+      "A slow evening is the perfect path to restorative night sleep.",
+      "Be kind to yourself tonight; wrap your thoughts in comfort and peace."
+    ]
+  },
+  "Night": {
+    "subtitle": "Rest and prepare for tomorrow",
+    "quotes": [
+      "Surrender fully to the deep, healing sleep your body is asking for.",
+      "May your rest be heavy, undisturbed, and deeply restorative tonight.",
+      "Let the quiet darkness pull you into a long, peaceful sleep.",
+      "Goodnight; let go of all thoughts and sleep in absolute comfort.",
+      "Your body and mind deserve the deepest, most restorative rest tonight.",
+      "Let the silence of the night heal your tiredness and renew your spirit.",
+      "Sleep with a grateful heart that you survived a challenging day.",
+      "May the night bring deep restoration to every cell of your body.",
+      "Goodnight; sleep deeply under the quiet, protective canopy of the dark.",
+      "Let go of tomorrow; tonight is dedicated entirely to your recovery."
+    ]
+  }
+}

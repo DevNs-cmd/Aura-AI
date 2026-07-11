@@ -1,0 +1,62 @@
+{
+  "Morning": {
+    "subtitle": "Commencez votre journée avec intention",
+    "quotes": [
+      "Levez-vous avec détermination; aujourd’hui est une nouvelle opportunité de construire votre avenir.",
+      "Le soleil du matin est un appel à l'action ; saisir le jour avec une ambition brûlante.",
+      "Commencez dès aujourd’hui avec un objectif clair ; de petits pas quotidiens mènent à des réalisations massives.",
+      "Votre potentiel est illimité ; laissez votre énergie matinale alimenter votre discipline.",
+      "Réveillez-vous avec un but ; aujourd'hui est le jour idéal pour transformer vos rêves en réalité.",
+      "Laissez votre première pensée du matin être : « Je peux et je ferai des progrès aujourd'hui. »",
+      "Chaque lever de soleil est un nouveau départ pour poursuivre vos objectifs avec une concentration constante.",
+      "Alimentez votre conduite matinale avec la vision de l’avenir que vous créez.",
+      "La confiance en soi est l'étincelle qui transforme un début de matinée en triomphe.",
+      "N'attendez pas l'opportunité ; réveillez-vous et construisez-le étape par étape aujourd'hui."
+    ]
+  },
+  "Afternoon": {
+    "subtitle": "Gardez votre élan.",
+    "quotes": [
+      "Continuez à avancer ; midi est le moment de transformer l’élan en victoire.",
+      "Laissez les obstacles alimenter votre feu ; vous êtes plus fort que n’importe quel défi de midi.",
+      "Restez engagé sur le chemin ; la cohérence est le secret de toutes les grandes réalisations.",
+      "Votre ambition doit être plus forte que votre fatigue ou votre hésitation de l’après-midi.",
+      "Soyez fier de votre discipline ; le travail que vous faites maintenant consiste à construire votre rêve.",
+      "Un après-midi productif est la récompense pour être resté fidèle à vos promesses matinales.",
+      "Concentrez votre énergie de midi sur la prochaine petite action ; l’élan est la clé.",
+      "Les défis ne sont que des étapes sur votre chemin pour réaliser quelque chose de grand.",
+      "Restez affamé, restez concentré ; l'après-midi est à vous de conquérir avec passion.",
+      "Construisez votre futur action par action, heure par heure, cet après-midi même."
+    ]
+  },
+  "Evening": {
+    "subtitle": "Réfléchissez et trouvez le réconfort",
+    "quotes": [
+      "Réfléchissez avec fierté aux efforts d’aujourd’hui ; vous avez fait des pas en avant.",
+      "Terminez la journée en force ; la détermination ne dort pas quand le crépuscule tombe.",
+      "Laissez le coucher du soleil vous rappeler que le travail acharné apporte de beaux résultats.",
+      "Passez en revue vos progrès ce soir et définissez vos intentions pour la synchronisation de demain.",
+      "Les efforts que vous déployez aujourd’hui sont un investissement dans le succès de demain.",
+      "Le soir, c'est le moment de recharger votre route et de vous préparer pour la prochaine ascension.",
+      "Soyez reconnaissant pour la force qui vous a permis de surmonter les défis d’aujourd’hui.",
+      "Une journée disciplinée se termine par une satisfaction paisible que l’argent ne peut acheter.",
+      "Gardez le feu de votre ambition allumé tranquillement à mesure que la journée touche à sa fin.",
+      "Vous êtes plus proche de vos objectifs ce soir que ce matin. Continue."
+    ]
+  },
+  "Night": {
+    "subtitle": "Reposez-vous et préparez-vous pour demain",
+    "quotes": [
+      "Reposez votre corps et votre esprit ; demain vous conquérirez de nouveaux horizons.",
+      "Dormez avec la satisfaction d’une journée bien passée à poursuivre votre croissance.",
+      "Laissez vos rêves visualiser le succès que vous construisez étape par étape.",
+      "Rechargez votre trajet ce soir ; le repos profond est la base de la haute performance.",
+      "La nuit tranquille est la préparation à l'action ciblée et au triomphe de demain.",
+      "Faites confiance au processus ; le travail que vous avez accompli aujourd’hui s’épanouira en temps voulu.",
+      "Reposez-vous profondément pour alimenter l’ambition qui vous réveillera demain matin.",
+      "Votre engagement envers la croissance est visible même dans la façon dont vous valorisez le repos.",
+      "Dormez paisiblement, sachant que vous bâtissez un héritage de discipline et de force.",
+      "Demain est une nouvelle toile ; reposez-vous ce soir pour le peindre avec des réalisations audacieuses."
+    ]
+  }
+}
