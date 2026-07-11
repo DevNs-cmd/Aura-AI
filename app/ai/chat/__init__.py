@@ -3,7 +3,7 @@ from .pipeline import ChatPipeline, build_chat_pipeline
 from .repository import ChatRepository
 from .schemas import ChatRequest, ChatResponse
 from .service import ChatService, build_chat_service
-from .utils import build_default_journal_payload, build_default_memory_payloads, normalize_text
+from .utils import build_default_journal_payload, build_default_memory_payloads, build_default_pdf_payload, normalize_text
 
 __all__ = [
     "ChatConfigurationError",
@@ -19,5 +19,6 @@ __all__ = [
     "build_chat_service",
     "build_default_journal_payload",
     "build_default_memory_payloads",
+    "build_default_pdf_payload",
     "normalize_text",
 ]

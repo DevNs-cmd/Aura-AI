@@ -10,11 +10,12 @@ from app.ai.journal.schemas import JournalEntryCreate
 from app.ai.llm.schemas import LLMResponse
 from app.ai.memory.schemas import MemoryCreate
 from app.ai.prompt.schemas import PromptInput, PromptOutput
+from app.utils.pdf_generator import build_pdf_filename, build_pdf_report
 
 from .exceptions import ChatConfigurationError, ChatPipelineError, ChatValidationError
 from .repository import ChatRepository
 from .schemas import ChatRequest, ChatResponse
-from .utils import build_default_journal_payload, build_default_memory_payloads
+from .utils import build_default_journal_payload, build_default_memory_payloads, build_default_pdf_payload
 
 
 class _StaticContextService:
@@ -39,6 +40,7 @@ class ChatPipeline:
         repository_factory: Callable[[Any | None], ChatRepository] | None = None,
         memory_payload_factory: Callable[[ChatRequest, LLMResponse], list[MemoryCreate]] | None = None,
         journal_payload_factory: Callable[[ChatRequest, LLMResponse], JournalEntryCreate] | None = None,
+        pdf_payload_factory: Callable[[ChatRequest, AIContext, LLMResponse], dict[str, Any] | None] | None = None,
     ) -> None:
         self._context_service = context_service
         self._prompt_service = prompt_service
@@ -48,6 +50,7 @@ class ChatPipeline:
         self._repository_factory = repository_factory or ChatRepository
         self._memory_payload_factory = memory_payload_factory or build_default_memory_payloads
         self._journal_payload_factory = journal_payload_factory or build_default_journal_payload
+        self._pdf_payload_factory = pdf_payload_factory or build_default_pdf_payload
 
     def generate_reply(self, request: ChatRequest | dict[str, Any], db: Any | None = None) -> ChatResponse:
         chat_request = self._ensure_request(request)
@@ -56,6 +59,7 @@ class ChatPipeline:
         prompt = self._load_prompt(chat_request, context, repository)
         response = self._load_response(prompt, repository)
         memory_updates, journal_updates = self._persist_follow_up_artifacts(chat_request, response)
+        pdf_report_type, pdf_report_filename, pdf_report_bytes = self._maybe_generate_pdf(chat_request, context, response)
         return ChatResponse(
             request=chat_request,
             context=context,
@@ -63,6 +67,9 @@ class ChatPipeline:
             response=response,
             memory_updates=memory_updates,
             journal_updates=journal_updates,
+            pdf_report_type=pdf_report_type,
+            pdf_report_filename=pdf_report_filename,
+            pdf_report_bytes=pdf_report_bytes,
         )
 
     @staticmethod
@@ -117,8 +124,8 @@ class ChatPipeline:
             payload = self._prompt_service.get_prompt(
                 request=prompt_request,
                 db=repository.db,
-                context=context,
             )
+
         except Exception as exc:  # noqa: BLE001 - orchestration boundary
             raise ChatPipelineError("Failed to build chat prompt") from exc
 
@@ -160,6 +167,31 @@ class ChatPipeline:
 
         return memory_updates, journal_updates
 
+    def _maybe_generate_pdf(self, request: ChatRequest, context: Any, response: LLMResponse) -> tuple[str | None, str | None, bytes | None]:
+        if not isinstance(context, AIContext):
+            return None, None, None
+
+        try:
+            payload = self._pdf_payload_factory(request, context, response)
+        except Exception as exc:  # noqa: BLE001 - orchestration boundary
+            raise ChatPipelineError("Failed to build PDF payload") from exc
+
+        if payload is None:
+            return None, None, None
+
+        try:
+            pdf_bytes = build_pdf_report(payload)
+            report_type = str(payload.get("report_type") or "custom")
+            filename = build_pdf_filename(
+                str(payload.get("title") or "Aura AI Report"),
+                report_type,
+                user=str(payload.get("user")) if payload.get("user") is not None else None,
+                date_value=payload.get("date"),
+            )
+        except Exception as exc:  # noqa: BLE001 - orchestration boundary
+            raise ChatPipelineError("Failed to generate PDF report") from exc
+        return report_type, filename, pdf_bytes
+
 
 def build_chat_pipeline(
     *,
@@ -171,6 +203,7 @@ def build_chat_pipeline(
     repository_factory: Callable[[Any | None], ChatRepository] | None = None,
     memory_payload_factory: Callable[[ChatRequest, LLMResponse], list[MemoryCreate]] | None = None,
     journal_payload_factory: Callable[[ChatRequest, LLMResponse], JournalEntryCreate] | None = None,
+    pdf_payload_factory: Callable[[ChatRequest, AIContext, LLMResponse], dict[str, Any] | None] | None = None,
 ) -> ChatPipeline:
     if context_service is None:
         raise ChatConfigurationError("A context service is required to build the chat pipeline")
@@ -192,4 +225,5 @@ def build_chat_pipeline(
         repository_factory=repository_factory,
         memory_payload_factory=memory_payload_factory,
         journal_payload_factory=journal_payload_factory,
+        pdf_payload_factory=pdf_payload_factory,
     )
