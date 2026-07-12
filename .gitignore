@@ -1,53 +1,40 @@
-# ===========================
 # Python
-# ===========================
-venv/
-__pycache__/
-*.pyc
 .venv/
 venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.pytype/
+.coverage
+htmlcov/
 
-
-# ===========================
-# Dependencies
-# ===========================
+# Node
 node_modules/
 
-# ===========================
-# Build Output
-# ===========================
+# Build
 dist/
 backend/dist/
+build/
 
-# ===========================
-# Environment Files
-# ===========================
+# Environment
 .env
 .env.*
 
-# ===========================
-# Coverage Reports
-# ===========================
-coverage/
-
-# ===========================
-# TypeScript
-# ===========================
-*.tsbuildinfo
-
-# ===========================
-# Log Files
-# ===========================
+# Logs
 *.log
 
-# ===========================
-# IDE / Editor Files
-# ===========================
+# IDE
 .vscode/
 .idea/
 
-# ===========================
-# OS Files
-# ===========================
+# OS
 .DS_Store
 Thumbs.db
+
+# Chroma
+chroma/
+
+# Uploads
+uploads/*
+!uploads/.gitkeep
