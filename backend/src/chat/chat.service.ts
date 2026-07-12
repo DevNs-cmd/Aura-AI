@@ -1,28 +1,58 @@
-import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import { Injectable, InternalServerErrorException, HttpException, HttpStatus } from '@nestjs/common';
 import { GoogleGenAI } from '@google/genai';
+import { HttpService } from '@nestjs/axios'; // <--- FastAPI integration ke liye naya import
+import { firstValueFrom } from 'rxjs'; // <--- RxJS pipeline handle karne ke liye naya import
 
 @Injectable()
 export class ChatService {
   private ai: GoogleGenAI | null = null;
 
-  constructor() {
+  // Constructor mein HttpService ko inject kar diya
+  constructor(private readonly httpService: HttpService) {
     const apiKey = process.env.GEMINI_API_KEY;
     if (apiKey && apiKey !== 'MY_GEMINI_API_KEY') {
       this.ai = new GoogleGenAI({ apiKey });
     }
   }
 
+  /**
+   * Primary Method: Hit Atharva's FastAPI AI Service (PostgreSQL + Redis + ChromaDB)
+   */
+  async processAIMessage(userId: string, message: string) {
+    const aiServiceUrl = `${process.env.AI_SERVICE_URL}/ai/chat`;
+    
+    const payload = {
+      user_id: userId,
+      message: message
+    };
+
+    try {
+      // NestJS acts as gateway and hits FastAPI AI Service
+      const response = await firstValueFrom(
+        this.httpService.post(aiServiceUrl, payload)
+      );
+      return response.data; // FastAPI processed data (with ChromaDB context)
+    } catch (error: any) {
+      console.error('FastAPI AI Service call failed, falling back to local inference...', error.message);
+      
+      // Agar FastAPI down hai, toh gracefully local Gemini inference par shift ho jao
+      return this.generateResponse(message, userId);
+    }
+  }
+
+  /**
+   * Fallback Method: Backup local Gemini API inference
+   */
   async generateResponse(message: string, userId?: string): Promise<{ reply: string; modelUsed: string; timestamp: Date }> {
     const timestamp = new Date();
-    
-    // If we have a configured API key, run real live Gemini inference
+
     if (this.ai) {
       try {
         const result = await this.ai.models.generateContent({
           model: 'gemini-2.5-flash',
           contents: message,
           config: {
-            systemInstruction: 'You are Aura AI, a wise, calming, and exceptionally supportive backend AI agent built inside the Aura-AI platform. Keep your replies concise, warm, helpful, and developer-oriented.',
+            systemInstruction: 'You are Aura AI, a wise, calming, and exceptionally supportive assistant.',
           },
         });
 
@@ -37,24 +67,10 @@ export class ChatService {
       }
     }
 
-    // Elegant, smart mock response if no GEMINI_API_KEY is found (with a developer prompt suggestion)
-    let reply = `Greetings! I am Aura AI. I noticed that the GEMINI_API_KEY is not configured in your environment yet. 
-
-Once you add your API key in the secrets panel, I will respond with live Gemini answers! 
-
-For now, here is a helpful design tip for Aura-AI:
-Keep your API routes microservice-ready by maintaining separate DTOs for every incoming payload structure, just like we did with SignupDto and ResetPasswordDto!`;
-
-    if (message.toLowerCase().includes('hello') || message.toLowerCase().includes('hi')) {
-      reply = `Hello! I am Aura AI, the wisdom layer of your modular NestJS architecture. 
-
-Currently, we are running in local-sandbox mode because a Gemini API Key is not set in secrets. If you configure GEMINI_API_KEY, I can connect to live LLM intelligence to answer your queries in real-time. How can I assist you with your Aura-AI architecture design today?`;
-    }
-
-    return {
-      reply,
-      modelUsed: 'aura-mock-engine (offline)',
-      timestamp,
-    };
+    // Agar na FastAPI mili na Gemini key
+    throw new HttpException(
+      'AI Services are currently unavailable',
+      HttpStatus.BAD_GATEWAY
+    );
   }
 }
