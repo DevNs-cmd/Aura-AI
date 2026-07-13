@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../models/chat_message.dart';
 import 'chat_repository.dart';
+import '../../core/network/api_config.dart';
 import '../../core/localization/locale_controller.dart';
 
 class ChatState {
@@ -19,8 +20,12 @@ class ChatState {
 
 // Provider for ChatRepository
 final chatRepositoryProvider = Provider<ChatRepository>((ref) {
-  final locale = ref.watch(localeProvider);
-  return MockChatRepository(locale.languageCode);
+  if (ApiConfig.useMockRepositories) {
+    final locale = ref.watch(localeProvider);
+    return MockChatRepository(locale.languageCode);
+  }
+
+  return HttpChatRepository();
 });
 
 // StateNotifierProvider for ChatState

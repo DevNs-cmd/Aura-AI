@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../core/network/api_config.dart';
 import '../../models/user.dart';
 import 'auth_repository.dart';
 
@@ -34,14 +37,33 @@ class AuthState {
 
 // Provider for AuthRepository
 final authRepositoryProvider = Provider<AuthRepository>((ref) {
-  return MockAuthRepository();
+  if (ApiConfig.useMockRepositories) {
+    return MockAuthRepository();
+  }
+
+  return HttpAuthRepository();
 });
 
 // StateNotifierProvider for AuthState management
 class AuthNotifier extends StateNotifier<AuthState> {
   final AuthRepository _repository;
 
-  AuthNotifier(this._repository) : super(AuthState());
+  AuthNotifier(this._repository) : super(AuthState()) {
+    unawaited(_restoreSession());
+  }
+
+  Future<void> _restoreSession() async {
+    final currentUser = await _repository.getCurrentUser();
+    if (!mounted || currentUser == null) {
+      return;
+    }
+
+    state = state.copyWith(
+      status: AuthStatus.authenticated,
+      user: currentUser,
+      errorMessage: null,
+    );
+  }
 
   void toggleRememberMe(bool value) {
     state = state.copyWith(rememberMe: value);
