@@ -2,64 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 import '../../core/constants/app_colors.dart';
 import '../../core/theme/theme_provider.dart';
 import '../../core/localization/generated/app_localizations.dart';
+import '../../models/calendar_event.dart';
+import 'calendar_provider.dart';
 
-class CalendarEvent {
-  final String title;
-  final String time;
-  final IconData icon;
-  final Color iconColor;
-  bool isCompleted;
-
-  CalendarEvent({
-    required this.title,
-    required this.time,
-    required this.icon,
-    required this.iconColor,
-    this.isCompleted = false,
-  });
-}
-
-class CalendarScreen extends ConsumerStatefulWidget {
+class CalendarScreen extends ConsumerWidget {
   const CalendarScreen({super.key});
-
-  @override
-  ConsumerState<CalendarScreen> createState() => _CalendarScreenState();
-}
-
-class _CalendarScreenState extends ConsumerState<CalendarScreen> {
-  int _selectedDay = 10;
-  final Map<int, List<CalendarEvent>> _eventsByDay = {};
-  bool _defaultEventsInitialized = false;
-
-  void _ensureDefaultEvents(BuildContext context) {
-    if (_defaultEventsInitialized) return;
-    _defaultEventsInitialized = true;
-    final l10n = AppLocalizations.of(context)!;
-    _eventsByDay[10] = [
-      CalendarEvent(
-        title: l10n.calendarMorningJournal,
-        time: '08:00 AM',
-        icon: Icons.edit_note_rounded,
-        iconColor: const Color(0xFF7ED957),
-        isCompleted: true,
-      ),
-      CalendarEvent(
-        title: l10n.calendarWorkout,
-        time: '07:00 PM',
-        icon: Icons.fitness_center_rounded,
-        iconColor: const Color(0xFFA58BFF),
-        isCompleted: false,
-      ),
-    ];
-  }
 
   void _showAddEventDialog(
     BuildContext context,
+    WidgetRef ref,
     Color accentColor,
     bool isDark,
+    DateTime selectedDate,
   ) {
     final titleController = TextEditingController();
     TimeOfDay selectedTime = TimeOfDay.now();
@@ -76,9 +34,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
                 borderRadius: BorderRadius.circular(24),
               ),
               title: Text(
-                AppLocalizations.of(
-                  context,
-                )!.calendarAddEventTitle(_selectedDay.toString()),
+                AppLocalizations.of(context)!.calendarAddEventTitle(selectedDate.day.toString()),
                 style: GoogleFonts.outfit(
                   fontWeight: FontWeight.bold,
                   color: isDark ? Colors.white : AppColors.text,
@@ -95,17 +51,13 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
                       fontWeight: FontWeight.bold,
                     ),
                     decoration: InputDecoration(
-                      hintText: AppLocalizations.of(
-                        context,
-                      )!.calendarEventTitleHint,
+                      hintText: AppLocalizations.of(context)!.calendarEventTitleHint,
                       hintStyle: GoogleFonts.quicksand(
                         color: isDark ? Colors.white30 : AppColors.textTertiary,
                       ),
                       enabledBorder: UnderlineInputBorder(
                         borderSide: BorderSide(
-                          color: isDark
-                              ? Colors.white24
-                              : AppColors.lightCardBorder,
+                          color: isDark ? Colors.white24 : AppColors.lightCardBorder,
                         ),
                       ),
                       focusedBorder: UnderlineInputBorder(
@@ -118,14 +70,10 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        AppLocalizations.of(
-                          context,
-                        )!.calendarTimeLabel(selectedTime.format(context)),
+                        AppLocalizations.of(context)!.calendarTimeLabel(selectedTime.format(context)),
                         style: GoogleFonts.quicksand(
                           fontWeight: FontWeight.bold,
-                          color: isDark
-                              ? Colors.white70
-                              : AppColors.textSecondary,
+                          color: isDark ? Colors.white70 : AppColors.textSecondary,
                         ),
                       ),
                       TextButton(
@@ -162,9 +110,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
                   const SizedBox(height: 8),
                   DropdownButton<String>(
                     value: selectedCategory,
-                    dropdownColor: isDark
-                        ? const Color(0xFF1E1C24)
-                        : Colors.white,
+                    dropdownColor: isDark ? const Color(0xFF1E1C24) : Colors.white,
                     style: GoogleFonts.quicksand(
                       color: isDark ? Colors.white : AppColors.text,
                       fontWeight: FontWeight.bold,
@@ -172,15 +118,9 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
                     underline: Container(height: 1, color: accentColor),
                     items: () {
                       final catLabels = <String, String>{
-                        'Journal': AppLocalizations.of(
-                          context,
-                        )!.calendarCatJournal,
-                        'Workout': AppLocalizations.of(
-                          context,
-                        )!.calendarCatWorkout,
-                        'Reflection': AppLocalizations.of(
-                          context,
-                        )!.calendarCatReflection,
+                        'Journal': AppLocalizations.of(context)!.calendarCatJournal,
+                        'Workout': AppLocalizations.of(context)!.calendarCatWorkout,
+                        'Reflection': AppLocalizations.of(context)!.calendarCatReflection,
                         'Other': AppLocalizations.of(context)!.calendarCatOther,
                       };
                       return catLabels.entries.map((e) {
@@ -219,7 +159,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
                       Color iconColor = accentColor;
                       if (selectedCategory == 'Journal') {
                         icon = Icons.edit_note_rounded;
-                        iconColor = const Color(0xFF7ED957);
+                        iconColor = const Color(0xFFFF9A3C);
                       } else if (selectedCategory == 'Workout') {
                         icon = Icons.fitness_center_rounded;
                         iconColor = const Color(0xFFA58BFF);
@@ -228,19 +168,17 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
                         iconColor = const Color(0xFF57C7D4);
                       }
 
-                      setState(() {
-                        if (!_eventsByDay.containsKey(_selectedDay)) {
-                          _eventsByDay[_selectedDay] = [];
-                        }
-                        _eventsByDay[_selectedDay]!.add(
-                          CalendarEvent(
-                            title: title,
-                            time: selectedTime.format(context),
-                            icon: icon,
-                            iconColor: iconColor,
-                          ),
-                        );
-                      });
+                      final newEvent = CalendarEvent(
+                        id: DateTime.now().millisecondsSinceEpoch.toString(),
+                        title: title,
+                        date: selectedDate,
+                        time: selectedTime.format(context),
+                        icon: icon,
+                        iconColor: iconColor,
+                        category: selectedCategory,
+                      );
+
+                      ref.read(calendarProvider.notifier).addEvent(newEvent);
                       Navigator.pop(context);
                     }
                   },
@@ -264,12 +202,268 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
     );
   }
 
+  void _showEditEventDialog(
+    BuildContext context,
+    WidgetRef ref,
+    Color accentColor,
+    bool isDark,
+    CalendarEvent event,
+  ) {
+    final titleController = TextEditingController(text: event.title);
+    String selectedCategory = event.category;
+
+    // Parse existing time string to TimeOfDay
+    TimeOfDay selectedTime = TimeOfDay.now();
+    try {
+      final formats = [
+        DateFormat.jm(), // e.g. "5:08 PM"
+        DateFormat.Hm(), // e.g. "17:08"
+      ];
+      for (final format in formats) {
+        try {
+          final dt = format.parse(event.time);
+          selectedTime = TimeOfDay(hour: dt.hour, minute: dt.minute);
+          break;
+        } catch (_) {}
+      }
+    } catch (_) {}
+
+    showDialog(
+      context: context,
+      builder: (context) {
+        return StatefulBuilder(
+          builder: (context, setDialogState) {
+            return AlertDialog(
+              backgroundColor: isDark ? const Color(0xFF1E1C24) : Colors.white,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(24),
+              ),
+              title: Text(
+                'Edit Event',
+                style: GoogleFonts.outfit(
+                  fontWeight: FontWeight.bold,
+                  color: isDark ? Colors.white : AppColors.text,
+                ),
+              ),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  TextField(
+                    controller: titleController,
+                    style: GoogleFonts.quicksand(
+                      color: isDark ? Colors.white : AppColors.text,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    decoration: InputDecoration(
+                      hintText: AppLocalizations.of(context)!.calendarEventTitleHint,
+                      hintStyle: GoogleFonts.quicksand(
+                        color: isDark ? Colors.white30 : AppColors.textTertiary,
+                      ),
+                      enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(
+                          color: isDark ? Colors.white24 : AppColors.lightCardBorder,
+                        ),
+                      ),
+                      focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: accentColor),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        AppLocalizations.of(context)!.calendarTimeLabel(selectedTime.format(context)),
+                        style: GoogleFonts.quicksand(
+                          fontWeight: FontWeight.bold,
+                          color: isDark ? Colors.white70 : AppColors.textSecondary,
+                        ),
+                      ),
+                      TextButton(
+                        onPressed: () async {
+                          final picked = await showTimePicker(
+                            context: context,
+                            initialTime: selectedTime,
+                          );
+                          if (picked != null) {
+                            setDialogState(() {
+                              selectedTime = picked;
+                            });
+                          }
+                        },
+                        child: Text(
+                          AppLocalizations.of(context)!.calendarSelectTime,
+                          style: TextStyle(
+                            color: accentColor,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 16),
+                  Text(
+                    AppLocalizations.of(context)!.calendarCategory,
+                    style: GoogleFonts.outfit(
+                      fontSize: 13,
+                      fontWeight: FontWeight.bold,
+                      color: isDark ? Colors.white60 : AppColors.textSecondary,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  DropdownButton<String>(
+                    value: selectedCategory,
+                    dropdownColor: isDark ? const Color(0xFF1E1C24) : Colors.white,
+                    style: GoogleFonts.quicksand(
+                      color: isDark ? Colors.white : AppColors.text,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    underline: Container(height: 1, color: accentColor),
+                    items: () {
+                      final catLabels = <String, String>{
+                        'Journal': AppLocalizations.of(context)!.calendarCatJournal,
+                        'Workout': AppLocalizations.of(context)!.calendarCatWorkout,
+                        'Reflection': AppLocalizations.of(context)!.calendarCatReflection,
+                        'Other': AppLocalizations.of(context)!.calendarCatOther,
+                      };
+                      return catLabels.entries.map((e) {
+                        return DropdownMenuItem<String>(
+                          value: e.key,
+                          child: Text(e.value),
+                        );
+                      }).toList();
+                    }(),
+                    onChanged: (val) {
+                      if (val != null) {
+                        setDialogState(() {
+                          selectedCategory = val;
+                        });
+                      }
+                    },
+                  ),
+                ],
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.pop(context),
+                  child: Text(
+                    AppLocalizations.of(context)!.calendarCancel,
+                    style: GoogleFonts.outfit(
+                      fontWeight: FontWeight.bold,
+                      color: isDark ? Colors.white54 : AppColors.textSecondary,
+                    ),
+                  ),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    final title = titleController.text.trim();
+                    if (title.isNotEmpty) {
+                      IconData icon = Icons.event_note_rounded;
+                      Color iconColor = accentColor;
+                      if (selectedCategory == 'Journal') {
+                        icon = Icons.edit_note_rounded;
+                        iconColor = const Color(0xFFFF9A3C);
+                      } else if (selectedCategory == 'Workout') {
+                        icon = Icons.fitness_center_rounded;
+                        iconColor = const Color(0xFFA58BFF);
+                      } else if (selectedCategory == 'Reflection') {
+                        icon = Icons.psychology_rounded;
+                        iconColor = const Color(0xFF57C7D4);
+                      }
+
+                      final updatedEvent = event.copyWith(
+                        title: title,
+                        time: selectedTime.format(context),
+                        icon: icon,
+                        iconColor: iconColor,
+                        category: selectedCategory,
+                      );
+
+                      ref.read(calendarProvider.notifier).updateEvent(updatedEvent);
+                      Navigator.pop(context);
+                    }
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: accentColor,
+                    foregroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                  ),
+                  child: Text(
+                    'Save',
+                    style: GoogleFonts.outfit(fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ],
+            );
+          },
+        );
+      },
+    );
+  }
+
+  void _showDeleteConfirmation(
+    BuildContext context,
+    WidgetRef ref,
+    Color accentColor,
+    bool isDark,
+    String eventId,
+  ) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          backgroundColor: isDark ? const Color(0xFF1E1C24) : Colors.white,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(24),
+          ),
+          title: Text(
+            'Delete this event?',
+            style: GoogleFonts.outfit(
+              fontWeight: FontWeight.bold,
+              color: isDark ? Colors.white : AppColors.text,
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: Text(
+                AppLocalizations.of(context)!.calendarCancel,
+                style: GoogleFonts.outfit(
+                  fontWeight: FontWeight.bold,
+                  color: isDark ? Colors.white54 : AppColors.textSecondary,
+                ),
+              ),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                ref.read(calendarProvider.notifier).deleteEvent(eventId);
+                Navigator.pop(context);
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.redAccent,
+                foregroundColor: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16),
+                ),
+              ),
+              child: const Text('Delete'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final calState = ref.watch(calendarProvider);
     final themeState = ref.watch(themeProvider);
     final isDark = themeState.isDarkMode;
     final accentColor = themeState.accentColor;
-    _ensureDefaultEvents(context);
 
     final l10n = AppLocalizations.of(context)!;
     final daysOfWeek = [
@@ -282,21 +476,28 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
       l10n.calendarSun,
     ];
 
-    // Simple mock June 2024 grid
-    // June 1st starts on a Saturday, so 5 empty spots
+    // Compute dynamic calendar days
+    final year = calState.displayedMonth.year;
+    final month = calState.displayedMonth.month;
+    final daysInMonth = DateUtils.getDaysInMonth(year, month);
+    final firstDayOfMonth = DateTime(year, month, 1);
+    
+    // Weekday is 1 (Mon) to 7 (Sun). Offset is space at front of calendar grid.
+    final firstDayOffset = firstDayOfMonth.weekday - 1;
+
     final gridDays = [
-      ...List.generate(5, (index) => 0),
-      ...List.generate(30, (index) => index + 1),
+      ...List.generate(firstDayOffset, (index) => 0),
+      ...List.generate(daysInMonth, (index) => index + 1),
     ];
 
-    final currentEvents = _eventsByDay[_selectedDay] ?? [];
+    // Read events for selected date
+    final selectedDateKey = calState.selectedDate;
+    final currentEvents = calState.eventsByDate[selectedDateKey] ?? [];
 
     return Scaffold(
       backgroundColor: isDark
           ? const Color(0xFF141318)
-          : (themeState.hasMoodSelected
-                ? themeState.moodTheme.background
-                : AppColors.lightBackground),
+          : (themeState.hasMoodSelected ? themeState.moodTheme.background : AppColors.lightBackground),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -328,21 +529,41 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
                 decoration: BoxDecoration(
                   color: isDark
                       ? const Color(0xFF1E1C24)
-                      : (themeState.hasMoodSelected
-                            ? themeState.moodTheme.cardColor
-                            : Colors.white),
+                      : (themeState.hasMoodSelected ? themeState.moodTheme.cardColor : Colors.white),
                   borderRadius: BorderRadius.circular(28),
                   border: Border.all(
                     color: isDark
                         ? const Color(0xFF2C2834)
-                        : (themeState.hasMoodSelected
-                              ? themeState.moodTheme.cardBorder
-                              : AppColors.lightCardBorder),
+                        : (themeState.hasMoodSelected ? themeState.moodTheme.cardBorder : AppColors.lightCardBorder),
                     width: 1.5,
                   ),
                 ),
                 child: Column(
                   children: [
+                    // Month & Year selector navigation row
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        IconButton(
+                          onPressed: () => ref.read(calendarProvider.notifier).navigateMonth(-1),
+                          icon: Icon(Icons.chevron_left_rounded, color: accentColor),
+                        ),
+                        Text(
+                          DateFormat.yMMMM(Localizations.localeOf(context).toString()).format(calState.displayedMonth),
+                          style: GoogleFonts.outfit(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: isDark ? Colors.white : AppColors.text,
+                          ),
+                        ),
+                        IconButton(
+                          onPressed: () => ref.read(calendarProvider.notifier).navigateMonth(1),
+                          icon: Icon(Icons.chevron_right_rounded, color: accentColor),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 16),
+
                     // Days of week header row
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -354,9 +575,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
                               style: GoogleFonts.outfit(
                                 fontSize: 12,
                                 fontWeight: FontWeight.bold,
-                                color: isDark
-                                    ? Colors.white30
-                                    : AppColors.textTertiary,
+                                color: isDark ? Colors.white30 : AppColors.textTertiary,
                               ),
                             ),
                           ),
@@ -370,54 +589,83 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
                       itemCount: gridDays.length,
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 7,
-                            mainAxisSpacing: 10,
-                            crossAxisSpacing: 10,
-                            childAspectRatio: 1,
-                          ),
+                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 7,
+                        mainAxisSpacing: 10,
+                        crossAxisSpacing: 10,
+                        childAspectRatio: 1,
+                      ),
                       itemBuilder: (context, index) {
                         final dayValue = gridDays[index];
                         if (dayValue == 0) return const SizedBox.shrink();
 
-                        final isSelected = dayValue == _selectedDay;
+                        final dayDate = DateTime(year, month, dayValue);
+                        final isSelected = dayDate.year == calState.selectedDate.year &&
+                            dayDate.month == calState.selectedDate.month &&
+                            dayDate.day == calState.selectedDate.day;
+
+                        final now = DateTime.now();
+                        final isToday = dayDate.year == now.year &&
+                            dayDate.month == now.month &&
+                            dayDate.day == now.day;
+
+                        final hasEvents = calState.eventsByDate.containsKey(dayDate) &&
+                            calState.eventsByDate[dayDate]!.isNotEmpty;
 
                         return Center(
                           child: GestureDetector(
                             onTap: () {
-                              setState(() {
-                                _selectedDay = dayValue;
-                              });
+                              ref.read(calendarProvider.notifier).selectDate(dayDate);
                             },
                             child: AnimatedContainer(
                               duration: const Duration(milliseconds: 200),
                               width: 36,
                               height: 36,
                               decoration: BoxDecoration(
-                                color: isSelected
-                                    ? accentColor
-                                    : Colors.transparent,
+                                color: isSelected ? accentColor : Colors.transparent,
                                 shape: BoxShape.circle,
-                                border: isSelected
+                                border: isToday && !isSelected
                                     ? Border.all(
-                                        color: Colors.white,
+                                        color: accentColor.withValues(alpha: 0.5),
                                         width: 1.5,
                                       )
-                                    : null,
+                                    : (isSelected
+                                        ? Border.all(
+                                            color: Colors.white,
+                                            width: 1.5,
+                                          )
+                                        : null),
                               ),
                               alignment: Alignment.center,
-                              child: Text(
-                                dayValue.toString(),
-                                style: GoogleFonts.quicksand(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold,
-                                  color: isSelected
-                                      ? Colors.white
-                                      : (isDark
+                              child: Stack(
+                                alignment: Alignment.center,
+                                children: [
+                                  Positioned(
+                                    top: 4,
+                                    child: Text(
+                                      dayValue.toString(),
+                                      style: GoogleFonts.quicksand(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.bold,
+                                        color: isSelected
                                             ? Colors.white
-                                            : AppColors.text),
-                                ),
+                                            : (isDark ? Colors.white : AppColors.text),
+                                      ),
+                                    ),
+                                  ),
+                                  if (hasEvents)
+                                    Positioned(
+                                      bottom: 4,
+                                      child: Container(
+                                        width: 4,
+                                        height: 4,
+                                        decoration: BoxDecoration(
+                                          color: isSelected ? Colors.white : accentColor,
+                                          shape: BoxShape.circle,
+                                        ),
+                                      ),
+                                    ),
+                                ],
                               ),
                             ),
                           ),
@@ -431,7 +679,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
 
               // Events Section Title
               Text(
-                l10n.calendarTodayLabel(_selectedDay.toString()),
+                l10n.calendarTodayLabel(selectedDateKey.day.toString()),
                 style: GoogleFonts.outfit(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
@@ -446,16 +694,12 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
                   decoration: BoxDecoration(
                     color: isDark
                         ? const Color(0xFF1E1C24)
-                        : (themeState.hasMoodSelected
-                              ? themeState.moodTheme.cardColor
-                              : Colors.white),
+                        : (themeState.hasMoodSelected ? themeState.moodTheme.cardColor : Colors.white),
                     borderRadius: BorderRadius.circular(28),
                     border: Border.all(
                       color: isDark
                           ? const Color(0xFF2C2834)
-                          : (themeState.hasMoodSelected
-                                ? themeState.moodTheme.cardBorder
-                                : AppColors.lightCardBorder),
+                          : (themeState.hasMoodSelected ? themeState.moodTheme.cardBorder : AppColors.lightCardBorder),
                       width: 1.5,
                     ),
                   ),
@@ -467,9 +711,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
                       height: 1.5,
                       color: isDark
                           ? const Color(0xFF2C2834)
-                          : (themeState.hasMoodSelected
-                                ? themeState.moodTheme.cardBorder
-                                : AppColors.lightCardBorder),
+                          : (themeState.hasMoodSelected ? themeState.moodTheme.cardBorder : AppColors.lightCardBorder),
                       indent: 20,
                       endIndent: 20,
                     ),
@@ -495,38 +737,44 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
                             fontWeight: FontWeight.bold,
                             fontSize: 14,
                             color: isDark ? Colors.white : AppColors.text,
-                            decoration: ev.isCompleted
-                                ? TextDecoration.lineThrough
-                                : null,
+                            decoration: ev.isCompleted ? TextDecoration.lineThrough : null,
                           ),
                         ),
                         subtitle: Text(
                           ev.time,
                           style: GoogleFonts.quicksand(
                             fontSize: 11,
-                            color: isDark
-                                ? Colors.white60
-                                : AppColors.textSecondary,
+                            color: isDark ? Colors.white60 : AppColors.textSecondary,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        trailing: GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              ev.isCompleted = !ev.isCompleted;
-                            });
-                          },
-                          child: Icon(
-                            ev.isCompleted
-                                ? Icons.check_circle_rounded
-                                : Icons.radio_button_unchecked_rounded,
-                            color: ev.isCompleted
-                                ? accentColor
-                                : (isDark
-                                      ? Colors.white30
-                                      : AppColors.textTertiary),
-                            size: 20,
-                          ),
+                        trailing: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            IconButton(
+                              icon: Icon(Icons.edit_outlined, color: isDark ? Colors.white60 : AppColors.textSecondary, size: 18),
+                              onPressed: () => _showEditEventDialog(context, ref, accentColor, isDark, ev),
+                            ),
+                            IconButton(
+                              icon: const Icon(Icons.delete_outline_rounded, color: Colors.redAccent, size: 18),
+                              onPressed: () => _showDeleteConfirmation(context, ref, accentColor, isDark, ev.id),
+                            ),
+                            const SizedBox(width: 4),
+                            GestureDetector(
+                              onTap: () {
+                                ref.read(calendarProvider.notifier).toggleComplete(ev.id);
+                              },
+                              child: Icon(
+                                ev.isCompleted
+                                    ? Icons.check_circle_rounded
+                                    : Icons.radio_button_unchecked_rounded,
+                                color: ev.isCompleted
+                                    ? accentColor
+                                    : (isDark ? Colors.white30 : AppColors.textTertiary),
+                                size: 20,
+                              ),
+                            ),
+                          ],
                         ),
                       );
                     },
@@ -535,23 +783,16 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
               else
                 Container(
                   width: double.infinity,
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 36,
-                    horizontal: 20,
-                  ),
+                  padding: const EdgeInsets.symmetric(vertical: 36, horizontal: 20),
                   decoration: BoxDecoration(
                     color: isDark
                         ? const Color(0xFF1E1C24)
-                        : (themeState.hasMoodSelected
-                              ? themeState.moodTheme.cardColor
-                              : Colors.white),
+                        : (themeState.hasMoodSelected ? themeState.moodTheme.cardColor : Colors.white),
                     borderRadius: BorderRadius.circular(28),
                     border: Border.all(
                       color: isDark
                           ? const Color(0xFF2C2834)
-                          : (themeState.hasMoodSelected
-                                ? themeState.moodTheme.cardBorder
-                                : AppColors.lightCardBorder),
+                          : (themeState.hasMoodSelected ? themeState.moodTheme.cardBorder : AppColors.lightCardBorder),
                       width: 1.5,
                     ),
                   ),
@@ -568,9 +809,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
                         style: GoogleFonts.quicksand(
                           fontSize: 14,
                           fontWeight: FontWeight.bold,
-                          color: isDark
-                              ? Colors.white60
-                              : AppColors.textSecondary,
+                          color: isDark ? Colors.white60 : AppColors.textSecondary,
                         ),
                         textAlign: TextAlign.center,
                       ),
@@ -582,7 +821,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => _showAddEventDialog(context, accentColor, isDark),
+        onPressed: () => _showAddEventDialog(context, ref, accentColor, isDark, selectedDateKey),
         backgroundColor: accentColor,
         child: const Icon(Icons.add_rounded, color: Colors.white),
       ),

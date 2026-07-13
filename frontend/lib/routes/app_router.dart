@@ -19,13 +19,18 @@ import '../features/home/calendar_screen.dart';
 import '../features/journal/presentation/create_journal_screen.dart';
 import '../features/auth/onboarding_screen.dart';
 import '../features/mood/presentation/mood_selection_screen.dart';
+import '../features/profile/presentation/choose_plan_screen.dart';
+import '../features/profile/presentation/purchase_summary_screen.dart';
+import '../features/profile/presentation/payment_screen.dart';
+import '../features/profile/presentation/payment_processing_screen.dart';
+import '../features/profile/presentation/payment_success_screen.dart';
 
 final appRouter = GoRouter(
   initialLocation: '/',
   routes: [
     ShellRoute(
       builder: (context, state, child) {
-        return ResponsiveLayoutWrapper(child: child);
+        return ResponsiveLayoutWrapper(usePhoneFrame: true, child: child);
       },
       routes: [
         GoRoute(
@@ -59,20 +64,9 @@ final appRouter = GoRouter(
           builder: (context, state) => const HomeScreen(),
         ),
         GoRoute(
-          path: '/chat',
-          name: 'chat',
-          builder: (context, state) =>
-              ChatScreen(documentContext: state.extra as String?),
-        ),
-        GoRoute(
           path: '/voice',
           name: 'voice',
           builder: (context, state) => const VoiceAssistantScreen(),
-        ),
-        GoRoute(
-          path: '/vision',
-          name: 'vision',
-          builder: (context, state) => const VisionAnalysisScreen(),
         ),
         GoRoute(
           path: '/profile',
@@ -83,6 +77,54 @@ final appRouter = GoRouter(
           path: '/billing',
           name: 'billing',
           builder: (context, state) => const BillingScreen(),
+        ),
+        GoRoute(
+          path: '/choose-plan',
+          name: 'choose-plan',
+          builder: (context, state) => const ChoosePlanScreen(),
+        ),
+        GoRoute(
+          path: '/purchase-summary',
+          name: 'purchase-summary',
+          builder: (context, state) {
+            final extra = state.extra as Map<String, dynamic>;
+            return PurchaseSummaryScreen(
+              plan: extra['plan'] as String,
+              price: extra['price'] as double,
+            );
+          },
+        ),
+        GoRoute(
+          path: '/payment',
+          name: 'payment',
+          builder: (context, state) {
+            final extra = state.extra as Map<String, dynamic>;
+            return PaymentScreen(
+              plan: extra['plan'] as String,
+              price: extra['price'] as double,
+            );
+          },
+        ),
+        GoRoute(
+          path: '/payment-processing',
+          name: 'payment-processing',
+          builder: (context, state) {
+            final extra = state.extra as Map<String, dynamic>;
+            return PaymentProcessingScreen(
+              plan: extra['plan'] as String,
+              paymentMethod: extra['paymentMethod'] as String,
+            );
+          },
+        ),
+        GoRoute(
+          path: '/payment-success',
+          name: 'payment-success',
+          builder: (context, state) {
+            final extra = state.extra as Map<String, dynamic>;
+            return PaymentSuccessScreen(
+              plan: extra['plan'] as String,
+            );
+          },
         ),
         GoRoute(
           path: '/settings',
@@ -130,6 +172,24 @@ final appRouter = GoRouter(
           path: '/mood-selection',
           name: 'mood-selection',
           builder: (context, state) => const MoodSelectionScreen(),
+        ),
+      ],
+    ),
+    ShellRoute(
+      builder: (context, state, child) {
+        return ResponsiveLayoutWrapper(usePhoneFrame: false, child: child);
+      },
+      routes: [
+        GoRoute(
+          path: '/chat',
+          name: 'chat',
+          builder: (context, state) =>
+              ChatScreen(documentContext: state.extra as String?),
+        ),
+        GoRoute(
+          path: '/vision',
+          name: 'vision',
+          builder: (context, state) => const VisionAnalysisScreen(),
         ),
       ],
     ),

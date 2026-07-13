@@ -1,11 +1,15 @@
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:go_router/go_router.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:file_picker/file_picker.dart';
 import '../../core/constants/app_colors.dart';
 import '../../core/theme/theme_provider.dart';
 import '../../core/widgets/primary_button.dart';
 import '../../core/localization/generated/app_localizations.dart';
+import 'file_provider.dart';
 import 'widgets/ask_your_files/knowledge_orb.dart';
 import 'widgets/ask_your_files/ask_files_bar.dart';
 import 'widgets/ask_your_files/quick_question_card.dart';
@@ -23,14 +27,6 @@ class DocumentsScreen extends ConsumerStatefulWidget {
 }
 
 class _DocumentsScreenState extends ConsumerState<DocumentsScreen> {
-  // Local list state for files so user can interactively delete or add new mock files!
-  final List<Map<String, dynamic>> _documents = [
-    {'name': 'Project Roadmap.pdf', 'size': '2.4 MB', 'type': 'PDF'},
-    {'name': 'Flutter Guide.docx', 'size': '1.1 MB', 'type': 'DOCX'},
-    {'name': 'Notes.txt', 'size': '320 KB', 'type': 'TXT'},
-    {'name': 'Design Ideas.pdf', 'size': '1.8 MB', 'type': 'PDF'},
-  ];
-
   // Track selection state
   final Set<String> _selectedFileNames = {};
 
@@ -40,6 +36,8 @@ class _DocumentsScreenState extends ConsumerState<DocumentsScreen> {
 
   // Upload simulation state
   String? _uploadingFileName;
+  String _uploadingFileSize = '1.5 MB';
+  String _uploadingFileType = 'PDF';
 
   void _showUploadSourceSheet() {
     showModalBottomSheet(
@@ -49,23 +47,97 @@ class _DocumentsScreenState extends ConsumerState<DocumentsScreen> {
         return UploadSourceSheet(
           onSourceSelected: (source) {
             Navigator.pop(context);
-            setState(() {
-              _uploadingFileName = 'Uploaded Doc_${_documents.length + 1}.pdf';
-            });
+            _pickDocument(source);
           },
         );
       },
     );
   }
 
+  Future<void> _pickDocument(String source) async {
+    if (source == 'File') {
+      try {
+        final result = await FilePicker.platform.pickFiles(
+          type: FileType.custom,
+          allowedExtensions: ['pdf', 'doc', 'docx', 'txt', 'png', 'jpg', 'jpeg'],
+        );
+        if (!mounted) return;
+        if (result != null && result.files.single.name.isNotEmpty) {
+          final file = result.files.single;
+          String sizeStr = '1.0 MB';
+          if (file.size > 0) {
+            final kb = file.size / 1024;
+            if (kb > 1024) {
+              sizeStr = '${(kb / 1024).toStringAsFixed(1)} MB';
+            } else {
+              sizeStr = '${kb.toStringAsFixed(0)} KB';
+            }
+          }
+          setState(() {
+            _uploadingFileName = file.name;
+            _uploadingFileSize = sizeStr;
+            _uploadingFileType = file.extension?.toUpperCase() ?? 'FILE';
+          });
+        }
+      } catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Error selecting file: $e')),
+        );
+      }
+    } else if (source == 'Camera') {
+      if (kIsWeb) {
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+            title: const Text('Camera Unavailable'),
+            content: const Text('Camera scan is not supported on web browsers in this environment. Please upload a photo from your gallery instead.'),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: const Text('OK'),
+              ),
+            ],
+          ),
+        );
+        return;
+      }
+      try {
+        final picker = ImagePicker();
+        final picked = await picker.pickImage(source: ImageSource.camera);
+        if (!mounted) return;
+        if (picked != null) {
+          setState(() {
+            _uploadingFileName = 'Camera Scan_${DateTime.now().millisecondsSinceEpoch}.jpg';
+            _uploadingFileSize = '850 KB';
+            _uploadingFileType = 'JPG';
+          });
+        }
+      } catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Error capturing scan: $e')),
+        );
+      }
+    } else if (source == 'Drive') {
+      // Simulate Drive import
+      setState(() {
+        _uploadingFileName = 'Imported Project Docs.pdf';
+        _uploadingFileSize = '4.1 MB';
+        _uploadingFileType = 'PDF';
+      });
+    }
+  }
+
   void _onUploadComplete() {
     if (_uploadingFileName != null) {
+      final newFile = UploadedFile(
+        id: DateTime.now().millisecondsSinceEpoch.toString(),
+        name: _uploadingFileName!,
+        size: _uploadingFileSize,
+        type: _uploadingFileType,
+      );
+      ref.read(fileProvider.notifier).addFile(newFile);
       setState(() {
-        _documents.add({
-          'name': _uploadingFileName!,
-          'size': '1.5 MB',
-          'type': 'PDF',
-        });
         _uploadingFileName = null;
       });
       ScaffoldMessenger.of(context).showSnackBar(
@@ -78,19 +150,28 @@ class _DocumentsScreenState extends ConsumerState<DocumentsScreen> {
   }
 
   void _deleteDocument(String name) {
-    setState(() {
-      _documents.removeWhere((doc) => doc['name'] == name);
-      _selectedFileNames.remove(name);
-    });
-    ScaffoldMessenger.of(
-      context,
-    ).showSnackBar(SnackBar(content: Text('Removed "$name" from workspace.')));
+    try {
+      final fileState = ref.read(fileProvider);
+      final file = fileState.files.firstWhere((f) => f.name == name);
+      ref.read(fileProvider.notifier).removeFile(file.id);
+      setState(() {
+        _selectedFileNames.remove(name);
+      });
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Removed "$name" from workspace.')),
+      );
+    } catch (_) {}
   }
 
   void _deleteSelectedDocuments() {
+    final fileState = ref.read(fileProvider);
+    final idsToDelete = fileState.files
+        .where((f) => _selectedFileNames.contains(f.name))
+        .map((f) => f.id)
+        .toList();
+    ref.read(fileProvider.notifier).removeMultipleFiles(idsToDelete);
     final count = _selectedFileNames.length;
     setState(() {
-      _documents.removeWhere((doc) => _selectedFileNames.contains(doc['name']));
       _selectedFileNames.clear();
     });
     ScaffoldMessenger.of(context).showSnackBar(
@@ -100,22 +181,21 @@ class _DocumentsScreenState extends ConsumerState<DocumentsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final fileState = ref.watch(fileProvider);
     final themeState = ref.watch(themeProvider);
     final isDark = themeState.isDarkMode;
     final accentColor = themeState.accentColor;
 
     // Filter documents based on query
-    final filteredDocs = _documents.where((doc) {
-      final name = (doc['name'] as String).toLowerCase();
+    final filteredDocs = fileState.files.where((doc) {
+      final name = doc.name.toLowerCase();
       return name.contains(_searchQuery.toLowerCase());
     }).toList();
 
     return Scaffold(
       backgroundColor: isDark
           ? const Color(0xFF141318)
-          : (themeState.hasMoodSelected
-                ? themeState.moodTheme.background
-                : AppColors.lightBackground),
+          : (themeState.hasMoodSelected ? themeState.moodTheme.background : AppColors.lightBackground),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -137,9 +217,7 @@ class _DocumentsScreenState extends ConsumerState<DocumentsScreen> {
                 decoration: InputDecoration(
                   hintText: 'Search files...',
                   hintStyle: TextStyle(
-                    color: isDark
-                        ? Colors.white30
-                        : AppColors.lightTextTertiary,
+                    color: isDark ? Colors.white30 : AppColors.lightTextTertiary,
                   ),
                   border: InputBorder.none,
                 ),
@@ -158,7 +236,6 @@ class _DocumentsScreenState extends ConsumerState<DocumentsScreen> {
               ),
         centerTitle: true,
         actions: [
-          // Search toggle icon
           IconButton(
             icon: Icon(
               _isSearching ? Icons.close_rounded : Icons.search_rounded,
@@ -173,8 +250,6 @@ class _DocumentsScreenState extends ConsumerState<DocumentsScreen> {
               });
             },
           ),
-
-          // Contextual More Menu Actions
           PopupMenuButton<String>(
             icon: Icon(
               Icons.more_vert_rounded,
@@ -188,7 +263,7 @@ class _DocumentsScreenState extends ConsumerState<DocumentsScreen> {
               if (val == 'select') {
                 setState(() {
                   _selectedFileNames.addAll(
-                    _documents.map((d) => d['name'] as String),
+                    fileState.files.map((d) => d.name),
                   );
                 });
               } else {
@@ -208,25 +283,19 @@ class _DocumentsScreenState extends ConsumerState<DocumentsScreen> {
       body: SafeArea(
         child: Stack(
           children: [
-            _documents.isEmpty && _uploadingFileName == null
+            fileState.files.isEmpty && _uploadingFileName == null
                 ? DocumentEmptyState(onAddFilesPressed: _showUploadSourceSheet)
                 : SingleChildScrollView(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 24,
-                      vertical: 10,
-                    ),
+                    padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        // 1. Knowledge Orb Hero
                         KnowledgeOrb(
-                          documentCount: _documents.length,
+                          documentCount: fileState.files.length,
                           selectedCount: _selectedFileNames.length,
                           isAnalyzing: _uploadingFileName != null,
                         ),
                         const SizedBox(height: 24),
-
-                        // 2. Upload Progress Card (Simulated Phase Loader)
                         if (_uploadingFileName != null) ...[
                           UploadProgressCard(
                             fileName: _uploadingFileName!,
@@ -234,27 +303,21 @@ class _DocumentsScreenState extends ConsumerState<DocumentsScreen> {
                           ),
                           const SizedBox(height: 24),
                         ],
-
-                        // 3. Primary Ask Bar
                         AskFilesBar(
                           selectedCount: _selectedFileNames.length,
-                          hasDocuments: _documents.isNotEmpty,
+                          hasDocuments: fileState.files.isNotEmpty,
                           onUploadPressed: _showUploadSourceSheet,
                           onSubmit: (text) {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
                                 content: Text(
-                                  AppLocalizations.of(
-                                    context,
-                                  )!.documentsMockAskedSnackbar(text),
+                                  AppLocalizations.of(context)!.documentsMockAskedSnackbar(text),
                                 ),
                               ),
                             );
                           },
                         ),
                         const SizedBox(height: 28),
-
-                        // 4. Quick Suggestions Section
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -263,9 +326,7 @@ class _DocumentsScreenState extends ConsumerState<DocumentsScreen> {
                               style: GoogleFonts.outfit(
                                 fontSize: 15,
                                 fontWeight: FontWeight.bold,
-                                color: isDark
-                                    ? Colors.white70
-                                    : AppColors.lightTextSecondary,
+                                color: isDark ? Colors.white70 : AppColors.lightTextSecondary,
                               ),
                             ),
                           ],
@@ -278,20 +339,14 @@ class _DocumentsScreenState extends ConsumerState<DocumentsScreen> {
                             physics: const BouncingScrollPhysics(),
                             children: [
                               QuickQuestionCard(
-                                label: AppLocalizations.of(
-                                  context,
-                                )!.documentsSuggestionSummarize,
+                                label: AppLocalizations.of(context)!.documentsSuggestionSummarize,
                                 icon: Icons.notes_rounded,
                                 onTap: () {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
                                       content: Text(
-                                        AppLocalizations.of(
-                                          context,
-                                        )!.documentsMockAskedSnackbar(
-                                          AppLocalizations.of(
-                                            context,
-                                          )!.documentsSuggestionSummarize,
+                                        AppLocalizations.of(context)!.documentsMockAskedSnackbar(
+                                          AppLocalizations.of(context)!.documentsSuggestionSummarize,
                                         ),
                                       ),
                                     ),
@@ -300,20 +355,14 @@ class _DocumentsScreenState extends ConsumerState<DocumentsScreen> {
                               ),
                               const SizedBox(width: 12),
                               QuickQuestionCard(
-                                label: AppLocalizations.of(
-                                  context,
-                                )!.documentsSuggestionDeadlines,
+                                label: AppLocalizations.of(context)!.documentsSuggestionDeadlines,
                                 icon: Icons.access_time_rounded,
                                 onTap: () {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
                                       content: Text(
-                                        AppLocalizations.of(
-                                          context,
-                                        )!.documentsMockAskedSnackbar(
-                                          AppLocalizations.of(
-                                            context,
-                                          )!.documentsSuggestionDeadlines,
+                                        AppLocalizations.of(context)!.documentsMockAskedSnackbar(
+                                          AppLocalizations.of(context)!.documentsSuggestionDeadlines,
                                         ),
                                       ),
                                     ),
@@ -322,20 +371,14 @@ class _DocumentsScreenState extends ConsumerState<DocumentsScreen> {
                               ),
                               const SizedBox(width: 12),
                               QuickQuestionCard(
-                                label: AppLocalizations.of(
-                                  context,
-                                )!.documentsSuggestionMainIdeas,
+                                label: AppLocalizations.of(context)!.documentsSuggestionMainIdeas,
                                 icon: Icons.lightbulb_outline_rounded,
                                 onTap: () {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
                                       content: Text(
-                                        AppLocalizations.of(
-                                          context,
-                                        )!.documentsMockAskedSnackbar(
-                                          AppLocalizations.of(
-                                            context,
-                                          )!.documentsSuggestionMainIdeas,
+                                        AppLocalizations.of(context)!.documentsMockAskedSnackbar(
+                                          AppLocalizations.of(context)!.documentsSuggestionMainIdeas,
                                         ),
                                       ),
                                     ),
@@ -344,20 +387,14 @@ class _DocumentsScreenState extends ConsumerState<DocumentsScreen> {
                               ),
                               const SizedBox(width: 12),
                               QuickQuestionCard(
-                                label: AppLocalizations.of(
-                                  context,
-                                )!.documentsSuggestionActionItems,
+                                label: AppLocalizations.of(context)!.documentsSuggestionActionItems,
                                 icon: Icons.track_changes_rounded,
                                 onTap: () {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
                                       content: Text(
-                                        AppLocalizations.of(
-                                          context,
-                                        )!.documentsMockAskedSnackbar(
-                                          AppLocalizations.of(
-                                            context,
-                                          )!.documentsSuggestionActionItems,
+                                        AppLocalizations.of(context)!.documentsMockAskedSnackbar(
+                                          AppLocalizations.of(context)!.documentsSuggestionActionItems,
                                         ),
                                       ),
                                     ),
@@ -368,22 +405,16 @@ class _DocumentsScreenState extends ConsumerState<DocumentsScreen> {
                           ),
                         ),
                         const SizedBox(height: 28),
-
-                        // 5. Document Library Cards List
-                        if (_documents.isNotEmpty) ...[
+                        if (fileState.files.isNotEmpty) ...[
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                AppLocalizations.of(
-                                  context,
-                                )!.documentsYourKnowledge,
+                                AppLocalizations.of(context)!.documentsYourKnowledge,
                                 style: GoogleFonts.outfit(
                                   fontSize: 15,
                                   fontWeight: FontWeight.bold,
-                                  color: isDark
-                                      ? Colors.white70
-                                      : AppColors.lightTextSecondary,
+                                  color: isDark ? Colors.white70 : AppColors.lightTextSecondary,
                                 ),
                               ),
                               TextButton(
@@ -401,10 +432,8 @@ class _DocumentsScreenState extends ConsumerState<DocumentsScreen> {
                           ),
                           const SizedBox(height: 8),
                           ...filteredDocs.map((doc) {
-                            final docName = doc['name'] as String;
-                            final isSelected = _selectedFileNames.contains(
-                              docName,
-                            );
+                            final docName = doc.name;
+                            final isSelected = _selectedFileNames.contains(docName);
                             return Padding(
                               padding: const EdgeInsets.only(bottom: 12.0),
                               child: GestureDetector(
@@ -419,16 +448,16 @@ class _DocumentsScreenState extends ConsumerState<DocumentsScreen> {
                                 },
                                 child: AuraDocumentCard(
                                   name: docName,
-                                  size: doc['size'] as String,
-                                  type: doc['type'] as String,
+                                  size: doc.size,
+                                  type: doc.type,
                                   isSelected: isSelected,
                                   onTap: () {
                                     context.push(
                                       '/document-detail',
                                       extra: {
                                         'name': docName,
-                                        'size': doc['size'] as String,
-                                        'type': doc['type'] as String,
+                                        'size': doc.size,
+                                        'type': doc.type,
                                       },
                                     );
                                   },
@@ -437,11 +466,7 @@ class _DocumentsScreenState extends ConsumerState<DocumentsScreen> {
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
                                         content: Text(
-                                          AppLocalizations.of(
-                                            context,
-                                          )!.documentsMockAskingSnackbar(
-                                            docName,
-                                          ),
+                                          AppLocalizations.of(context)!.documentsMockAskingSnackbar(docName),
                                         ),
                                       ),
                                     );
@@ -455,8 +480,6 @@ class _DocumentsScreenState extends ConsumerState<DocumentsScreen> {
                       ],
                     ),
                   ),
-
-            // 6. Document Selection Action Bar (Displays floating at bottom overlay)
             Positioned(
               left: 0,
               right: 0,
@@ -475,7 +498,7 @@ class _DocumentsScreenState extends ConsumerState<DocumentsScreen> {
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: _documents.isEmpty || _selectedFileNames.isNotEmpty
+      floatingActionButton: fileState.files.isEmpty || _selectedFileNames.isNotEmpty
           ? null
           : Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24),

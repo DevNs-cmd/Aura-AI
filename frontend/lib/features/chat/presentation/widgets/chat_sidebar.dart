@@ -94,6 +94,18 @@ class ChatSidebar extends ConsumerWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
+          if (isDrawer)
+            Align(
+              alignment: Alignment.topRight,
+              child: Padding(
+                padding: const EdgeInsets.only(top: 8.0, right: 8.0),
+                child: IconButton(
+                  icon: const Icon(Icons.close_rounded),
+                  onPressed: () => Navigator.pop(context),
+                  color: isDark ? Colors.white70 : AppColors.textSecondary,
+                ),
+              ),
+            ),
           // 1. Sidebar Header with "New Chat" Action
           Padding(
             padding: const EdgeInsets.all(16.0),

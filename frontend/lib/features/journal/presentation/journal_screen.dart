@@ -580,16 +580,21 @@ class _JournalScreenState extends ConsumerState<JournalScreen> {
                       const SizedBox(height: 16),
                   itemBuilder: (context, index) {
                     final entry = filteredEntries[index];
-                    return JournalCard(
-                      entry: entry,
-                      onTap: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                JournalDetailScreen(entry: entry),
-                          ),
-                        );
-                      },
+                    return GestureDetector(
+                      onLongPress: () => _showDeleteConfirmationDialog(context, entry.id),
+                      child: JournalCard(
+                        entry: entry,
+                        onTap: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  JournalDetailScreen(entry: entry),
+                            ),
+                          ).then((_) {
+                            if (mounted) setState(() {});
+                          });
+                        },
+                      ),
                     );
                   },
                 ),
@@ -605,6 +610,54 @@ class _JournalScreenState extends ConsumerState<JournalScreen> {
           text: AppLocalizations.of(context)!.journalCreateNew,
           onPressed: () => context.push('/create-journal'),
         ),
+      ),
+    );
+  }
+
+  void _showDeleteConfirmationDialog(BuildContext context, String entryId) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    showDialog(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        backgroundColor: isDark ? const Color(0xFF1E1C24) : Colors.white,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+        title: Text(
+          'Delete Journal',
+          style: GoogleFonts.outfit(fontWeight: FontWeight.bold),
+        ),
+        content: Text(
+          'Are you sure you want to delete this journal entry? This action cannot be undone.',
+          style: GoogleFonts.quicksand(fontWeight: FontWeight.bold),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext),
+            child: Text(
+              'Cancel',
+              style: GoogleFonts.outfit(fontWeight: FontWeight.bold),
+            ),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              ref.read(journalProvider.notifier).deleteEntry(entryId);
+              Navigator.pop(dialogContext);
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text('Journal entry deleted')),
+              );
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.redAccent,
+              foregroundColor: Colors.white,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
+              ),
+            ),
+            child: Text(
+              'Delete',
+              style: GoogleFonts.outfit(fontWeight: FontWeight.bold),
+            ),
+          ),
+        ],
       ),
     );
   }

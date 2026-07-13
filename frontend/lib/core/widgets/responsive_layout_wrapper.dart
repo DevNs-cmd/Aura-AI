@@ -3,8 +3,13 @@ import '../constants/app_colors.dart';
 
 class ResponsiveLayoutWrapper extends StatelessWidget {
   final Widget child;
+  final bool usePhoneFrame;
 
-  const ResponsiveLayoutWrapper({super.key, required this.child});
+  const ResponsiveLayoutWrapper({
+    super.key,
+    required this.child,
+    this.usePhoneFrame = true,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +17,7 @@ class ResponsiveLayoutWrapper extends StatelessWidget {
     final screenWidth = mediaQuery.size.width;
     final isDesktop = screenWidth > 600;
 
-    if (!isDesktop) {
+    if (!isDesktop || !usePhoneFrame) {
       return child;
     }
 
