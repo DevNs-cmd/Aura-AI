@@ -3,7 +3,9 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 class Settings(BaseSettings):
     # Database
-    DATABASE_URL: str = "postgresql://postgres:password@localhost:5432/aura_ai"
+    DATABASE_URL: str = "postgresql://aura_user:aura_db_ai_pass@localhost:5432/aura_ai"
+
+
 
     # Redis
     REDIS_URL: str = "redis://localhost:6379/0"
@@ -33,8 +35,9 @@ class Settings(BaseSettings):
     FRONTEND_URL: str = "http://localhost:5173"
 
     model_config = SettingsConfigDict(
-        env_file=".env",
+        env_file=None,
         extra="ignore",
+        case_sensitive=False,
     )
 
 

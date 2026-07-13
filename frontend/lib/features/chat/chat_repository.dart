@@ -1,10 +1,144 @@
 import 'dart:async';
+import 'package:dio/dio.dart';
 import '../../models/chat_message.dart';
+import '../../core/network/api_config.dart';
+import '../../core/network/auth_session_store.dart';
 
 abstract class ChatRepository {
   List<ChatMessage> getInitialMessages();
   Future<ChatMessage> sendUserMessage(String content, {String? imageUrl});
   Future<ChatMessage> getAIResponse(List<ChatMessage> conversationHistory);
+}
+
+class HttpChatRepository implements ChatRepository {
+  HttpChatRepository({Dio? dio, AuthSessionStore? sessionStore})
+      : _sessionStore = sessionStore ?? AuthSessionStore(),
+        _dio = dio ??
+            Dio(
+              BaseOptions(
+                baseUrl: ApiConfig.nestBaseUrl,
+                connectTimeout: ApiConfig.requestTimeout,
+                receiveTimeout: ApiConfig.requestTimeout,
+                sendTimeout: ApiConfig.requestTimeout,
+                headers: const {'Content-Type': 'application/json'},
+              ),
+            );
+
+  final Dio _dio;
+  final AuthSessionStore _sessionStore;
+
+  @override
+  List<ChatMessage> getInitialMessages() => <ChatMessage>[];
+
+  @override
+  Future<ChatMessage> sendUserMessage(
+    String content, {
+    String? imageUrl,
+  }) async {
+    return ChatMessage(
+      id: 'msg-user-${DateTime.now().millisecondsSinceEpoch}',
+      content: content,
+      isUser: true,
+      timestamp: DateTime.now(),
+      imageUrl: imageUrl,
+    );
+  }
+
+  @override
+  Future<ChatMessage> getAIResponse(
+    List<ChatMessage> conversationHistory,
+  ) async {
+    final token = await _sessionStore.readAccessToken();
+    if (token == null || token.isEmpty) {
+      throw Exception('You must sign in again before sending chat messages.');
+    }
+
+    final message = _latestUserMessage(conversationHistory);
+
+    try {
+      final response = await _dio.post<dynamic>(
+        '/chat',
+        data: {'message': message},
+        options: Options(
+          headers: {'Authorization': 'Bearer $token'},
+        ),
+      );
+
+      final data = response.data;
+      if (data is! Map<String, dynamic>) {
+        throw const FormatException('Unexpected chat response shape.');
+      }
+
+      final reply = data['reply']?.toString();
+      if (reply == null || reply.isEmpty) {
+        throw const FormatException('Chat response did not include a reply.');
+      }
+
+      final timestamp = DateTime.tryParse(data['timestamp']?.toString() ?? '') ??
+          DateTime.now();
+
+      return ChatMessage(
+        id: 'msg-ai-${DateTime.now().millisecondsSinceEpoch}',
+        content: reply,
+        isUser: false,
+        timestamp: timestamp,
+      );
+    } on DioException catch (error) {
+      throw Exception(_mapChatError(error));
+    }
+  }
+
+  String _latestUserMessage(List<ChatMessage> conversationHistory) {
+    for (final message in conversationHistory.reversed) {
+      if (message.isUser) {
+        return message.content;
+      }
+    }
+
+    if (conversationHistory.isNotEmpty) {
+      return conversationHistory.last.content;
+    }
+
+    throw Exception('Cannot send an empty chat message.');
+  }
+
+  String _mapChatError(DioException error) {
+    switch (error.type) {
+      case DioExceptionType.connectionTimeout:
+      case DioExceptionType.sendTimeout:
+      case DioExceptionType.receiveTimeout:
+        return 'The chat request timed out. Please try again.';
+      case DioExceptionType.connectionError:
+        return 'Unable to reach the chat server. Check your internet connection.';
+      case DioExceptionType.badResponse:
+        final statusCode = error.response?.statusCode;
+        if (statusCode == 401) {
+          return 'Your session has expired. Please sign in again.';
+        }
+        if (statusCode != null && statusCode >= 500) {
+          return 'The chat server is currently unavailable.';
+        }
+        return _extractServerMessage(error.response?.data) ?? 'Chat request failed.';
+      default:
+        return error.message ?? 'Chat request failed.';
+    }
+  }
+
+  String? _extractServerMessage(dynamic data) {
+    if (data is Map<String, dynamic>) {
+      final detail = data['detail'];
+      if (detail != null) {
+        return detail.toString();
+      }
+
+      final message = data['message'];
+      if (message != null) {
+        return message.toString();
+      }
+    }
+
+    return null;
+  }
 }
 
 class MockChatRepository implements ChatRepository {
