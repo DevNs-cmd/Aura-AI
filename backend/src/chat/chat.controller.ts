@@ -1,18 +1,22 @@
-import { Controller, Post, Body, UseGuards, Req } from '@nestjs/common';
+import { Controller, Post, Body, UseGuards, Req, Injectable } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import { ChatService } from './chat.service';
-import { JwtAuthGuard } from '../auth/jwt-auth.guard'; // Guard import kiya
+
+// 🛠️ Guard ko humne yahin par local define kar diya taaki path ka koi error na aaye!
+@Injectable()
+class LocalJwtAuthGuard extends AuthGuard('jwt') {}
 
 @Controller('api/chat')
 export class ChatController {
   constructor(private readonly chatService: ChatService) {}
 
-  @UseGuards(JwtAuthGuard) // <--- Yeh line is route ko lock kar degi
+  @UseGuards(LocalJwtAuthGuard) // <--- Local guard se route lock ho gaya
   @Post()
   async handleChat(@Req() req: any, @Body('message') message: string) {
-    // Ab token se automatic userId mil jayegi, Flutter ko body mein bhejney ki zaroorat nahi!
-    const userId = req.user.id; 
+    // Token se automatic userId mil jayegi
+    const userId = req.user?.id || req.user?.sub; 
     
-    // Hamari integrated service ko userId aur message forward kar diya
+    // Hamari integrated service ko forward kar diya
     return this.chatService.processAIMessage(userId, message);
   }
 }
