@@ -21,8 +21,8 @@ abstract class AuthRepository {
 
 class HttpAuthRepository implements AuthRepository {
   HttpAuthRepository({Dio? dio, AuthSessionStore? sessionStore})
-      : _sessionStore = sessionStore ?? AuthSessionStore(),
-        _dio = dio ?? ApiClient(sessionStore: sessionStore).dio;
+    : _sessionStore = sessionStore ?? AuthSessionStore(),
+      _dio = dio ?? ApiClient(sessionStore: sessionStore).dio;
 
   final Dio _dio;
   final AuthSessionStore _sessionStore;
@@ -30,13 +30,10 @@ class HttpAuthRepository implements AuthRepository {
 
   @override
   Future<User> signInWithEmailAndPassword(String email, String password) async {
-    final response = await _postAuth(
-      '/auth/login',
-      {
-        'email': email,
-        'password': password,
-      },
-    );
+    final response = await _postAuth('/auth/login', {
+      'email': email,
+      'password': password,
+    });
     return _storeAuthResponse(response);
   }
 
@@ -46,14 +43,11 @@ class HttpAuthRepository implements AuthRepository {
     String password,
     String name,
   ) async {
-    final response = await _postAuth(
-      '/auth/signup',
-      {
-        'name': name,
-        'email': email,
-        'password': password,
-      },
-    );
+    final response = await _postAuth('/auth/signup', {
+      'name': name,
+      'email': email,
+      'password': password,
+    });
     return _storeAuthResponse(response);
   }
 
@@ -105,14 +99,19 @@ class HttpAuthRepository implements AuthRepository {
   }
 
   Future<User> _storeAuthResponse(Map<String, dynamic> response) async {
-    final token = (response['accessToken'] ?? response['access_token'])?.toString();
+    final token = (response['accessToken'] ?? response['access_token'])
+        ?.toString();
     final userPayload = response['user'];
 
     if (token == null || token.isEmpty) {
-      throw const FormatException('Auth response did not include an access token.');
+      throw const FormatException(
+        'Auth response did not include an access token.',
+      );
     }
     if (userPayload is! Map<String, dynamic>) {
-      throw const FormatException('Auth response did not include a user object.');
+      throw const FormatException(
+        'Auth response did not include a user object.',
+      );
     }
 
     final user = User.fromMap(userPayload).copyWith(accessToken: token);
