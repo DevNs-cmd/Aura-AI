@@ -23,6 +23,7 @@ class ChatScreen extends ConsumerStatefulWidget {
 class _ChatScreenState extends ConsumerState<ChatScreen> {
   final _scrollController = ScrollController();
   String? _activeDocumentContext;
+  bool _sidebarCollapsed = false;
 
   @override
   void initState() {
@@ -297,6 +298,18 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
         ),
         centerTitle: true,
         actions: [
+          if (isWideScreen)
+            IconButton(
+              icon: Icon(
+                _sidebarCollapsed ? Icons.menu_rounded : Icons.menu_open_rounded,
+                color: isDark ? Colors.white : AppColors.lightTextPrimary,
+              ),
+              onPressed: () {
+                setState(() {
+                  _sidebarCollapsed = !_sidebarCollapsed;
+                });
+              },
+            ),
           PopupMenuButton<String>(
             icon: Icon(
               Icons.more_vert_rounded,
@@ -352,7 +365,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
       body: isWideScreen
           ? Row(
               children: [
-                const ChatSidebar(),
+                if (!_sidebarCollapsed) const ChatSidebar(),
                 Expanded(child: chatView),
               ],
             )

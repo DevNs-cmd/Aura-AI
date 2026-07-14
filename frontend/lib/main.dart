@@ -5,7 +5,6 @@ import 'core/localization/generated/app_localizations.dart';
 import 'core/theme/app_theme.dart';
 import 'core/theme/theme_provider.dart';
 import 'core/localization/locale_controller.dart';
-import 'features/auth/auth_provider.dart';
 import 'routes/app_router.dart';
 
 void main() {
@@ -19,15 +18,12 @@ class AuraApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final themeState = ref.watch(themeProvider);
-    final authState = ref.watch(authProvider);
     final userLocale = ref.watch(localeProvider);
 
     final moodTheme = themeState.hasMoodSelected ? themeState.moodTheme : null;
 
-    // Apply strict locale boundary: pre-authentication remains in English
-    final appLocale = authState.status == AuthStatus.authenticated
-        ? userLocale
-        : const Locale('en');
+    // Use the user-selected locale app-wide
+    final appLocale = userLocale;
 
     return MaterialApp.router(
       onGenerateTitle: (context) => AppLocalizations.of(context)!.appTitle,

@@ -5,9 +5,11 @@ abstract class JournalRepository {
   List<JournalEntry> getEntries();
   Future<JournalEntry> addEntry(String title, String body, String mood);
   Future<String> generateAiInsight(String body);
+  Future<void> deleteEntry(String id);
 }
 
 class MockJournalRepository implements JournalRepository {
+
   final List<JournalEntry> _entries = [
     JournalEntry(
       id: 'journal-1',
@@ -83,5 +85,11 @@ class MockJournalRepository implements JournalRepository {
       return 'You are in a positive state. Capitalize on this energy for creative tasks today.';
     }
     return 'Regular reflection keeps you aligned. Continue tracking your daily thoughts to notice weekly trends.';
+  }
+
+  @override
+  Future<void> deleteEntry(String id) async {
+    await Future.delayed(const Duration(milliseconds: 500));
+    _entries.removeWhere((e) => e.id == id);
   }
 }

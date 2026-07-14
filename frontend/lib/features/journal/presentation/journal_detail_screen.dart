@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../../../../core/constants/app_colors.dart';
+import '../../../../core/theme/theme_provider.dart';
 import '../../../../core/localization/generated/app_localizations.dart';
 import '../../../../models/journal_entry.dart';
+import '../journal_provider.dart';
 
-class JournalDetailScreen extends StatelessWidget {
+class JournalDetailScreen extends ConsumerWidget {
   final JournalEntry entry;
 
   const JournalDetailScreen({super.key, required this.entry});
@@ -41,31 +45,107 @@ class JournalDetailScreen extends StatelessWidget {
     }
   }
 
+  void _showDeleteConfirmation(BuildContext context, WidgetRef ref) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    showDialog(
+      context: context,
+      builder: (dialogContext) {
+        return AlertDialog(
+          backgroundColor: isDark ? const Color(0xFF1E1C24) : Colors.white,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(24),
+          ),
+          title: Text(
+            'Delete Journal',
+            style: GoogleFonts.outfit(fontWeight: FontWeight.bold),
+          ),
+          content: Text(
+            'Are you sure you want to delete this journal entry? This action cannot be undone.',
+            style: GoogleFonts.quicksand(fontWeight: FontWeight.bold),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(dialogContext),
+              child: Text(
+                'Cancel',
+                style: GoogleFonts.outfit(fontWeight: FontWeight.bold),
+              ),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                ref.read(journalProvider.notifier).deleteEntry(entry.id);
+                Navigator.pop(dialogContext); // Close dialog
+                context.pop(); // Pop detail screen back to journal screen
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Journal entry deleted')),
+                );
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.redAccent,
+                foregroundColor: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16),
+                ),
+              ),
+              child: Text(
+                'Delete',
+                style: GoogleFonts.outfit(fontWeight: FontWeight.bold),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final themeState = ref.watch(themeProvider);
+    final isDark = themeState.isDarkMode;
+    final accentColor = themeState.accentColor;
+
     final moodColor = _getMoodColor(entry.mood);
     final moodTag = _getMoodTag(context, entry.mood);
 
+    final cardBg = isDark
+        ? const Color(0xFF1E1C24)
+        : (themeState.hasMoodSelected ? themeState.moodTheme.cardColor : Colors.white);
+
+    final cardBorderColor = isDark
+        ? const Color(0xFF2C2834)
+        : (themeState.hasMoodSelected ? themeState.moodTheme.cardBorder : AppColors.lightCardBorder);
+
+    final textColor = isDark ? Colors.white : AppColors.lightTextPrimary;
+    final subtextColor = isDark ? Colors.white60 : AppColors.lightTextSecondary;
+
     return Scaffold(
-      backgroundColor: AppColors.lightBackground,
+      backgroundColor: isDark
+          ? const Color(0xFF141318)
+          : (themeState.hasMoodSelected ? themeState.moodTheme.background : AppColors.lightBackground),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(
+          icon: Icon(
             Icons.arrow_back_ios_new_rounded,
-            color: AppColors.lightTextPrimary,
+            color: textColor,
           ),
           onPressed: () => context.pop(),
         ),
         title: Text(
           AppLocalizations.of(context)!.journalDetailTitle,
-          style: const TextStyle(
+          style: GoogleFonts.outfit(
             fontWeight: FontWeight.bold,
-            color: AppColors.lightTextPrimary,
+            color: textColor,
           ),
         ),
         centerTitle: true,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.delete_outline_rounded, color: Colors.redAccent),
+            onPressed: () => _showDeleteConfirmation(context, ref),
+          ),
+        ],
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -82,10 +162,10 @@ class JournalDetailScreen extends StatelessWidget {
                       'EEEE, MMMM dd, yyyy',
                       Localizations.localeOf(context).toString(),
                     ).format(entry.createdAt),
-                    style: const TextStyle(
+                    style: GoogleFonts.quicksand(
                       fontSize: 14,
-                      fontWeight: FontWeight.w600,
-                      color: AppColors.lightTextSecondary,
+                      fontWeight: FontWeight.bold,
+                      color: subtextColor,
                     ),
                   ),
                   Container(
@@ -99,7 +179,7 @@ class JournalDetailScreen extends StatelessWidget {
                     ),
                     child: Text(
                       moodTag,
-                      style: TextStyle(
+                      style: GoogleFonts.outfit(
                         color: moodColor,
                         fontSize: 12,
                         fontWeight: FontWeight.bold,
@@ -113,10 +193,10 @@ class JournalDetailScreen extends StatelessWidget {
               // Title
               Text(
                 entry.title,
-                style: Theme.of(context).textTheme.displaySmall?.copyWith(
+                style: GoogleFonts.outfit(
                   fontSize: 24,
                   fontWeight: FontWeight.w800,
-                  color: AppColors.lightTextPrimary,
+                  color: textColor,
                 ),
               ),
               const SizedBox(height: 24),
@@ -125,20 +205,21 @@ class JournalDetailScreen extends StatelessWidget {
               Container(
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: cardBg,
                   borderRadius: BorderRadius.circular(20),
                   border: Border.all(
-                    color: AppColors.lightCardBorder,
-                    width: 1,
+                    color: cardBorderColor,
+                    width: 1.5,
                   ),
                 ),
                 padding: const EdgeInsets.all(20),
                 child: Text(
                   entry.body,
-                  style: const TextStyle(
+                  style: GoogleFonts.quicksand(
                     fontSize: 16,
-                    color: AppColors.lightTextPrimary,
+                    color: textColor,
                     height: 1.6,
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
               ),
@@ -149,11 +230,11 @@ class JournalDetailScreen extends StatelessWidget {
                 Container(
                   width: double.infinity,
                   decoration: BoxDecoration(
-                    color: AppColors.primary.withValues(alpha: 0.08),
+                    color: accentColor.withValues(alpha: 0.08),
                     borderRadius: BorderRadius.circular(20),
                     border: Border.all(
-                      color: AppColors.primary.withValues(alpha: 0.2),
-                      width: 1,
+                      color: accentColor.withValues(alpha: 0.2),
+                      width: 1.5,
                     ),
                   ),
                   padding: const EdgeInsets.all(20),
@@ -162,18 +243,18 @@ class JournalDetailScreen extends StatelessWidget {
                     children: [
                       Row(
                         children: [
-                          const Icon(
+                          Icon(
                             Icons.auto_awesome_rounded,
-                            color: AppColors.primary,
+                            color: accentColor,
                             size: 18,
                           ),
                           const SizedBox(width: 8),
                           Text(
                             AppLocalizations.of(context)!.journalAuraInsight,
-                            style: const TextStyle(
+                            style: GoogleFonts.outfit(
                               fontSize: 14,
                               fontWeight: FontWeight.bold,
-                              color: AppColors.primary,
+                              color: accentColor,
                             ),
                           ),
                         ],
@@ -181,10 +262,10 @@ class JournalDetailScreen extends StatelessWidget {
                       const SizedBox(height: 12),
                       Text(
                         entry.aiInsight!,
-                        style: const TextStyle(
+                        style: GoogleFonts.quicksand(
                           fontSize: 14,
-                          color: AppColors.lightTextPrimary,
-                          fontWeight: FontWeight.w500,
+                          color: textColor,
+                          fontWeight: FontWeight.bold,
                           height: 1.5,
                         ),
                       ),

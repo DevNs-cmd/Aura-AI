@@ -7,6 +7,7 @@ import '../../../../core/constants/app_colors.dart';
 import '../../../../core/theme/theme_provider.dart';
 import '../../auth/auth_provider.dart';
 import '../profile_provider.dart';
+import '../billing_provider.dart';
 import 'widgets/personality_selector.dart';
 import 'widgets/usage_chart.dart';
 import 'edit_profile_screen.dart';
@@ -22,6 +23,7 @@ class ProfileScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final profile = ref.watch(profileProvider);
     final themeState = ref.watch(themeProvider);
+    final billing = ref.watch(billingProvider);
     final isDark = themeState.isDarkMode;
     final accentColor = themeState.accentColor;
 
@@ -217,15 +219,27 @@ class ProfileScreen extends ConsumerWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(Icons.diamond_rounded, color: accentColor, size: 16),
+                    Icon(
+                      billing.plan == SubscriptionPlan.pro
+                          ? Icons.workspace_premium_rounded
+                          : (billing.isPremium ? Icons.diamond_rounded : Icons.person_outline_rounded),
+                      color: billing.plan == SubscriptionPlan.pro
+                          ? Colors.purple
+                          : (billing.isPremium ? Colors.amber[700] : Colors.grey),
+                      size: 16,
+                    ),
                     const SizedBox(width: 6),
                     Flexible(
                       child: Text(
-                        AppLocalizations.of(context)!.profilePremiumMember,
+                        billing.plan == SubscriptionPlan.pro
+                            ? 'Pro Member'
+                            : (billing.isPremium ? 'Premium Member' : 'Free Member'),
                         style: GoogleFonts.quicksand(
-                          color: isDark
-                              ? Colors.white60
-                              : AppColors.textSecondary,
+                          color: billing.plan == SubscriptionPlan.pro
+                              ? Colors.purple
+                              : (billing.isPremium
+                                  ? (isDark ? Colors.amber[200] : Colors.amber[800])
+                                  : (isDark ? Colors.white60 : AppColors.textSecondary)),
                           fontSize: 13,
                           fontWeight: FontWeight.bold,
                         ),

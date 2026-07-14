@@ -1,8 +1,11 @@
+import 'dart:io' show File;
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/widgets/bouncing_widget.dart';
 import '../../../../core/theme/theme_provider.dart';
@@ -310,10 +313,47 @@ class _VisionAnalysisScreenState extends ConsumerState<VisionAnalysisScreen>
     super.dispose();
   }
 
-  void _triggerScan() {
+  Future<void> _pickImage(ImageSource source) async {
+    if (kIsWeb && source == ImageSource.camera) {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+          title: const Text('Camera Unavailable'),
+          content: const Text('Camera capture is not supported on web browsers in this environment. Please upload a photo from your gallery instead.'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      );
+      return;
+    }
+
+    try {
+      final picker = ImagePicker();
+      final picked = await picker.pickImage(source: source);
+      if (!mounted) return;
+      if (picked != null) {
+        ref.read(visionProvider.notifier).setImage(picked.path);
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error choosing image: $e')),
+      );
+    }
+  }
+
+  void _triggerCameraPick() {
     _selectedMockSighting = null;
-    ref.read(visionProvider.notifier).selectImage('camera');
-    _rotateScanMessages();
+    _pickImage(ImageSource.camera);
+  }
+
+  void _triggerGalleryPick() {
+    _selectedMockSighting = null;
+    _pickImage(ImageSource.gallery);
   }
 
   void _rotateScanMessages() async {
@@ -337,7 +377,7 @@ class _VisionAnalysisScreenState extends ConsumerState<VisionAnalysisScreen>
       _activeResultTab = 0;
     });
     // Sync to mock provider state so standard handlers work
-    ref.read(visionProvider.notifier).selectImage('mock');
+    ref.read(visionProvider.notifier).setImage(sighting['imagePath'] as String);
   }
 
   @override
@@ -356,6 +396,7 @@ class _VisionAnalysisScreenState extends ConsumerState<VisionAnalysisScreen>
     final isScanning = _selectedMockSighting == null && visionState.isScanning;
     final showResults =
         _selectedMockSighting != null || visionState.showResults;
+    final isPreviewMode = hasImage && !isScanning && !showResults;
 
     // Get specific result components
     final sceneText = _selectedMockSighting != null
@@ -472,7 +513,7 @@ class _VisionAnalysisScreenState extends ConsumerState<VisionAnalysisScreen>
                         subtitle: AppLocalizations.of(
                           context,
                         )!.visionActionCameraSubtitle,
-                        onTap: _triggerScan,
+                        onTap: _triggerCameraPick,
                         themeState: themeState,
                       ),
                     ),
@@ -488,7 +529,7 @@ class _VisionAnalysisScreenState extends ConsumerState<VisionAnalysisScreen>
                         subtitle: AppLocalizations.of(
                           context,
                         )!.visionActionLibrarySubtitle,
-                        onTap: _triggerScan,
+                        onTap: _triggerGalleryPick,
                         themeState: themeState,
                       ),
                     ),
@@ -562,6 +603,55 @@ class _VisionAnalysisScreenState extends ConsumerState<VisionAnalysisScreen>
                   ocrText,
                   contextText,
                 ),
+              ] else if (isPreviewMode) ...[
+                const SizedBox(height: 24),
+                // Action Buttons for Preview Mode
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: Column(
+                    children: [
+                      ElevatedButton.icon(
+                        onPressed: () {
+                          ref.read(visionProvider.notifier).startScan();
+                          _rotateScanMessages();
+                        },
+                        icon: const Icon(Icons.analytics_outlined, color: Colors.white),
+                        label: Text(
+                          'Analyze Photo',
+                          style: GoogleFonts.outfit(fontWeight: FontWeight.bold),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: accentColor,
+                          foregroundColor: Colors.white,
+                          padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                          minimumSize: const Size(double.infinity, 50),
+                        ),
+                      ),
+                      const SizedBox(height: 12),
+                      OutlinedButton.icon(
+                        onPressed: () {
+                          ref.read(visionProvider.notifier).clearImage();
+                        },
+                        icon: Icon(Icons.refresh_rounded, color: accentColor),
+                        label: Text(
+                          'Retake / Choose Another',
+                          style: GoogleFonts.outfit(fontWeight: FontWeight.bold, color: accentColor),
+                        ),
+                        style: OutlinedButton.styleFrom(
+                          side: BorderSide(color: accentColor, width: 1.5),
+                          padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                          minimumSize: const Size(double.infinity, 50),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ],
             ],
           ),
@@ -610,9 +700,11 @@ class _VisionAnalysisScreenState extends ConsumerState<VisionAnalysisScreen>
                 ),
 
               // Image display
-              if (hasImage)
+              if (hasImage && imagePath != null)
                 Positioned.fill(
-                  child: Image.network(imagePath!, fit: BoxFit.cover),
+                  child: (kIsWeb || imagePath.startsWith('http') || imagePath.startsWith('blob:') || imagePath.startsWith('assets/'))
+                      ? Image.network(imagePath, fit: BoxFit.cover)
+                      : Image.file(File(imagePath), fit: BoxFit.cover),
                 ),
 
               // Visual overlays
