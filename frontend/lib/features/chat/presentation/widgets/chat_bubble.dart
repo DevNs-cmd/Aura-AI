@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -167,7 +168,7 @@ class ChatBubble extends ConsumerWidget {
                 children: [
                   Container(
                     constraints: BoxConstraints(
-                      maxWidth: MediaQuery.of(context).size.width * 0.75,
+                      maxWidth: min(MediaQuery.of(context).size.width * 0.7, 650),
                     ),
                     decoration: BoxDecoration(
                       color: message.isUser
@@ -468,13 +469,16 @@ class ChatBubble extends ConsumerWidget {
                     // Code content body
                     Padding(
                       padding: const EdgeInsets.all(16),
-                      child: Text(
-                        codeBody,
-                        style: const TextStyle(
-                          color: Color(0xFFE2E8F0),
-                          fontSize: 13,
-                          fontFamily: 'Courier',
-                          height: 1.4,
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Text(
+                          codeBody,
+                          style: const TextStyle(
+                            color: Color(0xFFE2E8F0),
+                            fontSize: 13,
+                            fontFamily: 'Courier',
+                            height: 1.4,
+                          ),
                         ),
                       ),
                     ),

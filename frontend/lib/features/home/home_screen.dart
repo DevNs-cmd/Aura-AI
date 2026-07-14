@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import '../auth/auth_provider.dart';
 import '../profile/profile_provider.dart';
+import '../profile/billing_provider.dart';
 import '../journal/presentation/journal_screen.dart';
 import '../profile/presentation/profile_screen.dart';
 import 'explore_screen.dart';
@@ -391,6 +392,7 @@ class _HomeDashboardViewState extends ConsumerState<HomeDashboardView> {
   Widget build(BuildContext context) {
     final authState = ref.watch(authProvider);
     final profile = ref.watch(profileProvider);
+    final billing = ref.watch(billingProvider);
     final userName = profile.userName.isNotEmpty
         ? profile.userName
         : (authState.user?.displayName ?? 'Jose Maria');
@@ -535,6 +537,78 @@ class _HomeDashboardViewState extends ConsumerState<HomeDashboardView> {
               // Dynamic Inspiration Card
               const DynamicInspirationCard(),
               const SizedBox(height: 28),
+
+              if (billing.plan == SubscriptionPlan.free) ...[
+                Container(
+                  padding: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        accentColor,
+                        accentColor.withOpacity(0.8),
+                      ],
+                    ),
+                    borderRadius: BorderRadius.circular(24),
+                    boxShadow: [
+                      BoxShadow(
+                        color: accentColor.withOpacity(0.2),
+                        blurRadius: 12,
+                        offset: const Offset(0, 4),
+                      ),
+                    ],
+                  ),
+                  child: Row(
+                    children: [
+                      const Icon(Icons.diamond_rounded, color: Colors.white, size: 28),
+                      const SizedBox(width: 16),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Unlock Unlimited AI',
+                              style: GoogleFonts.outfit(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            ),
+                            const SizedBox(height: 2),
+                            Text(
+                              'Upgrade to Premium for unlimited chats, memories, and vision analysis.',
+                              style: GoogleFonts.quicksand(
+                                fontSize: 11,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.white.withOpacity(0.85),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      BouncingWidget(
+                        onTap: () => context.push('/choose-plan'),
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                          child: Text(
+                            'Upgrade',
+                            style: GoogleFonts.outfit(
+                              color: accentColor,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 12,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 28),
+              ],
 
               // Quick Journal section
               Row(

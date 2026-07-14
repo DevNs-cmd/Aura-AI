@@ -51,6 +51,22 @@ class JournalNotifier extends StateNotifier<JournalState> {
       );
     }
   }
+
+  Future<void> deleteEntry(String id) async {
+    state = state.copyWith(isLoading: true, errorMessage: null);
+    try {
+      await _repository.deleteEntry(id);
+      state = state.copyWith(
+        entries: state.entries.where((e) => e.id != id).toList(),
+        isLoading: false,
+      );
+    } catch (e) {
+      state = state.copyWith(
+        isLoading: false,
+        errorMessage: e.toString().replaceAll('Exception: ', ''),
+      );
+    }
+  }
 }
 
 final journalProvider = StateNotifierProvider<JournalNotifier, JournalState>((

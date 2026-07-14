@@ -1171,4 +1171,397 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get profileCancel => 'Cancelar';
+
+  @override
+  String get billingTitle => 'Facturación y suscripción';
+
+  @override
+  String get billingCurrentPlan => 'Plan actual';
+
+  @override
+  String get billingFreeTier => 'Plan gratuito';
+
+  @override
+  String get billingPremiumTier => 'Plan Premium';
+
+  @override
+  String get billingProTier => 'Plan Pro';
+
+  @override
+  String billingRenewsOn(String date) {
+    return 'Renovación el: $date';
+  }
+
+  @override
+  String get billingUsageLimits => 'Límites de uso';
+
+  @override
+  String get billingAiCompanionChats => 'Chats del compañero IA';
+
+  @override
+  String get billingMemoryIndexSlots => 'Espacios de índice de memoria';
+
+  @override
+  String get billingUnlimited => 'Ilimitado';
+
+  @override
+  String get billingPaymentMethod => 'Método de pago';
+
+  @override
+  String get billingRenewsAutomatically => 'Se renueva automáticamente';
+
+  @override
+  String get billingUpdate => 'Actualizar';
+
+  @override
+  String billingPaymentMethodUpdated(String method) {
+    return 'Método de pago actualizado: $method';
+  }
+
+  @override
+  String get billingHistory => 'Historial de facturación';
+
+  @override
+  String get billingCancelPremium => 'Cancelar suscripción Premium';
+
+  @override
+  String get billingUpgradePlan => 'Mejorar plan';
+
+  @override
+  String get billingInvoiceTitle => 'Recibo de factura fiscal';
+
+  @override
+  String get billingInvoicePaidSuccess => 'PAGO EXITOSO';
+
+  @override
+  String get billingInvoiceId => 'ID de factura';
+
+  @override
+  String get billingInvoiceDate => 'Fecha';
+
+  @override
+  String get billingInvoicePlan => 'Plan';
+
+  @override
+  String get billingInvoicePaymentMethod => 'Método de pago';
+
+  @override
+  String get billingInvoiceSubtotal => 'Subtotal';
+
+  @override
+  String get billingInvoiceTaxGst => 'Impuestos (GST 18%)';
+
+  @override
+  String get billingInvoiceTotalAmount => 'Monto total';
+
+  @override
+  String get billingInvoiceClose => 'Cerrar';
+
+  @override
+  String get billingInvoiceDownload => 'Descargar';
+
+  @override
+  String billingInvoiceDownloaded(String fileName) {
+    return '¡$fileName descargado en tu carpeta de descargas!';
+  }
+
+  @override
+  String billingInvoiceSaved(String filePath) {
+    return 'Factura guardada en: $filePath';
+  }
+
+  @override
+  String get billingReceiptHeader => 'PORTAL DE FACTURACIÓN AURA AI';
+
+  @override
+  String get billingReceiptNumber => 'Número de recibo';
+
+  @override
+  String get billingReceiptTransactionDate => 'Fecha de transacción';
+
+  @override
+  String get billingReceiptPlanType => 'Tipo de plan';
+
+  @override
+  String get billingReceiptPaymentStatus => 'Estado del pago';
+
+  @override
+  String get billingReceiptPaymentMethod => 'Método de pago';
+
+  @override
+  String get billingReceiptSummary => 'RESUMEN DE CARGOS';
+
+  @override
+  String get billingReceiptPlanPrice => 'Precio de suscripción';
+
+  @override
+  String get billingReceiptTaxGst => 'Impuestos (GST 18%)';
+
+  @override
+  String get billingReceiptTotalCharged => 'TOTAL COBRADO';
+
+  @override
+  String get billingReceiptThankYou =>
+      '¡Gracias por actualizar a Aura AI Premium!';
+
+  @override
+  String get billingReceiptContactSupport =>
+      'Para consultas, contacta a support@aura.ai';
+
+  @override
+  String get billingDowngradeTitle => '¿Degradar cuenta?';
+
+  @override
+  String get billingDowngradeMessage =>
+      'Si cancelas, perderás los chats ilimitados, la exploración visual y los espacios de memoria inteligente. Esta acción es inmediata.';
+
+  @override
+  String get billingKeepSubscription => 'Mantener suscripción';
+
+  @override
+  String get billingDowngrade => 'Degradar';
+
+  @override
+  String get billingCancelledSuccess => 'Suscripción cancelada exitosamente';
+
+  @override
+  String get choosePlanTitle => 'Elige tu plan';
+
+  @override
+  String get choosePlanSubtitle =>
+      'Desbloquea toda la inteligencia de tu compañero';
+
+  @override
+  String get choosePlanDescription =>
+      'Obtén acceso ilimitado a retención de memoria, procesamiento de alta velocidad y análisis visual.';
+
+  @override
+  String get choosePlanFree => 'Plan gratuito';
+
+  @override
+  String get choosePlanPremium => 'Plan Premium';
+
+  @override
+  String get choosePlanPro => 'Plan Pro';
+
+  @override
+  String get choosePlanPerMonth => '/ mes';
+
+  @override
+  String get choosePlanFreeDesc =>
+      'Ideal para comenzar con el diario de IA básico.';
+
+  @override
+  String get choosePlanPremiumDesc =>
+      'Capacidades completas para reflexión profunda y respuestas rápidas.';
+
+  @override
+  String get choosePlanProDesc =>
+      'Configuraciones de modelos avanzados e integraciones de terceros.';
+
+  @override
+  String get choosePlanFeature50Chats => '50 chats por mes';
+
+  @override
+  String get choosePlanFeature20Memory => '20 espacios de índice de memoria';
+
+  @override
+  String get choosePlanFeatureBasicSpeed => 'Velocidad de respuesta básica';
+
+  @override
+  String get choosePlanFeatureStandardModes => 'Modos de compañero estándar';
+
+  @override
+  String get choosePlanFeatureUnlimitedChats => 'Chats ilimitados';
+
+  @override
+  String get choosePlanFeatureUnlimitedMemory =>
+      'Retención de memoria ilimitada';
+
+  @override
+  String get choosePlanFeatureHighSpeed => 'Respuestas de alta velocidad';
+
+  @override
+  String get choosePlanFeatureVision => 'Capacidades de visión completas';
+
+  @override
+  String get choosePlanFeaturePersonalities => 'Todas las personalidades';
+
+  @override
+  String get choosePlanFeatureAllPremium => 'Todas las funciones Premium';
+
+  @override
+  String get choosePlanFeatureWorkspace =>
+      'Integración de espacio de trabajo (demo)';
+
+  @override
+  String get choosePlanFeatureDevApi =>
+      'Opciones avanzadas de API para desarrolladores';
+
+  @override
+  String get choosePlanFeaturePrioritySupport => 'Soporte prioritario';
+
+  @override
+  String get choosePlanCurrentPlan => 'Plan actual';
+
+  @override
+  String get choosePlanSelectFree => 'Elegir gratuito';
+
+  @override
+  String get choosePlanUpgradePremium => 'Mejorar a Premium';
+
+  @override
+  String get choosePlanComingSoon => 'Próximamente';
+
+  @override
+  String get choosePlanMostPopular => 'MÁS POPULAR';
+
+  @override
+  String get choosePlanSwitchedFree => 'Cambiado al plan gratuito';
+
+  @override
+  String get purchaseSummaryTitle => 'Resumen de compra';
+
+  @override
+  String get purchaseSummaryReview =>
+      'Revisa los detalles y completa el pedido';
+
+  @override
+  String get purchaseSummaryIncludes =>
+      'Incluye todas las capacidades del compañero, modos de voz premium y espacios de memoria ilimitados.';
+
+  @override
+  String get purchaseSummarySubtotal => 'Subtotal';
+
+  @override
+  String get purchaseSummaryTaxGst => 'Impuesto (GST 18%)';
+
+  @override
+  String get purchaseSummaryTotalDue => 'Total a pagar';
+
+  @override
+  String get purchaseSummaryProceed => 'Proceder al pago';
+
+  @override
+  String get purchaseSummaryCancelNote =>
+      'Cancela cuando quieras. Pago seguro.';
+
+  @override
+  String get paymentTitle => 'Detalles de pago';
+
+  @override
+  String get paymentSelectMethod => 'Seleccionar método de pago';
+
+  @override
+  String get paymentMethodCard => 'Tarjeta';
+
+  @override
+  String get paymentMethodUpi => 'UPI';
+
+  @override
+  String get paymentMethodGooglePay => 'Google Pay';
+
+  @override
+  String get paymentMethodNetBanking => 'Banca en línea';
+
+  @override
+  String get paymentCardNumber => 'Número de tarjeta';
+
+  @override
+  String get paymentCardNumberHint => '4111 2222 3333 4444';
+
+  @override
+  String get paymentCardNumberError => 'Ingresa el número de tarjeta';
+
+  @override
+  String get paymentCardNumberLengthError => 'Ingresa un número de 16 dígitos';
+
+  @override
+  String get paymentExpiry => 'Vencimiento';
+
+  @override
+  String get paymentExpiryHint => 'MM/AA';
+
+  @override
+  String get paymentExpiryRequired => 'Requerido';
+
+  @override
+  String get paymentExpiryFormat => 'Usa MM/AA';
+
+  @override
+  String get paymentCvv => 'CVV';
+
+  @override
+  String get paymentCvvHint => '123';
+
+  @override
+  String get paymentCvvRequired => 'Requerido';
+
+  @override
+  String get paymentCvvDigits => '3 dígitos';
+
+  @override
+  String get paymentCardholder => 'Nombre del titular';
+
+  @override
+  String get paymentCardholderHint => 'Ayesha Khan';
+
+  @override
+  String get paymentCardholderError => 'Ingresa el nombre del titular';
+
+  @override
+  String get paymentUpiId => 'ID de UPI';
+
+  @override
+  String get paymentUpiIdHint => 'username@okaxis';
+
+  @override
+  String get paymentUpiIdError => 'Ingresa el ID de UPI';
+
+  @override
+  String get paymentUpiIdFormat => 'Formato UPI inválido';
+
+  @override
+  String get paymentGooglePayDesc =>
+      'Completa la autorización de pago usando la app de Google Pay.';
+
+  @override
+  String get paymentNetBankingDesc =>
+      'Serás redirigido a la pasarela bancaria segura al confirmar.';
+
+  @override
+  String get paymentCompletePayment => 'Completar pago';
+
+  @override
+  String get paymentProcessingTitle => 'Asegurando pasarela de pago...';
+
+  @override
+  String get paymentProcessingSubtitle =>
+      'Por favor no retrocedas ni cierres la aplicación.';
+
+  @override
+  String get paymentSuccessWelcome => '¡Bienvenido a Premium!';
+
+  @override
+  String get paymentSuccessMessage =>
+      'Tu pago fue procesado exitosamente. Todas las funciones están desbloqueadas para tu cuenta.';
+
+  @override
+  String get paymentSuccessFeatureSpeed =>
+      'Respuesta IA prioritaria de alta velocidad';
+
+  @override
+  String get paymentSuccessFeatureChats =>
+      'Sesiones de chat ilimitadas e historial';
+
+  @override
+  String get paymentSuccessFeatureMemory =>
+      'Espacios ilimitados para memorias IA';
+
+  @override
+  String get paymentSuccessFeatureVision =>
+      'Análisis de fotos con visión completa';
+
+  @override
+  String get paymentSuccessGoToDashboard => 'Ir al panel';
 }

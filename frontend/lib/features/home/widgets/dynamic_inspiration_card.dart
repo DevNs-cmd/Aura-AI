@@ -180,33 +180,38 @@ class _DynamicInspirationCardState extends ConsumerState<DynamicInspirationCard>
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                _getGreetingText(context, timePeriod),
-                                style: GoogleFonts.outfit(
-                                  color: isDark
-                                      ? Colors.white
-                                      : moodTheme.primary,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold,
-                                  letterSpacing: 0.5,
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  _getGreetingText(context, timePeriod),
+                                  style: GoogleFonts.outfit(
+                                    color: isDark
+                                        ? Colors.white
+                                        : moodTheme.primary,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold,
+                                    letterSpacing: 0.5,
+                                  ),
                                 ),
-                              ),
-                              const SizedBox(height: 2),
-                              Text(
-                                quoteModel.subtitle,
-                                style: GoogleFonts.quicksand(
-                                  color: isDark
-                                      ? Colors.white60
-                                      : AppColors.lightTextSecondary,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w600,
+                                const SizedBox(height: 2),
+                                Text(
+                                  quoteModel.subtitle,
+                                  style: GoogleFonts.quicksand(
+                                    color: isDark
+                                        ? Colors.white60
+                                        : AppColors.lightTextSecondary,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
+                          const SizedBox(width: 8),
                           Container(
                             width: 38,
                             height: 38,
