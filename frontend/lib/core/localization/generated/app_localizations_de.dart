@@ -1172,4 +1172,393 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get profileCancel => 'Abbrechen';
+
+  @override
+  String get billingTitle => 'Abrechnung & Abonnement';
+
+  @override
+  String get billingCurrentPlan => 'Aktueller Plan';
+
+  @override
+  String get billingFreeTier => 'Kostenloser Plan';
+
+  @override
+  String get billingPremiumTier => 'Premium-Plan';
+
+  @override
+  String get billingProTier => 'Pro-Plan';
+
+  @override
+  String billingRenewsOn(String date) {
+    return 'Verlängerung am: $date';
+  }
+
+  @override
+  String get billingUsageLimits => 'Nutzungslimits';
+
+  @override
+  String get billingAiCompanionChats => 'KI-Begleiter-Chats';
+
+  @override
+  String get billingMemoryIndexSlots => 'Speicher-Index-Plätze';
+
+  @override
+  String get billingUnlimited => 'Unbegrenzt';
+
+  @override
+  String get billingPaymentMethod => 'Zahlungsmethode';
+
+  @override
+  String get billingRenewsAutomatically => 'Automatische Verlängerung';
+
+  @override
+  String get billingUpdate => 'Aktualisieren';
+
+  @override
+  String billingPaymentMethodUpdated(String method) {
+    return 'Zahlungsmethode aktualisiert: $method';
+  }
+
+  @override
+  String get billingHistory => 'Abrechnungsverlauf';
+
+  @override
+  String get billingCancelPremium => 'Premium-Abonnement kündigen';
+
+  @override
+  String get billingUpgradePlan => 'Plan upgraden';
+
+  @override
+  String get billingInvoiceTitle => 'Steuerrechnung';
+
+  @override
+  String get billingInvoicePaidSuccess => 'BEZAHLT';
+
+  @override
+  String get billingInvoiceId => 'Rechnungsnummer';
+
+  @override
+  String get billingInvoiceDate => 'Datum';
+
+  @override
+  String get billingInvoicePlan => 'Plan';
+
+  @override
+  String get billingInvoicePaymentMethod => 'Zahlungsmethode';
+
+  @override
+  String get billingInvoiceSubtotal => 'Zwischensumme';
+
+  @override
+  String get billingInvoiceTaxGst => 'Steuern (GST 18 %)';
+
+  @override
+  String get billingInvoiceTotalAmount => 'Gesamtbetrag';
+
+  @override
+  String get billingInvoiceClose => 'Schließen';
+
+  @override
+  String get billingInvoiceDownload => 'Herunterladen';
+
+  @override
+  String billingInvoiceDownloaded(String fileName) {
+    return '$fileName in Ihren Download-Ordner heruntergeladen!';
+  }
+
+  @override
+  String billingInvoiceSaved(String filePath) {
+    return 'Rechnung gespeichert unter: $filePath';
+  }
+
+  @override
+  String get billingReceiptHeader => 'AURA AI ABRECHNUNGSPORTAL';
+
+  @override
+  String get billingReceiptNumber => 'Belegnummer';
+
+  @override
+  String get billingReceiptTransactionDate => 'Transaktionsdatum';
+
+  @override
+  String get billingReceiptPlanType => 'Plantyp';
+
+  @override
+  String get billingReceiptPaymentStatus => 'Zahlungsstatus';
+
+  @override
+  String get billingReceiptPaymentMethod => 'Zahlungsmethode';
+
+  @override
+  String get billingReceiptSummary => 'GEBÜHRENÜBERSICHT';
+
+  @override
+  String get billingReceiptPlanPrice => 'Abonnementpreis';
+
+  @override
+  String get billingReceiptTaxGst => 'Steuern (GST 18 %)';
+
+  @override
+  String get billingReceiptTotalCharged => 'GESAMT BERECHNET';
+
+  @override
+  String get billingReceiptThankYou =>
+      'Vielen Dank für das Upgrade auf Aura AI Premium!';
+
+  @override
+  String get billingReceiptContactSupport =>
+      'Bei Fragen kontaktieren Sie support@aura.ai';
+
+  @override
+  String get billingDowngradeTitle => 'Konto herabstufen?';
+
+  @override
+  String get billingDowngradeMessage =>
+      'Bei Kündigung verlieren Sie unbegrenzte Chats, Vision-Exploration und Speicherplätze. Diese Aktion wird sofort wirksam.';
+
+  @override
+  String get billingKeepSubscription => 'Abonnement behalten';
+
+  @override
+  String get billingDowngrade => 'Herabstufen';
+
+  @override
+  String get billingCancelledSuccess => 'Abonnement erfolgreich gekündigt';
+
+  @override
+  String get choosePlanTitle => 'Wählen Sie Ihren Plan';
+
+  @override
+  String get choosePlanSubtitle =>
+      'Schalten Sie die volle Intelligenz Ihres Begleiters frei';
+
+  @override
+  String get choosePlanDescription =>
+      'Erhalten Sie unbegrenzten Zugang zu Speicherung, Hochgeschwindigkeitsverarbeitung und Bildanalyse.';
+
+  @override
+  String get choosePlanFree => 'Kostenloser Plan';
+
+  @override
+  String get choosePlanPremium => 'Premium-Plan';
+
+  @override
+  String get choosePlanPro => 'Pro-Plan';
+
+  @override
+  String get choosePlanPerMonth => '/ Monat';
+
+  @override
+  String get choosePlanFreeDesc =>
+      'Ideal für den Einstieg mit grundlegendem KI-Journaling.';
+
+  @override
+  String get choosePlanPremiumDesc =>
+      'Volle Funktionen für tiefe Reflexion und schnelle Antworten.';
+
+  @override
+  String get choosePlanProDesc =>
+      'Power-User-Modellkonfigurationen und Drittanbieter-Integrationen.';
+
+  @override
+  String get choosePlanFeature50Chats => '50 Chats pro Monat';
+
+  @override
+  String get choosePlanFeature20Memory => '20 Speicher-Index-Plätze';
+
+  @override
+  String get choosePlanFeatureBasicSpeed => 'Standard-Antwortgeschwindigkeit';
+
+  @override
+  String get choosePlanFeatureStandardModes => 'Standard-Begleiter-Modi';
+
+  @override
+  String get choosePlanFeatureUnlimitedChats => 'Unbegrenzte Chats';
+
+  @override
+  String get choosePlanFeatureUnlimitedMemory => 'Unbegrenzte Speicherung';
+
+  @override
+  String get choosePlanFeatureHighSpeed => 'Hochgeschwindigkeits-Antworten';
+
+  @override
+  String get choosePlanFeatureVision => 'Volle Vision-Funktionen';
+
+  @override
+  String get choosePlanFeaturePersonalities => 'Alle Persönlichkeiten';
+
+  @override
+  String get choosePlanFeatureAllPremium => 'Alle Premium-Funktionen';
+
+  @override
+  String get choosePlanFeatureWorkspace => 'Workspace-Integration (Demo)';
+
+  @override
+  String get choosePlanFeatureDevApi => 'Erweiterte Entwickler-API-Optionen';
+
+  @override
+  String get choosePlanFeaturePrioritySupport => 'Prioritäts-Support';
+
+  @override
+  String get choosePlanCurrentPlan => 'Aktueller Plan';
+
+  @override
+  String get choosePlanSelectFree => 'Kostenlos wählen';
+
+  @override
+  String get choosePlanUpgradePremium => 'Auf Premium upgraden';
+
+  @override
+  String get choosePlanComingSoon => 'Demnächst verfügbar';
+
+  @override
+  String get choosePlanMostPopular => 'AM BELIEBTESTEN';
+
+  @override
+  String get choosePlanSwitchedFree => 'Zum kostenlosen Plan gewechselt';
+
+  @override
+  String get purchaseSummaryTitle => 'Kaufübersicht';
+
+  @override
+  String get purchaseSummaryReview =>
+      'Details überprüfen und Bestellung abschließen';
+
+  @override
+  String get purchaseSummaryIncludes =>
+      'Enthält alle Begleiter-Funktionen, Premium-Sprachmodi und unbegrenzte Speicherplätze.';
+
+  @override
+  String get purchaseSummarySubtotal => 'Zwischensumme';
+
+  @override
+  String get purchaseSummaryTaxGst => 'Steuer (GST 18 %)';
+
+  @override
+  String get purchaseSummaryTotalDue => 'Gesamtbetrag fällig';
+
+  @override
+  String get purchaseSummaryProceed => 'Zur Zahlung';
+
+  @override
+  String get purchaseSummaryCancelNote =>
+      'Jederzeit kündbar. Sicherer Checkout.';
+
+  @override
+  String get paymentTitle => 'Zahlungsdetails';
+
+  @override
+  String get paymentSelectMethod => 'Zahlungsmethode auswählen';
+
+  @override
+  String get paymentMethodCard => 'Karte';
+
+  @override
+  String get paymentMethodUpi => 'UPI';
+
+  @override
+  String get paymentMethodGooglePay => 'Google Pay';
+
+  @override
+  String get paymentMethodNetBanking => 'Online-Banking';
+
+  @override
+  String get paymentCardNumber => 'Kartennummer';
+
+  @override
+  String get paymentCardNumberHint => '4111 2222 3333 4444';
+
+  @override
+  String get paymentCardNumberError => 'Kartennummer eingeben';
+
+  @override
+  String get paymentCardNumberLengthError =>
+      '16-stellige Kartennummer eingeben';
+
+  @override
+  String get paymentExpiry => 'Ablaufdatum';
+
+  @override
+  String get paymentExpiryHint => 'MM/JJ';
+
+  @override
+  String get paymentExpiryRequired => 'Erforderlich';
+
+  @override
+  String get paymentExpiryFormat => 'MM/JJ verwenden';
+
+  @override
+  String get paymentCvv => 'CVV';
+
+  @override
+  String get paymentCvvHint => '123';
+
+  @override
+  String get paymentCvvRequired => 'Erforderlich';
+
+  @override
+  String get paymentCvvDigits => '3 Ziffern';
+
+  @override
+  String get paymentCardholder => 'Name des Karteninhabers';
+
+  @override
+  String get paymentCardholderHint => 'Ayesha Khan';
+
+  @override
+  String get paymentCardholderError => 'Name des Karteninhabers eingeben';
+
+  @override
+  String get paymentUpiId => 'UPI-ID';
+
+  @override
+  String get paymentUpiIdHint => 'username@okaxis';
+
+  @override
+  String get paymentUpiIdError => 'UPI-ID eingeben';
+
+  @override
+  String get paymentUpiIdFormat => 'Ungültiges UPI-Format';
+
+  @override
+  String get paymentGooglePayDesc =>
+      'Zahlungsautorisierung über die Google Pay App abschließen.';
+
+  @override
+  String get paymentNetBankingDesc =>
+      'Sie werden nach Bestätigung zum sicheren Bank-Gateway weitergeleitet.';
+
+  @override
+  String get paymentCompletePayment => 'Zahlung abschließen';
+
+  @override
+  String get paymentProcessingTitle => 'Zahlungsgateway wird gesichert...';
+
+  @override
+  String get paymentProcessingSubtitle =>
+      'Bitte nicht zurückgehen oder die App schließen.';
+
+  @override
+  String get paymentSuccessWelcome => 'Willkommen bei Premium!';
+
+  @override
+  String get paymentSuccessMessage =>
+      'Ihre Zahlung wurde erfolgreich verarbeitet. Alle Funktionen sind jetzt für Ihr Konto freigeschaltet.';
+
+  @override
+  String get paymentSuccessFeatureSpeed =>
+      'Prioritäts-KI-Antwort mit Hochgeschwindigkeit';
+
+  @override
+  String get paymentSuccessFeatureChats =>
+      'Unbegrenzte Chat-Sitzungen und -Verlauf';
+
+  @override
+  String get paymentSuccessFeatureMemory => 'Unbegrenzte KI-Speicherplätze';
+
+  @override
+  String get paymentSuccessFeatureVision => 'Vollständige Vision-Fotoanalyse';
+
+  @override
+  String get paymentSuccessGoToDashboard => 'Zum Dashboard';
 }
