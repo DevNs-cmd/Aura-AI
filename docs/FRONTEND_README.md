@@ -59,6 +59,44 @@ WS_BASE_URL=wss://your-nest-backend-url.com
 
 ---
 
+## Installation
+
+1. **Clone the Repository**:
+   ```bash
+   git clone https://github.com/khelseekho-ui/aura-ai.git
+   cd aura-ai
+   ```
+
+2. **Get Dependencies**:
+   ```bash
+   flutter pub get
+   ```
+
+### Running the Application
+
+To run the application on a connected device, simulator, or browser:
+```bash
+flutter run
+```
+
+To target a specific platform:
+- **Web (Chrome)**:
+  ```bash
+  flutter run -d chrome
+  ```
+- **Windows Desktop**:
+  ```bash
+  flutter run -d windows
+  ```
+
+### Running Tests
+
+Run the comprehensive unit test suite to verify state controllers:
+```bash
+flutter test
+```
+
+
 ## Frontend Request Flow
 
 ```text
