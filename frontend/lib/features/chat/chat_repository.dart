@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:dio/dio.dart';
 import '../../models/chat_message.dart';
-import '../../core/network/api_config.dart';
+import '../../core/network/api_client.dart';
 import '../../core/network/auth_session_store.dart';
 
 abstract class ChatRepository {
@@ -13,16 +13,7 @@ abstract class ChatRepository {
 class HttpChatRepository implements ChatRepository {
   HttpChatRepository({Dio? dio, AuthSessionStore? sessionStore})
       : _sessionStore = sessionStore ?? AuthSessionStore(),
-        _dio = dio ??
-            Dio(
-              BaseOptions(
-                baseUrl: ApiConfig.nestBaseUrl,
-                connectTimeout: ApiConfig.requestTimeout,
-                receiveTimeout: ApiConfig.requestTimeout,
-                sendTimeout: ApiConfig.requestTimeout,
-                headers: const {'Content-Type': 'application/json'},
-              ),
-            );
+        _dio = dio ?? ApiClient(sessionStore: sessionStore).dio;
 
   final Dio _dio;
   final AuthSessionStore _sessionStore;
@@ -59,9 +50,6 @@ class HttpChatRepository implements ChatRepository {
       final response = await _dio.post<dynamic>(
         '/chat',
         data: {'message': message},
-        options: Options(
-          headers: {'Authorization': 'Bearer $token'},
-        ),
       );
 
       final data = response.data;

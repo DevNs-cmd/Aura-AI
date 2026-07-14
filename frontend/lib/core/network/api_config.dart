@@ -15,9 +15,11 @@ class ApiConfig {
     }
 
     if (defaultTargetPlatform == TargetPlatform.android) {
-      return 'http://10.0.2.2:3000/api';
+      // Android emulator ke liye port 8000
+      return 'http://10.0.2.2:3000';
     }
 
-    return 'http://localhost:3000/api';
+    // Browser/Web ke liye port 8000
+    return 'http://localhost:3000';
   }
 }

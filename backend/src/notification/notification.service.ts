@@ -59,6 +59,15 @@ export class NotificationService {
     return { success: true, count };
   }
 
+  async delete(id: string): Promise<{ success: boolean }> {
+    const index = this.notifications.findIndex((notification) => notification.id === id);
+    if (index === -1) {
+      throw new NotFoundException(`Notification with ID ${id} not found.`);
+    }
+    this.notifications.splice(index, 1);
+    return { success: true };
+  }
+
   async clearAll(): Promise<{ success: boolean }> {
     this.notifications = [];
     return { success: true };

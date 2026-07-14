@@ -1,11 +1,63 @@
 import 'dart:async';
+import 'package:dio/dio.dart';
+import '../../core/network/api_client.dart';
 import '../../models/notification_item.dart';
 
 abstract class NotificationsRepository {
-  List<NotificationItem> getNotifications();
+  Future<List<NotificationItem>> getNotifications();
   Future<void> markAsRead(String id);
   Future<void> markAllAsRead();
   Future<void> deleteNotification(String id);
+}
+
+class HttpNotificationsRepository implements NotificationsRepository {
+  HttpNotificationsRepository({Dio? dio}) : _dio = dio ?? ApiClient().dio;
+
+  final Dio _dio;
+
+  @override
+  Future<List<NotificationItem>> getNotifications() async {
+    final response = await _dio.get<dynamic>('/notifications');
+    if (response.data is! List) {
+      throw const FormatException('Unexpected notifications response shape.');
+    }
+    return (response.data as List)
+        .whereType<Map<String, dynamic>>()
+        .map(_fromApi)
+        .toList(growable: false);
+  }
+
+  @override
+  Future<void> markAsRead(String id) async {
+    await _dio.patch<dynamic>('/notifications/$id/read');
+  }
+
+  @override
+  Future<void> markAllAsRead() async {
+    await _dio.patch<dynamic>('/notifications/read-all');
+  }
+
+  @override
+  Future<void> deleteNotification(String id) async {
+    await _dio.delete<dynamic>('/notifications/$id');
+  }
+
+  NotificationItem _fromApi(Map<String, dynamic> value) {
+    final type = value['type']?.toString() ?? 'info';
+    return NotificationItem(
+      id: value['id']?.toString() ?? '',
+      title: value['title']?.toString() ?? '',
+      body: value['message']?.toString() ?? '',
+      timestamp: DateTime.tryParse(value['createdAt']?.toString() ?? '') ?? DateTime.now(),
+      category: type,
+      priority: switch (type) {
+        'warning' => 'high',
+        'success' => 'medium',
+        _ => 'low',
+      },
+      isRead: value['read'] == true,
+    );
+  }
 }
 
 class MockNotificationsRepository implements NotificationsRepository {
@@ -43,7 +95,7 @@ class MockNotificationsRepository implements NotificationsRepository {
   ];
 
   @override
-  List<NotificationItem> getNotifications() {
+  Future<List<NotificationItem>> getNotifications() async {
     return List.from(_notifications);
   }
 

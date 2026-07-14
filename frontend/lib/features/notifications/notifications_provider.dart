@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../core/network/api_config.dart';
 import '../../models/notification_item.dart';
 import 'notifications_repository.dart';
 
@@ -22,14 +23,27 @@ class NotificationsState {
 final notificationsRepositoryProvider = Provider<NotificationsRepository>((
   ref,
 ) {
-  return MockNotificationsRepository();
+  return ApiConfig.useMockRepositories
+      ? MockNotificationsRepository()
+      : HttpNotificationsRepository();
 });
 
 class NotificationsNotifier extends StateNotifier<NotificationsState> {
   final NotificationsRepository _repository;
 
-  NotificationsNotifier(this._repository)
-    : super(NotificationsState(notifications: _repository.getNotifications()));
+  NotificationsNotifier(this._repository) : super(NotificationsState(notifications: [])) {
+    _loadNotifications();
+  }
+
+  Future<void> _loadNotifications() async {
+    state = state.copyWith(isLoading: true);
+    try {
+      final notifications = await _repository.getNotifications();
+      if (mounted) state = state.copyWith(notifications: notifications, isLoading: false);
+    } catch (_) {
+      if (mounted) state = state.copyWith(isLoading: false);
+    }
+  }
 
   Future<void> readNotification(String id) async {
     try {

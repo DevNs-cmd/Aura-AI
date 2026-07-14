@@ -3,7 +3,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 class Settings(BaseSettings):
     # Database
-    DATABASE_URL: str = "postgresql://aura_user:aura_db_ai_pass@localhost:5432/aura_ai"
+    DATABASE_URL: str = "postgresql://aura_user:aura_password@127.0.0.1:5433/aura_ai"
 
 
 

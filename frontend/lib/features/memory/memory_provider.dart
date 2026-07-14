@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../core/network/api_config.dart';
 import '../../models/memory.dart';
 import 'memory_repository.dart';
 
@@ -27,14 +28,29 @@ class MemoryState {
 }
 
 final memoryRepositoryProvider = Provider<MemoryRepository>((ref) {
-  return MockMemoryRepository();
+  return ApiConfig.useMockRepositories
+      ? MockMemoryRepository()
+      : HttpMemoryRepository();
 });
 
 class MemoryNotifier extends StateNotifier<MemoryState> {
   final MemoryRepository _repository;
 
-  MemoryNotifier(this._repository)
-    : super(MemoryState(memories: _repository.getMemories()));
+  MemoryNotifier(this._repository) : super(MemoryState(memories: [])) {
+    _loadMemories();
+  }
+
+  Future<void> _loadMemories() async {
+    state = state.copyWith(isLoading: true, errorMessage: null);
+    try {
+      final memories = await _repository.getMemories();
+      if (mounted) state = state.copyWith(memories: memories, isLoading: false);
+    } catch (error) {
+      if (mounted) {
+        state = state.copyWith(isLoading: false, errorMessage: error.toString());
+      }
+    }
+  }
 
   Future<void> createMemory(
     String title,

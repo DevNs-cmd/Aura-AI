@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:dio/dio.dart';
-import '../../core/network/api_config.dart';
+import '../../core/network/api_client.dart';
 import '../../core/network/auth_session_store.dart';
 import '../../models/user.dart';
 
@@ -14,6 +14,7 @@ abstract class AuthRepository {
   );
   Future<User> signInWithGoogle();
   Future<User> signInWithApple();
+  Future<void> requestPasswordReset(String email);
   Future<void> signOut();
   Future<User?> getCurrentUser();
 }
@@ -21,16 +22,7 @@ abstract class AuthRepository {
 class HttpAuthRepository implements AuthRepository {
   HttpAuthRepository({Dio? dio, AuthSessionStore? sessionStore})
       : _sessionStore = sessionStore ?? AuthSessionStore(),
-        _dio = dio ??
-            Dio(
-              BaseOptions(
-                baseUrl: ApiConfig.nestBaseUrl,
-                connectTimeout: ApiConfig.requestTimeout,
-                receiveTimeout: ApiConfig.requestTimeout,
-                sendTimeout: ApiConfig.requestTimeout,
-                headers: const {'Content-Type': 'application/json'},
-              ),
-            );
+        _dio = dio ?? ApiClient(sessionStore: sessionStore).dio;
 
   final Dio _dio;
   final AuthSessionStore _sessionStore;
@@ -76,6 +68,11 @@ class HttpAuthRepository implements AuthRepository {
   }
 
   @override
+  Future<void> requestPasswordReset(String email) async {
+    await _postAuth('/auth/forgot-password', {'email': email});
+  }
+
+  @override
   Future<void> signOut() async {
     _currentUser = null;
     await _sessionStore.clearSession();
@@ -107,7 +104,7 @@ class HttpAuthRepository implements AuthRepository {
     }
   }
 
-  User _storeAuthResponse(Map<String, dynamic> response) {
+  Future<User> _storeAuthResponse(Map<String, dynamic> response) async {
     final token = (response['accessToken'] ?? response['access_token'])?.toString();
     final userPayload = response['user'];
 
@@ -120,7 +117,7 @@ class HttpAuthRepository implements AuthRepository {
 
     final user = User.fromMap(userPayload).copyWith(accessToken: token);
     _currentUser = user;
-    unawaited(_sessionStore.saveSession(user: user, accessToken: token));
+    await _sessionStore.saveSession(user: user, accessToken: token);
     return user;
   }
 
@@ -237,6 +234,11 @@ class MockAuthRepository implements AuthRepository {
           'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=256&h=256&fit=crop',
     );
     return _currentUser!;
+  }
+
+  @override
+  Future<void> requestPasswordReset(String email) async {
+    await Future.delayed(const Duration(milliseconds: 600));
   }
 
   @override
