@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../models/notification_item.dart';
 import 'notifications_repository.dart';
+import '../../core/network/api_client.dart';
 
 class NotificationsState {
   final List<NotificationItem> notifications;
@@ -19,17 +20,20 @@ class NotificationsState {
   }
 }
 
-final notificationsRepositoryProvider = Provider<NotificationsRepository>((
-  ref,
-) {
-  return MockNotificationsRepository();
+final notificationsRepositoryProvider = FutureProvider<NotificationsRepository>((ref) async {
+  return ApiNotificationsRepository(await ref.watch(apiClientProvider.future));
 });
 
 class NotificationsNotifier extends StateNotifier<NotificationsState> {
   final NotificationsRepository _repository;
 
-  NotificationsNotifier(this._repository)
-    : super(NotificationsState(notifications: _repository.getNotifications()));
+  NotificationsNotifier(this._repository) : super(NotificationsState(notifications: const [])) { load(); }
+
+  Future<void> load() async {
+    state = state.copyWith(isLoading: true);
+    try { state = state.copyWith(notifications: await _repository.getNotifications(), isLoading: false); }
+    catch (_) { state = state.copyWith(isLoading: false); }
+  }
 
   Future<void> readNotification(String id) async {
     try {
@@ -69,6 +73,14 @@ class NotificationsNotifier extends StateNotifier<NotificationsState> {
 
 final notificationsProvider =
     StateNotifierProvider<NotificationsNotifier, NotificationsState>((ref) {
-      final repository = ref.watch(notificationsRepositoryProvider);
-      return NotificationsNotifier(repository);
+      final repository = ref.watch(notificationsRepositoryProvider).value;
+      return NotificationsNotifier(repository ?? _UnavailableNotificationsRepository());
     });
+
+class _UnavailableNotificationsRepository implements NotificationsRepository {
+  Never _unavailable() => throw StateError('The API client is not configured.');
+  @override Future<void> deleteNotification(String id) async => _unavailable();
+  @override Future<List<NotificationItem>> getNotifications() async => _unavailable();
+  @override Future<void> markAllAsRead() async => _unavailable();
+  @override Future<void> markAsRead(String id) async => _unavailable();
+}

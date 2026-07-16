@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../models/memory.dart';
 import 'memory_repository.dart';
+import '../../core/network/api_client.dart';
 
 class MemoryState {
   final List<Memory> memories;
@@ -26,15 +27,20 @@ class MemoryState {
   }
 }
 
-final memoryRepositoryProvider = Provider<MemoryRepository>((ref) {
-  return MockMemoryRepository();
+final memoryRepositoryProvider = FutureProvider<MemoryRepository>((ref) async {
+  return ApiMemoryRepository(await ref.watch(apiClientProvider.future));
 });
 
 class MemoryNotifier extends StateNotifier<MemoryState> {
   final MemoryRepository _repository;
 
-  MemoryNotifier(this._repository)
-    : super(MemoryState(memories: _repository.getMemories()));
+  MemoryNotifier(this._repository) : super(MemoryState(memories: const [])) { load(); }
+
+  Future<void> load() async {
+    state = state.copyWith(isLoading: true);
+    try { state = state.copyWith(memories: await _repository.getMemories(), isLoading: false); }
+    catch (e) { state = state.copyWith(isLoading: false, errorMessage: e.toString()); }
+  }
 
   Future<void> createMemory(
     String title,
@@ -94,6 +100,14 @@ class MemoryNotifier extends StateNotifier<MemoryState> {
 final memoryProvider = StateNotifierProvider<MemoryNotifier, MemoryState>((
   ref,
 ) {
-  final repository = ref.watch(memoryRepositoryProvider);
-  return MemoryNotifier(repository);
+  final repository = ref.watch(memoryRepositoryProvider).value;
+  return MemoryNotifier(repository ?? _UnavailableMemoryRepository());
 });
+
+class _UnavailableMemoryRepository implements MemoryRepository {
+  Never _unavailable() => throw StateError('The API client is not configured.');
+  @override Future<Memory> addMemory(String a, String b, MemoryCategory c, String d, bool e) async => _unavailable();
+  @override Future<void> deleteMemory(String id) async => _unavailable();
+  @override Future<List<Memory>> getMemories() async => _unavailable();
+  @override Future<void> togglePin(String id) async => _unavailable();
+}

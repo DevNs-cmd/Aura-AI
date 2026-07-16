@@ -3,7 +3,7 @@ from pydantic_settings import BaseSettings
 
 class Settings(BaseSettings):
     # Database
-    DATABASE_URL: str = "postgresql://postgres:password@localhost:5432/aura_ai"
+    DATABASE_URL: str = "splite:///./sql_app.db"
 
     # Redis
     REDIS_URL: str = "redis://localhost:6379/0"
@@ -34,6 +34,7 @@ class Settings(BaseSettings):
 
     class Config:
         env_file = ".env"
+        extra = "ignore"
 
 
 settings = Settings()

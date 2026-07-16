@@ -388,9 +388,8 @@ class _HomeDashboardViewState extends ConsumerState<HomeDashboardView> {
   @override
   Widget build(BuildContext context) {
     final authState = ref.watch(authProvider);
-    final userName = authState.user?.displayName ?? 'Jose Maria';
+    final userName = authState.user?.name ?? 'User';
     final userAvatar =
-        authState.user?.avatarUrl ??
         'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=256&h=256&fit=crop';
     final themeState = ref.watch(themeProvider);
     final isDark = themeState.isDarkMode;

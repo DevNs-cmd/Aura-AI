@@ -8,6 +8,7 @@ import '../../../core/widgets/ocean_backdrop.dart';
 import '../../../core/widgets/aura_logo.dart';
 import 'animations.dart';
 import 'splash_controller.dart';
+import '../../auth/auth_provider.dart';
 
 class SplashScreen extends ConsumerStatefulWidget {
   const SplashScreen({super.key});
@@ -45,7 +46,8 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
     // Listen to initialization completed event to trigger routing
     ref.listen<SplashState>(splashControllerProvider, (previous, next) {
       if (next.isInitialized) {
-        context.go('/onboarding');
+        final auth = ref.read(authProvider);
+        context.go(auth.status == AuthStatus.authenticated ? '/home' : '/onboarding');
       }
     });
 

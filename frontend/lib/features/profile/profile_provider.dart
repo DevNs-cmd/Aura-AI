@@ -4,8 +4,7 @@ class ProfileState {
   final String userName;
   final String email;
   final String avatarUrl;
-  final String
-  selectedPersonality; // 'Empathetic', 'Analytical', 'Witty', 'Concise', 'Creative'
+  final String selectedPersonality;
 
   ProfileState({
     required this.userName,
@@ -31,31 +30,30 @@ class ProfileState {
 
 class ProfileNotifier extends StateNotifier<ProfileState> {
   ProfileNotifier()
-    : super(
-        ProfileState(
-          userName: 'Alex Rivera',
-          email: 'alex.rivera@example.com',
-          avatarUrl:
-              'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=256&h=256&fit=crop',
+      : super(ProfileState(
+          userName: 'Soumya', 
+          email: 'soumya@example.com',
+          avatarUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb',
           selectedPersonality: 'Empathetic',
-        ),
-      );
+        ));
 
   void setPersonality(String value) {
     state = state.copyWith(selectedPersonality: value);
   }
 
-  void updateProfile(String name, String email) {
-    state = state.copyWith(userName: name, email: email);
+  // 🛠️ Missing methods ko empty add kar diya taaki UI crash na ho:
+  void updateProfile(String? userName, String? email) {
+    state = state.copyWith(
+      userName: userName ?? state.userName,
+      email: email ?? state.email,
+    );
   }
 
-  void updateAvatar(String avatarUrl) {
-    state = state.copyWith(avatarUrl: avatarUrl);
+  void updateAvatar(String newUrl) {
+    state = state.copyWith(avatarUrl: newUrl);
   }
 }
 
-final profileProvider = StateNotifierProvider<ProfileNotifier, ProfileState>((
-  ref,
-) {
+final profileProvider = StateNotifierProvider<ProfileNotifier, ProfileState>((ref) {
   return ProfileNotifier();
 });

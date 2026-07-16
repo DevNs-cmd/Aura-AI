@@ -33,13 +33,23 @@ def _get_user_memory_context(db: Session, user: User) -> str:
 
 def generate_ai_reply(db: Session, user: User, session: ChatSession, user_message: str) -> str:
     """D1 LLM Orchestrator + D4 Context Manager: merges chat history & memory, calls LLM."""
-    system_prompt = "You are Aura, a helpful and warm personal AI companion."
+    
+    # Updated Prompt: handles casual greetings smoothly without throwing context errors
+    system_prompt = (
+        "You are Aura, a helpful, warm, and natural personal AI companion. "
+        "Respond conversationally. If the user greets you with casual words like 'hey', 'hi', or 'hello', "
+        "simply reply with a warm, friendly greeting and ask how they are doing. Do not bring up or "
+        "summarize background tasks, codes, or facts unless the user explicitly asks about them in the current conversation."
+    )
+    
     memory_context = _get_user_memory_context(db, user)
     if memory_context:
-        system_prompt += f"\n\n{memory_context}"
+        system_prompt += f"\n\n[Background Context]: {memory_context}"
 
     history = _get_recent_history(db, session)
-    messages = [{"role": "system", "content": system_prompt}] + history
+    
+    # FIX: Added user_message to payload so the AI actually receives what you typed!
+    messages = [{"role": "system", "content": system_prompt}] + history + [{"role": "user", "content": user_message}]
 
     if not settings.OPENROUTER_API_KEY:
         logger.warning("OPENROUTER_API_KEY not set — returning dev-echo response")
@@ -51,7 +61,6 @@ def generate_ai_reply(db: Session, user: User, session: ChatSession, user_messag
             headers={
                 "Authorization": f"Bearer {settings.OPENROUTER_API_KEY}",
                 "Content-Type": "application/json",
-                # OpenRouter recommends these for free-tier rate limits / attribution
                 "HTTP-Referer": settings.FRONTEND_URL or "http://localhost:5173",
                 "X-Title": "Aura AI",
             },

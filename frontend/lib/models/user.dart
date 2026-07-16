@@ -38,7 +38,7 @@ class User {
     return User(
       id: map['id'] ?? '',
       email: map['email'] ?? '',
-      displayName: map['displayName'] ?? '',
+      displayName: map['displayName'] ?? map['name'] ?? '',
       avatarUrl: map['avatarUrl'],
     );
   }

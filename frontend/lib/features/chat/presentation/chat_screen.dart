@@ -285,7 +285,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
                       : AppLocalizations.of(context)!.chatExplainCode,
                   onTap: () => ref
                       .read(chatProvider.notifier)
-                      .simulateSuggestionClick(
+                      .sendMessage(
                         _activeDocumentContext != null
                             ? AppLocalizations.of(context)!.chatWhatGoal
                             : AppLocalizations.of(context)!.chatExplainCode,
@@ -305,7 +305,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
                       : AppLocalizations.of(context)!.chatOptimizeScript,
                   onTap: () => ref
                       .read(chatProvider.notifier)
-                      .simulateSuggestionClick(
+                      .sendMessage(
                         _activeDocumentContext != null
                             ? AppLocalizations.of(context)!.chatSummarizeFile
                             : AppLocalizations.of(context)!.chatOptimizeScript,
