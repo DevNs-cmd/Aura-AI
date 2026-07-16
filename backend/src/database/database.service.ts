@@ -7,14 +7,15 @@ export class DatabaseService implements OnModuleDestroy {
 
   constructor() {
     const useSsl = process.env.DB_SSL === 'true';
+    const connectionString = process.env.DATABASE_URL || process.env.DATABASE_URL;
 
     this.pool = new Pool({
-      // connectionString: process.env.DATABASE_URL || undefined,
-      host: process.env.POSTGRES_HOST || 'localhost',
-      port: Number(process.env.POSTGRES_PORT || 5433),
-      user: process.env.POSTGRES_USER || 'aura_user',
-      password: process.env.POSTGRES_PASSWORD || 'aura_password',
-      database: process.env.POSTGRES_DB || 'aura_ai',
+      connectionString: connectionString || undefined,
+      host: connectionString ? undefined : process.env.POSTGRES_HOST || 'localhost',
+      port: connectionString ? undefined : Number(process.env.POSTGRES_PORT || 5433),
+      user: connectionString ? undefined : process.env.POSTGRES_USER || 'aura_user',
+      password: connectionString ? undefined : process.env.POSTGRES_PASSWORD || 'aura_db_ai_pass',
+      database: connectionString ? undefined : process.env.POSTGRES_DB || 'aura_ai',
 
       // Local Docker PostgreSQL does not support SSL.
       // For local testing: DB_SSL=false

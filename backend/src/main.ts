@@ -1,5 +1,8 @@
+import * as dotenv from 'dotenv';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
+
+dotenv.config();
 
 async function bootstrap() {
   // Bootstrap NestJS application
@@ -15,7 +18,7 @@ async function bootstrap() {
     credentials: true,
   });
 
-  const port = process.env.PORT || 3000;
+  const port = process.env.PORT != null ? Number(process.env.PORT) : 3001;
   await app.listen(port);
   console.log(`[Aura-AI] Production backend successfully bootstrapped on http://0.0.0.0:${port}`);
 }

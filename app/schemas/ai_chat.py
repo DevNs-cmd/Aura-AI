@@ -3,11 +3,13 @@ from __future__ import annotations
 from datetime import datetime
 from uuid import UUID
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, EmailStr, Field
 
 
 class AIChatRequest(BaseModel):
-    user_id: UUID
+    user_id: UUID | None = None
+    user_email: EmailStr | None = None
+    user_name: str | None = None
     message: str = Field(min_length=1)
 
 

@@ -1,8 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import '../../core/network/api_config.dart';
 import '../../models/memory.dart';
 import 'memory_repository.dart';
-import '../../core/network/api_client.dart';
 
 class MemoryState {
   final List<Memory> memories;
@@ -28,28 +28,15 @@ class MemoryState {
   }
 }
 
-<<<<<<< HEAD
-final memoryRepositoryProvider = FutureProvider<MemoryRepository>((ref) async {
-  return ApiMemoryRepository(await ref.watch(apiClientProvider.future));
-=======
 final memoryRepositoryProvider = Provider<MemoryRepository>((ref) {
   return ApiConfig.useMockRepositories
       ? MockMemoryRepository()
       : HttpMemoryRepository();
->>>>>>> 8a877bf27f7220ade008db9a02914e1cdcb22120
 });
 
 class MemoryNotifier extends StateNotifier<MemoryState> {
   final MemoryRepository _repository;
 
-<<<<<<< HEAD
-  MemoryNotifier(this._repository) : super(MemoryState(memories: const [])) { load(); }
-
-  Future<void> load() async {
-    state = state.copyWith(isLoading: true);
-    try { state = state.copyWith(memories: await _repository.getMemories(), isLoading: false); }
-    catch (e) { state = state.copyWith(isLoading: false, errorMessage: e.toString()); }
-=======
   MemoryNotifier(this._repository) : super(MemoryState(memories: [])) {
     _loadMemories();
   }
@@ -64,7 +51,6 @@ class MemoryNotifier extends StateNotifier<MemoryState> {
         state = state.copyWith(isLoading: false, errorMessage: error.toString());
       }
     }
->>>>>>> 8a877bf27f7220ade008db9a02914e1cdcb22120
   }
 
   Future<void> createMemory(
@@ -125,8 +111,8 @@ class MemoryNotifier extends StateNotifier<MemoryState> {
 final memoryProvider = StateNotifierProvider<MemoryNotifier, MemoryState>((
   ref,
 ) {
-  final repository = ref.watch(memoryRepositoryProvider).value;
-  return MemoryNotifier(repository ?? _UnavailableMemoryRepository());
+  final repository = ref.watch(memoryRepositoryProvider);
+  return MemoryNotifier(repository);
 });
 
 class _UnavailableMemoryRepository implements MemoryRepository {

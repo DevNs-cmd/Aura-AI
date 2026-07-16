@@ -1,16 +1,10 @@
-<<<<<<< HEAD
-=======
-import 'dart:async';
 import 'package:dio/dio.dart';
->>>>>>> 8a877bf27f7220ade008db9a02914e1cdcb22120
+
 import '../../core/network/api_client.dart';
 import '../../models/memory.dart';
 
 abstract class MemoryRepository {
   Future<List<Memory>> getMemories();
-<<<<<<< HEAD
-  Future<Memory> addMemory(String title, String description, MemoryCategory category, String importance, bool isPinned);
-=======
   Future<Memory> addMemory(
     String title,
     String description,
@@ -18,23 +12,10 @@ abstract class MemoryRepository {
     String importance,
     bool isPinned,
   );
->>>>>>> 8a877bf27f7220ade008db9a02914e1cdcb22120
   Future<void> deleteMemory(String id);
   Future<void> togglePin(String id);
 }
 
-<<<<<<< HEAD
-class ApiMemoryRepository implements MemoryRepository {
-  ApiMemoryRepository(this._client);
-  final ApiClient _client;
-
-  Memory _fromJson(Map<String, dynamic> json) {
-    final category = MemoryCategory.values.where((c) => c.name == json['category']).firstOrNull ?? MemoryCategory.fact;
-    final importance = (json['importance'] as num? ?? 3).toInt();
-    return Memory(id: json['id'] as String, title: (json['fact'] as String).split('\n').first,
-      description: json['fact'] as String, storedAt: DateTime.parse(json['createdAt'] as String),
-      category: category, importance: importance >= 4 ? 'high' : importance <= 2 ? 'low' : 'medium');
-=======
 class HttpMemoryRepository implements MemoryRepository {
   HttpMemoryRepository({Dio? dio}) : _dio = dio ?? ApiClient().dio;
 
@@ -151,19 +132,39 @@ class MockMemoryRepository implements MemoryRepository {
   @override
   Future<List<Memory>> getMemories() async {
     return List.from(_memories);
->>>>>>> 8a877bf27f7220ade008db9a02914e1cdcb22120
   }
-  @override Future<List<Memory>> getMemories() async {
-    final response = await _client.get<List<dynamic>>('/api/memory');
-    return response.data!.map((e) => _fromJson(Map<String, dynamic>.from(e as Map))).toList();
+
+  @override
+  Future<Memory> addMemory(
+    String title,
+    String description,
+    MemoryCategory category,
+    String importance,
+    bool isPinned,
+  ) async {
+    final created = Memory(
+      id: 'mem-${DateTime.now().millisecondsSinceEpoch}',
+      title: title.isEmpty ? 'New Memory' : title,
+      description: description,
+      storedAt: DateTime.now(),
+      category: category,
+      importance: importance,
+      isPinned: isPinned,
+    );
+    _memories.add(created);
+    return created;
   }
-  @override Future<Memory> addMemory(String title, String description, MemoryCategory category, String importance, bool isPinned) async {
-    final level = importance == 'high' ? 5 : importance == 'low' ? 1 : 3;
-    final response = await _client.post<Map<String, dynamic>>('/api/memory', data: {
-      'category': category.name, 'fact': title.isEmpty ? description : '$title\n$description', 'importance': level,
-    });
-    return _fromJson(response.data!);
+
+  @override
+  Future<void> deleteMemory(String id) async {
+    _memories.removeWhere((memory) => memory.id == id);
   }
-  @override Future<void> deleteMemory(String id) async => _client.delete('/api/memory/$id');
-  @override Future<void> togglePin(String id) => Future.error(UnsupportedError('The production memory API has no pin endpoint.'));
+
+  @override
+  Future<void> togglePin(String id) async {
+    final index = _memories.indexWhere((memory) => memory.id == id);
+    if (index != -1) {
+      _memories[index] = _memories[index].copyWith(isPinned: !_memories[index].isPinned);
+    }
+  }
 }

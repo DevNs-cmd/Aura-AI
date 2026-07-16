@@ -10,11 +10,13 @@ export class ChatController {
   @Post()
   async handleChat(@Req() req: any, @Body('message') message: string) {
     const userId = req.user?.sub ?? req.user?.id;
+    const userEmail = req.user?.email;
+    const userName = req.user?.name;
 
     if (!userId) {
       throw new UnauthorizedException('Authenticated user is required.');
     }
 
-    return this.chatService.processAIMessage(String(userId), message);
+    return this.chatService.processAIMessage(String(userId), message, userEmail, userName);
   }
 }

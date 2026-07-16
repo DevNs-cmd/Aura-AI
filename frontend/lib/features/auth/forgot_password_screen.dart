@@ -35,13 +35,6 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
       });
 
       try {
-<<<<<<< HEAD
-        await ref.read(authProvider.notifier).sendPasswordReset(_emailController.text.trim());
-      } catch (error) {
-        if (mounted) {
-          setState(() => _isLoading = false);
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(error.toString())));
-=======
         await ref
             .read(authProvider.notifier)
             .requestPasswordReset(_emailController.text.trim());
@@ -51,7 +44,6 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text(error.toString().replaceAll('Exception: ', ''))),
           );
->>>>>>> 8a877bf27f7220ade008db9a02914e1cdcb22120
         }
         return;
       }

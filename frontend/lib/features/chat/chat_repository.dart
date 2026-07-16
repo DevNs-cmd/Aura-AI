@@ -1,20 +1,15 @@
-<<<<<<< HEAD
-import '../../core/network/api_client.dart';
-=======
-import 'dart:async';
 import 'package:dio/dio.dart';
->>>>>>> 8a877bf27f7220ade008db9a02914e1cdcb22120
-import '../../models/chat_message.dart';
+
 import '../../core/network/api_client.dart';
 import '../../core/network/auth_session_store.dart';
+import '../../models/chat_message.dart';
 
-class ChatRepository {
-  ChatRepository(this._client);
-  final ApiClient _client;
+abstract class ChatRepository {
+  List<ChatMessage> getInitialMessages();
+  Future<ChatMessage> sendUserMessage(String content, {String? imageUrl});
+  Future<ChatMessage> getAIResponse(List<ChatMessage> conversationHistory);
+}
 
-<<<<<<< HEAD
-  // 1. Ye method add/check karo
-=======
 class HttpChatRepository implements ChatRepository {
   HttpChatRepository({Dio? dio, AuthSessionStore? sessionStore})
       : _sessionStore = sessionStore ?? AuthSessionStore(),
@@ -24,7 +19,7 @@ class HttpChatRepository implements ChatRepository {
   final AuthSessionStore _sessionStore;
 
   @override
-  List<ChatMessage> getInitialMessages() => <ChatMessage>[];
+  List<ChatMessage> getInitialMessages() => const <ChatMessage>[];
 
   @override
   Future<ChatMessage> sendUserMessage(
@@ -169,30 +164,25 @@ class MockChatRepository implements ChatRepository {
   }
 
   @override
->>>>>>> 8a877bf27f7220ade008db9a02914e1cdcb22120
-  List<ChatMessage> getInitialMessages() {
-    return []; 
-  }
+  List<ChatMessage> getInitialMessages() => List<ChatMessage>.from(_messages);
 
-  // 2. Ye method add/check karo
+  @override
   Future<ChatMessage> sendUserMessage(String content, {String? imageUrl}) async {
-    // Yahan apna logic (API call ya local object creation) likho
     return ChatMessage(
-      id: 'local-${DateTime.now().microsecondsSinceEpoch}', 
+      id: 'local-${DateTime.now().microsecondsSinceEpoch}',
       content: content,
-      isUser: true, 
+      isUser: true,
       timestamp: DateTime.now(),
+      imageUrl: imageUrl,
     );
   }
 
-  // 3. Ye method add/check karo
+  @override
   Future<ChatMessage> getAIResponse(List<ChatMessage> conversationHistory) async {
-    final response = await _client.post('/api/v1/chat/sessions/123/messages', 
-      data: {'message': conversationHistory.last.content});
-    
+    final lastMessage = conversationHistory.isNotEmpty ? conversationHistory.last.content : 'Hello';
     return ChatMessage(
       id: 'ai-${DateTime.now().microsecondsSinceEpoch}',
-      content: response.data['response'],
+      content: 'Mock reply to: $lastMessage',
       isUser: false,
       timestamp: DateTime.now(),
     );

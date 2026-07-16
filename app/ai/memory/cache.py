@@ -22,6 +22,20 @@ class MemoryCache(Protocol):
         ...
 
 
+class NullMemoryCache(MemoryCache):
+    def get(self, key: str) -> str | None:
+        return None
+
+    def set(self, key: str, value: str, *, ttl_seconds: int | None = None) -> None:
+        return None
+
+    def delete(self, *keys: str) -> None:
+        return None
+
+    def increment(self, key: str) -> int:
+        return 0
+
+
 class RedisMemoryCache(MemoryCache):
     def __init__(self, *, client=None, url: str | None = None, ttl_seconds: int = 300):
         if client is not None:
@@ -33,20 +47,24 @@ class RedisMemoryCache(MemoryCache):
                 raise MemoryConfigurationError("redis is required for the memory cache adapter") from exc
 
             self._client = redis.Redis.from_url(url or settings.REDIS_URL, decode_responses=True)
+            try:
+                self._client.ping()
+            except Exception as exc:  # pragma: no cover - defensive adapter boundary
+                raise MemoryConfigurationError("Failed to connect to Redis for the memory cache adapter") from exc
 
         self._ttl_seconds = ttl_seconds
 
     def get(self, key: str) -> str | None:
         try:
             return self._client.get(key)
-        except Exception as exc:  # pragma: no cover - defensive adapter boundary
-            raise MemoryCacheError("Failed to read from the memory cache") from exc
+        except Exception:
+            return None
 
     def set(self, key: str, value: str, *, ttl_seconds: int | None = None) -> None:
         try:
             self._client.set(key, value, ex=ttl_seconds if ttl_seconds is not None else self._ttl_seconds)
-        except Exception as exc:  # pragma: no cover - defensive adapter boundary
-            raise MemoryCacheError("Failed to write to the memory cache") from exc
+        except Exception:
+            return None
 
     def delete(self, *keys: str) -> None:
         if not keys:
@@ -54,18 +72,21 @@ class RedisMemoryCache(MemoryCache):
 
         try:
             self._client.delete(*keys)
-        except Exception as exc:  # pragma: no cover - defensive adapter boundary
-            raise MemoryCacheError("Failed to delete memory cache keys") from exc
+        except Exception:
+            return None
 
     def increment(self, key: str) -> int:
         try:
             return int(self._client.incr(key))
-        except Exception as exc:  # pragma: no cover - defensive adapter boundary
-            raise MemoryCacheError("Failed to increment memory cache key") from exc
+        except Exception:
+            return 0
 
 
-def build_memory_cache(*, client=None, url: str | None = None, ttl_seconds: int = 300) -> RedisMemoryCache:
-    return RedisMemoryCache(client=client, url=url, ttl_seconds=ttl_seconds)
+def build_memory_cache(*, client=None, url: str | None = None, ttl_seconds: int = 300) -> MemoryCache:
+    try:
+        return RedisMemoryCache(client=client, url=url, ttl_seconds=ttl_seconds)
+    except MemoryConfigurationError:
+        return NullMemoryCache()
 
 
 def dumps_memory_reads(items: list[MemoryRead]) -> str:

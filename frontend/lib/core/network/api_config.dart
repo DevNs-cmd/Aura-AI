@@ -18,12 +18,16 @@ class ApiConfig {
       return _overrideBaseUrl;
     }
 
+    if (kIsWeb) {
+      // When Flutter Web is served on localhost:3000, the backend must run on a separate port.
+      return 'http://localhost:3001/api';
+    }
+
     if (defaultTargetPlatform == TargetPlatform.android) {
       // Android emulator ke liye port 3000 with backend global /api prefix
       return 'http://10.0.2.2:3000/api';
     }
 
-    // Browser/Web ke liye port 3000 with backend global /api prefix
     return 'http://localhost:3000/api';
   }
 }
