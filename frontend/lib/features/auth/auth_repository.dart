@@ -1,20 +1,13 @@
-<<<<<<< HEAD
-import '../../core/network/api_client.dart';
-=======
 import 'dart:async';
 
 import 'package:dio/dio.dart';
+
 import '../../core/network/api_client.dart';
 import '../../core/network/auth_session_store.dart';
->>>>>>> 8a877bf27f7220ade008db9a02914e1cdcb22120
 import '../../models/user.dart';
 
 abstract class AuthRepository {
   Future<User> signInWithEmailAndPassword(String email, String password);
-<<<<<<< HEAD
-  Future<User> signUpWithEmailAndPassword(String email, String password, String name);
-  Future<void> sendPasswordReset(String email);
-=======
   Future<User> signUpWithEmailAndPassword(
     String email,
     String password,
@@ -23,20 +16,14 @@ abstract class AuthRepository {
   Future<User> signInWithGoogle();
   Future<User> signInWithApple();
   Future<void> requestPasswordReset(String email);
->>>>>>> 8a877bf27f7220ade008db9a02914e1cdcb22120
   Future<void> signOut();
   Future<User?> getCurrentUser();
 }
 
-<<<<<<< HEAD
-class ApiAuthRepository implements AuthRepository {
-  ApiAuthRepository(this._client);
-  final ApiClient _client;
-=======
 class HttpAuthRepository implements AuthRepository {
   HttpAuthRepository({Dio? dio, AuthSessionStore? sessionStore})
-    : _sessionStore = sessionStore ?? AuthSessionStore(),
-      _dio = dio ?? ApiClient(sessionStore: sessionStore).dio;
+      : _sessionStore = sessionStore ?? AuthSessionStore(),
+        _dio = dio ?? ApiClient(sessionStore: sessionStore).dio;
 
   final Dio _dio;
   final AuthSessionStore _sessionStore;
@@ -176,36 +163,34 @@ class HttpAuthRepository implements AuthRepository {
 
 class MockAuthRepository implements AuthRepository {
   User? _currentUser;
->>>>>>> 8a877bf27f7220ade008db9a02914e1cdcb22120
 
-  Future<User> _authenticate(String path, Map<String, dynamic> data) async {
-    final response = await _client.post<Map<String, dynamic>>(path, data: data);
-    final payload = response.data!;
-    final userData = Map<String, dynamic>.from(payload['user'] as Map);
-    final token = payload['accessToken'] as String?;
-    if (token == null || token.isEmpty) throw StateError('The server did not return an access token.');
-    final user = User.fromMap(userData);
-    await _client.saveSession(token, user.toMap());
-    return user;
+  @override
+  Future<User> signInWithEmailAndPassword(String email, String password) async {
+    await Future.delayed(const Duration(milliseconds: 600));
+    _currentUser = User(
+      id: 'mock-user-${email.hashCode}',
+      email: email,
+      displayName: email.split('@').first.replaceAll('.', ' ').trim(),
+    );
+    return _currentUser!;
   }
 
   @override
-  Future<User> signInWithEmailAndPassword(String email, String password) =>
-      _authenticate('/api/auth/login', {'email': email, 'password': password});
-
-  @override
-  Future<User> signUpWithEmailAndPassword(String email, String password, String name) =>
-      _authenticate('/api/auth/signup', {'name': name, 'email': email, 'password': password});
-
-  @override
-  Future<void> sendPasswordReset(String email) async {
-    await _client.post('/api/auth/forgot-password', data: {'email': email});
+  Future<User> signUpWithEmailAndPassword(
+    String email,
+    String password,
+    String name,
+  ) async {
+    await Future.delayed(const Duration(milliseconds: 700));
+    _currentUser = User(
+      id: 'mock-user-${email.hashCode}',
+      email: email,
+      displayName: name.isEmpty ? email.split('@').first : name,
+    );
+    return _currentUser!;
   }
 
   @override
-<<<<<<< HEAD
-  Future<void> signOut() => _client.clearSession();
-=======
   Future<User> signInWithGoogle() async {
     await Future.delayed(const Duration(milliseconds: 1200));
     _currentUser = const User(
@@ -241,12 +226,9 @@ class MockAuthRepository implements AuthRepository {
     await Future.delayed(const Duration(milliseconds: 500));
     _currentUser = null;
   }
->>>>>>> 8a877bf27f7220ade008db9a02914e1cdcb22120
 
   @override
   Future<User?> getCurrentUser() async {
-    if (await _client.accessToken() == null) return null;
-    final user = await _client.currentUser();
-    return user == null ? null : User.fromMap(user);
+    return _currentUser;
   }
 }

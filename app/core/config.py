@@ -1,15 +1,14 @@
+from pathlib import Path
+
 from pydantic_settings import BaseSettings, SettingsConfigDict
+
+
+ROOT_DIR = Path(__file__).resolve().parents[2]
 
 
 class Settings(BaseSettings):
     # Database
-<<<<<<< HEAD
-    DATABASE_URL: str = "splite:///./sql_app.db"
-=======
-    DATABASE_URL: str = "postgresql://aura_user:aura_password@127.0.0.1:5433/aura_ai"
-
-
->>>>>>> 8a877bf27f7220ade008db9a02914e1cdcb22120
+    DATABASE_URL: str = "postgresql://aura_user:aura_db_ai_pass@localhost:5432/aura_ai"
 
     # Redis
     REDIS_URL: str = "redis://localhost:6379/0"
@@ -21,7 +20,7 @@ class Settings(BaseSettings):
     REFRESH_TOKEN_EXPIRE_DAYS: int = 7
 
     # LLM
-    OPENROUTER_API_KEY: str = ""
+    OPENROUTER_API_KEY: str = "OPENROUTER_API_KEY"
     LLM_MODEL: str = "google/gemini-2.0-flash-exp:free"
 
     # Embeddings
@@ -38,17 +37,11 @@ class Settings(BaseSettings):
     ENVIRONMENT: str = "development"
     FRONTEND_URL: str = "http://localhost:5173"
 
-<<<<<<< HEAD
-    class Config:
-        env_file = ".env"
-        extra = "ignore"
-=======
     model_config = SettingsConfigDict(
-        env_file=None,
+        env_file=str(ROOT_DIR / ".env"),
         extra="ignore",
         case_sensitive=False,
     )
->>>>>>> 8a877bf27f7220ade008db9a02914e1cdcb22120
 
 
 settings = Settings()

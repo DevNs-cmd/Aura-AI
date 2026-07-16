@@ -4,16 +4,26 @@ from fastapi.responses import JSONResponse
 from slowapi import Limiter, _rate_limit_exceeded_handler
 from slowapi.errors import RateLimitExceeded
 from slowapi.util import get_remote_address
+from sqlalchemy import text
 
 from app.api.ai import router as ai_router
 from app.api.v1.router import api_router
 from app.core.config import settings
 from app.db.database import Base, engine
+from app.models.user import User  # noqa: F401 - register table with Base.metadata
 from app.models.embedding import EmbeddingRecord  # noqa: F401 - register table with Base.metadata
 from app.models.journal import JournalEntry  # noqa: F401 - register table with Base.metadata
 
-# Create tables (use Alembic migrations in production instead)
+# Create tables and ensure schema migrations for local development.
+# Use Alembic or a proper migration tool in production.
 Base.metadata.create_all(bind=engine)
+with engine.begin() as connection:
+    # Ensure the users table has the active flag for FastAPI user lookup.
+    connection.execute(
+        text(
+            "ALTER TABLE users ADD COLUMN IF NOT EXISTS is_active BOOLEAN DEFAULT TRUE NOT NULL"
+        )
+    )
 
 # B3. Rate Limiter
 limiter = Limiter(key_func=get_remote_address)

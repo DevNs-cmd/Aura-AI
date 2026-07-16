@@ -365,50 +365,8 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
       body: isWideScreen
           ? Row(
               children: [
-<<<<<<< HEAD
-                _buildSuggestionChip(
-                  context,
-                  accentColor,
-                  isDark,
-                  themeState,
-                  icon: _activeDocumentContext != null
-                      ? Icons.notes_rounded
-                      : Icons.code_rounded,
-                  label: _activeDocumentContext != null
-                      ? AppLocalizations.of(context)!.chatWhatGoal
-                      : AppLocalizations.of(context)!.chatExplainCode,
-                  onTap: () => ref
-                      .read(chatProvider.notifier)
-                      .sendMessage(
-                        _activeDocumentContext != null
-                            ? AppLocalizations.of(context)!.chatWhatGoal
-                            : AppLocalizations.of(context)!.chatExplainCode,
-                      ),
-                ),
-                const SizedBox(width: 12),
-                _buildSuggestionChip(
-                  context,
-                  accentColor,
-                  isDark,
-                  themeState,
-                  icon: _activeDocumentContext != null
-                      ? Icons.access_time_rounded
-                      : Icons.auto_fix_high_rounded,
-                  label: _activeDocumentContext != null
-                      ? AppLocalizations.of(context)!.chatSummarizeFile
-                      : AppLocalizations.of(context)!.chatOptimizeScript,
-                  onTap: () => ref
-                      .read(chatProvider.notifier)
-                      .sendMessage(
-                        _activeDocumentContext != null
-                            ? AppLocalizations.of(context)!.chatSummarizeFile
-                            : AppLocalizations.of(context)!.chatOptimizeScript,
-                      ),
-                ),
-=======
                 if (!_sidebarCollapsed) const ChatSidebar(),
                 Expanded(child: chatView),
->>>>>>> 8a877bf27f7220ade008db9a02914e1cdcb22120
               ],
             )
           : chatView,

@@ -115,7 +115,7 @@ export class UserService {
       `
       SELECT id, name, email, avatar_url, created_at
       FROM users
-      ORDER BY create_at DESC
+      ORDER BY created_at DESC
       `,
     );
     return result.rows.map((row) => ({
