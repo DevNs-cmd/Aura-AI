@@ -1,9 +1,15 @@
-from pydantic_settings import BaseSettings
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
     # Database
+<<<<<<< HEAD
     DATABASE_URL: str = "splite:///./sql_app.db"
+=======
+    DATABASE_URL: str = "postgresql://aura_user:aura_password@127.0.0.1:5433/aura_ai"
+
+
+>>>>>>> 8a877bf27f7220ade008db9a02914e1cdcb22120
 
     # Redis
     REDIS_URL: str = "redis://localhost:6379/0"
@@ -32,9 +38,17 @@ class Settings(BaseSettings):
     ENVIRONMENT: str = "development"
     FRONTEND_URL: str = "http://localhost:5173"
 
+<<<<<<< HEAD
     class Config:
         env_file = ".env"
         extra = "ignore"
+=======
+    model_config = SettingsConfigDict(
+        env_file=None,
+        extra="ignore",
+        case_sensitive=False,
+    )
+>>>>>>> 8a877bf27f7220ade008db9a02914e1cdcb22120
 
 
 settings = Settings()

@@ -1,6 +1,9 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/widgets/primary_button.dart';
 import '../../../../core/widgets/custom_text_field.dart';
@@ -54,52 +57,46 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
     }
   }
 
-  void _showAvatarPicker(BuildContext context, Color accentColor, bool isDark) {
-    final avatars = [
-      {
-        'label': 'Corporate',
-        'url':
-            'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=256&h=256&fit=crop',
-      },
-      {
-        'label': 'Tech',
-        'url':
-            'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?q=80&w=256&h=256&fit=crop',
-      },
-      {
-        'label': 'Creative',
-        'url':
-            'https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=256&h=256&fit=crop',
-      },
-      {
-        'label': 'Nature',
-        'url':
-            'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=256&h=256&fit=crop',
-      },
-    ];
-
-    String getLocalAvatarLabel(String label) {
-      final l10n = AppLocalizations.of(context);
-      if (l10n == null) return label;
-      switch (label.toLowerCase()) {
-        case 'corporate':
-          return l10n.avatarCorporate;
-        case 'tech':
-          return l10n.avatarTech;
-        case 'creative':
-          return l10n.avatarCreative;
-        case 'nature':
-          return l10n.avatarNature;
-        default:
-          return label;
+  Future<void> _pickImage(ImageSource source) async {
+    final picker = ImagePicker();
+    try {
+      final pickedFile = await picker.pickImage(
+        source: source,
+        maxWidth: 512,
+        maxHeight: 512,
+        imageQuality: 85,
+      );
+      if (pickedFile != null && mounted) {
+        ref.read(profileProvider.notifier).updateAvatar(pickedFile.path);
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              AppLocalizations.of(context)!.profileAvatarUpdatedSuccess,
+            ),
+            backgroundColor: AppColors.success,
+          ),
+        );
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Error picking image: $e'),
+            backgroundColor: Colors.redAccent,
+          ),
+        );
       }
     }
+  }
 
+  void _showAvatarPicker(BuildContext context, Color accentColor, bool isDark) {
+    final l10n = AppLocalizations.of(context)!;
     showModalBottomSheet(
       context: context,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
       ),
+      backgroundColor: isDark ? const Color(0xFF1E1C24) : Colors.white,
       builder: (sheetContext) => SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(24.0),
@@ -108,51 +105,68 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Text(
-                AppLocalizations.of(context)!.profileChoosePic,
-                style: const TextStyle(
+                l10n.profileChoosePic,
+                style: GoogleFonts.outfit(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
+                  color: isDark ? Colors.white : AppColors.lightTextPrimary,
                 ),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: avatars.map((avatar) {
-                  return GestureDetector(
-                    onTap: () {
-                      ref
-                          .read(profileProvider.notifier)
-                          .updateAvatar(avatar['url']!);
-                      Navigator.pop(sheetContext);
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(
-                            AppLocalizations.of(
-                              context,
-                            )!.profileAvatarUpdatedSuccess,
-                          ),
-                        ),
-                      );
-                    },
-                    child: Column(
-                      children: [
-                        CircleAvatar(
-                          radius: 32,
-                          backgroundImage: NetworkImage(avatar['url']!),
-                        ),
-                        const SizedBox(height: 8),
-                        Text(
-                          getLocalAvatarLabel(avatar['label']!),
-                          style: const TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
-                }).toList(),
+              ListTile(
+                leading: Icon(Icons.camera_alt_rounded, color: accentColor),
+                title: Text(
+                  l10n.profileTakePhoto,
+                  style: GoogleFonts.quicksand(
+                    fontWeight: FontWeight.bold,
+                    color: isDark ? Colors.white : AppColors.lightTextPrimary,
+                  ),
+                ),
+                onTap: () {
+                  Navigator.pop(sheetContext);
+                  _pickImage(ImageSource.camera);
+                },
+              ),
+              Divider(
+                color: isDark
+                    ? const Color(0xFF2C2834)
+                    : AppColors.lightCardBorder,
+              ),
+              ListTile(
+                leading: Icon(Icons.photo_library_rounded, color: accentColor),
+                title: Text(
+                  l10n.profileChooseGallery,
+                  style: GoogleFonts.quicksand(
+                    fontWeight: FontWeight.bold,
+                    color: isDark ? Colors.white : AppColors.lightTextPrimary,
+                  ),
+                ),
+                onTap: () {
+                  Navigator.pop(sheetContext);
+                  _pickImage(ImageSource.gallery);
+                },
+              ),
+              Divider(
+                color: isDark
+                    ? const Color(0xFF2C2834)
+                    : AppColors.lightCardBorder,
+              ),
+              ListTile(
+                leading: const Icon(
+                  Icons.close_rounded,
+                  color: Colors.redAccent,
+                ),
+                title: Text(
+                  l10n.profileCancel,
+                  style: GoogleFonts.quicksand(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.redAccent,
+                  ),
+                ),
+                onTap: () {
+                  Navigator.pop(sheetContext);
+                },
               ),
             ],
           ),
@@ -219,7 +233,11 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
                             shape: BoxShape.circle,
                             border: Border.all(color: accentColor, width: 2),
                             image: DecorationImage(
-                              image: NetworkImage(profile.avatarUrl),
+                              image: profile.avatarUrl.startsWith('http')
+                                  ? NetworkImage(profile.avatarUrl)
+                                        as ImageProvider
+                                  : FileImage(File(profile.avatarUrl))
+                                        as ImageProvider,
                               fit: BoxFit.cover,
                             ),
                           ),

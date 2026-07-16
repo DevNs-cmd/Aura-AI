@@ -1,4 +1,12 @@
+import 'dart:async';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+<<<<<<< HEAD
+=======
+import '../../core/network/api_config.dart';
+import '../../models/user.dart';
+import 'auth_repository.dart';
+>>>>>>> 8a877bf27f7220ade008db9a02914e1cdcb22120
 
 // ==========================================================================
 // 1. AUTH STATUS
@@ -56,6 +64,7 @@ class AuthState {
   }
 }
 
+<<<<<<< HEAD
 // ==========================================================================
 // 4. AUTH REPOSITORY (Actual Logic Layer - Placeholder to Real Backend Flow)
 // ==========================================================================
@@ -68,6 +77,16 @@ class AuthRepository {
     // Fallback Mock Response: Agar backend abhi offline hai toh email se naam nikalega
     String extractedName = email.split('@')[0].replaceAll('.', ' ').replaceAll('_', ' ');
     String formattedName = extractedName.split(' ').map((w) => w.isNotEmpty ? w[0].toUpperCase() + w.substring(1) : '').join(' ');
+=======
+// Provider for AuthRepository
+final authRepositoryProvider = Provider<AuthRepository>((ref) {
+  if (ApiConfig.useMockRepositories) {
+    return MockAuthRepository();
+  }
+
+  return HttpAuthRepository();
+});
+>>>>>>> 8a877bf27f7220ade008db9a02914e1cdcb22120
 
     return UserModel(id: 'usr_123', name: formattedName, email: email);
   }
@@ -85,7 +104,24 @@ class AuthNotifier extends StateNotifier<AuthState> {
   final AuthRepository _repository;
 
   AuthNotifier(this._repository) : super(AuthState()) {
+<<<<<<< HEAD
     _restoreSession();
+=======
+    unawaited(_restoreSession());
+  }
+
+  Future<void> _restoreSession() async {
+    final currentUser = await _repository.getCurrentUser();
+    if (!mounted || currentUser == null) {
+      return;
+    }
+
+    state = state.copyWith(
+      status: AuthStatus.authenticated,
+      user: currentUser,
+      errorMessage: null,
+    );
+>>>>>>> 8a877bf27f7220ade008db9a02914e1cdcb22120
   }
 
   Future<void> _restoreSession() async {
@@ -126,7 +162,24 @@ class AuthNotifier extends StateNotifier<AuthState> {
     // Future expansion logic
   }
 
+<<<<<<< HEAD
   // 🚪 SIGN OUT
+=======
+  Future<void> requestPasswordReset(String email) async {
+    state = state.copyWith(status: AuthStatus.authenticating, errorMessage: null);
+    try {
+      await _repository.requestPasswordReset(email);
+      state = state.copyWith(status: AuthStatus.unauthenticated);
+    } catch (e) {
+      state = state.copyWith(
+        status: AuthStatus.error,
+        errorMessage: e.toString().replaceAll('Exception: ', ''),
+      );
+      rethrow;
+    }
+  }
+
+>>>>>>> 8a877bf27f7220ade008db9a02914e1cdcb22120
   Future<void> signOut() async {
     state = AuthState(status: AuthStatus.unauthenticated);
   }

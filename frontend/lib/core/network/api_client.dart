@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+<<<<<<< HEAD
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -33,3 +34,38 @@ class ApiClient {
 
 // PROVIDER KO CLASS KE BAHAR LIKHO (Yahan se error hat jayega)
 final apiClientProvider = FutureProvider<ApiClient>((ref) => ApiClient.create());
+=======
+
+import 'api_config.dart';
+import 'auth_session_store.dart';
+
+class ApiClient {
+  ApiClient({Dio? dio, AuthSessionStore? sessionStore})
+      : _sessionStore = sessionStore ?? AuthSessionStore(),
+        dio = dio ??
+            Dio(
+              BaseOptions(
+                baseUrl: ApiConfig.nestBaseUrl,
+                connectTimeout: ApiConfig.requestTimeout,
+                receiveTimeout: ApiConfig.requestTimeout,
+                sendTimeout: ApiConfig.requestTimeout,
+                headers: const {'Content-Type': 'application/json'},
+              ),
+            ) {
+    this.dio.interceptors.add(
+      InterceptorsWrapper(
+        onRequest: (options, handler) async {
+          final token = await _sessionStore.readAccessToken();
+          if (token != null && token.isNotEmpty) {
+            options.headers['Authorization'] = 'Bearer $token';
+          }
+          handler.next(options);
+        },
+      ),
+    );
+  }
+
+  final Dio dio;
+  final AuthSessionStore _sessionStore;
+}
+>>>>>>> 8a877bf27f7220ade008db9a02914e1cdcb22120

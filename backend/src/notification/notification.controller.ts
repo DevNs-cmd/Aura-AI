@@ -32,6 +32,11 @@ export class NotificationController {
     return this.notificationService.markAllAsRead();
   }
 
+  @Delete(':id')
+  async delete(@Param('id') id: string) {
+    return this.notificationService.delete(id);
+  }
+
   @Delete()
   async clearAll() {
     return this.notificationService.clearAll();

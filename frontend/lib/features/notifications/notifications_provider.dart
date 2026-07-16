@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../core/network/api_config.dart';
 import '../../models/notification_item.dart';
 import 'notifications_repository.dart';
 import '../../core/network/api_client.dart';
@@ -20,19 +21,43 @@ class NotificationsState {
   }
 }
 
+<<<<<<< HEAD
 final notificationsRepositoryProvider = FutureProvider<NotificationsRepository>((ref) async {
   return ApiNotificationsRepository(await ref.watch(apiClientProvider.future));
+=======
+final notificationsRepositoryProvider = Provider<NotificationsRepository>((
+  ref,
+) {
+  return ApiConfig.useMockRepositories
+      ? MockNotificationsRepository()
+      : HttpNotificationsRepository();
+>>>>>>> 8a877bf27f7220ade008db9a02914e1cdcb22120
 });
 
 class NotificationsNotifier extends StateNotifier<NotificationsState> {
   final NotificationsRepository _repository;
 
+<<<<<<< HEAD
   NotificationsNotifier(this._repository) : super(NotificationsState(notifications: const [])) { load(); }
 
   Future<void> load() async {
     state = state.copyWith(isLoading: true);
     try { state = state.copyWith(notifications: await _repository.getNotifications(), isLoading: false); }
     catch (_) { state = state.copyWith(isLoading: false); }
+=======
+  NotificationsNotifier(this._repository) : super(NotificationsState(notifications: [])) {
+    _loadNotifications();
+  }
+
+  Future<void> _loadNotifications() async {
+    state = state.copyWith(isLoading: true);
+    try {
+      final notifications = await _repository.getNotifications();
+      if (mounted) state = state.copyWith(notifications: notifications, isLoading: false);
+    } catch (_) {
+      if (mounted) state = state.copyWith(isLoading: false);
+    }
+>>>>>>> 8a877bf27f7220ade008db9a02914e1cdcb22120
   }
 
   Future<void> readNotification(String id) async {

@@ -291,7 +291,16 @@ class ArbValidator {
       return false;
     }
 
-    final expectedThemes = ['Happy', 'Calm', 'Motivated', 'Relaxed', 'Reflective', 'Focused', 'Tired', 'Inspired'];
+    final expectedThemes = [
+      'Happy',
+      'Calm',
+      'Motivated',
+      'Relaxed',
+      'Reflective',
+      'Focused',
+      'Tired',
+      'Inspired',
+    ];
     final expectedTimes = ['Morning', 'Afternoon', 'Evening', 'Night'];
     final expectedLanguages = ['en', 'es', 'hi', 'fr', 'de'];
 
@@ -315,7 +324,8 @@ class ArbValidator {
 
         try {
           final content = await file.readAsString();
-          final Map<String, dynamic> data = jsonDecode(content) as Map<String, dynamic>;
+          final Map<String, dynamic> data =
+              jsonDecode(content) as Map<String, dynamic>;
 
           for (final time in expectedTimes) {
             if (!data.containsKey(time)) {
@@ -326,35 +336,49 @@ class ArbValidator {
 
             final timeData = data[time];
             if (timeData is! Map<String, dynamic>) {
-              print('Quote dataset ${file.path} (Time: $time) data is not a Map');
+              print(
+                'Quote dataset ${file.path} (Time: $time) data is not a Map',
+              );
               success = false;
               continue;
             }
 
-            if (!timeData.containsKey('subtitle') || timeData['subtitle'].toString().trim().isEmpty) {
-              print('Quote dataset ${file.path} (Time: $time) is missing or has empty subtitle');
+            if (!timeData.containsKey('subtitle') ||
+                timeData['subtitle'].toString().trim().isEmpty) {
+              print(
+                'Quote dataset ${file.path} (Time: $time) is missing or has empty subtitle',
+              );
               success = false;
             }
 
-            if (!timeData.containsKey('quotes') || timeData['quotes'] is! List<dynamic>) {
-              print('Quote dataset ${file.path} (Time: $time) is missing or has invalid quotes list');
+            if (!timeData.containsKey('quotes') ||
+                timeData['quotes'] is! List<dynamic>) {
+              print(
+                'Quote dataset ${file.path} (Time: $time) is missing or has invalid quotes list',
+              );
               success = false;
               continue;
             }
 
             final quotes = timeData['quotes'] as List<dynamic>;
             if (quotes.length < 10) {
-              print('Quote dataset ${file.path} (Time: $time) has only ${quotes.length} quotes (expected at least 10)');
+              print(
+                'Quote dataset ${file.path} (Time: $time) has only ${quotes.length} quotes (expected at least 10)',
+              );
               success = false;
             }
 
             final uniqueQuotes = quotes.map((q) => q.toString().trim()).toSet();
             if (uniqueQuotes.length != quotes.length) {
-              print('Quote dataset ${file.path} (Time: $time) has duplicate quotes');
+              print(
+                'Quote dataset ${file.path} (Time: $time) has duplicate quotes',
+              );
               success = false;
             }
             if (uniqueQuotes.any((q) => q.isEmpty)) {
-              print('Quote dataset ${file.path} (Time: $time) has empty quotes');
+              print(
+                'Quote dataset ${file.path} (Time: $time) has empty quotes',
+              );
               success = false;
             }
           }

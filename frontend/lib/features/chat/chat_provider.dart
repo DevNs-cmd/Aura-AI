@@ -1,7 +1,12 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../models/chat_message.dart';
 import 'chat_repository.dart';
+<<<<<<< HEAD
 import '../../core/network/api_client.dart';
+=======
+import '../../core/network/api_config.dart';
+import '../../core/localization/locale_controller.dart';
+>>>>>>> 8a877bf27f7220ade008db9a02914e1cdcb22120
 
 class ChatState {
   final List<ChatMessage> messages;
@@ -17,10 +22,21 @@ class ChatState {
   }
 }
 
+<<<<<<< HEAD
 // 1. Sahi Provider (ApiChatRepository hata kar ChatRepository use karo)
 final chatRepositoryProvider = FutureProvider<ChatRepository>((ref) async {
   final client = await ref.watch(apiClientProvider.future);
   return ChatRepository(client); 
+=======
+// Provider for ChatRepository
+final chatRepositoryProvider = Provider<ChatRepository>((ref) {
+  if (ApiConfig.useMockRepositories) {
+    final locale = ref.watch(localeProvider);
+    return MockChatRepository(locale.languageCode);
+  }
+
+  return HttpChatRepository();
+>>>>>>> 8a877bf27f7220ade008db9a02914e1cdcb22120
 });
 
 class ChatNotifier extends StateNotifier<ChatState> {

@@ -1159,4 +1159,397 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get moodBtnContinue => 'जारी रखें';
+
+  @override
+  String get profileTakePhoto => 'फोटो लें';
+
+  @override
+  String get profileChooseGallery => 'गैलरी से चुनें';
+
+  @override
+  String get profileCancel => 'रद्द करें';
+
+  @override
+  String get billingTitle => 'बिलिंग और सदस्यता';
+
+  @override
+  String get billingCurrentPlan => 'वर्तमान योजना';
+
+  @override
+  String get billingFreeTier => 'मुफ्त स्तर';
+
+  @override
+  String get billingPremiumTier => 'प्रीमियम स्तर';
+
+  @override
+  String get billingProTier => 'प्रो स्तर';
+
+  @override
+  String billingRenewsOn(String date) {
+    return 'नवीनीकरण तिथि: $date';
+  }
+
+  @override
+  String get billingUsageLimits => 'उपयोग सीमाएं';
+
+  @override
+  String get billingAiCompanionChats => 'एआई सहायक चैट';
+
+  @override
+  String get billingMemoryIndexSlots => 'मेमोरी इंडेक्स स्लॉट';
+
+  @override
+  String get billingUnlimited => 'असीमित';
+
+  @override
+  String get billingPaymentMethod => 'भुगतान विधि';
+
+  @override
+  String get billingRenewsAutomatically => 'स्वचालित रूप से नवीनीकृत होता है';
+
+  @override
+  String get billingUpdate => 'अपडेट';
+
+  @override
+  String billingPaymentMethodUpdated(String method) {
+    return 'भुगतान विधि अपडेट की गई: $method';
+  }
+
+  @override
+  String get billingHistory => 'बिलिंग इतिहास';
+
+  @override
+  String get billingCancelPremium => 'प्रीमियम सदस्यता रद्द करें';
+
+  @override
+  String get billingUpgradePlan => 'योजना अपग्रेड करें';
+
+  @override
+  String get billingInvoiceTitle => 'कर चालान रसीद';
+
+  @override
+  String get billingInvoicePaidSuccess => 'भुगतान सफल';
+
+  @override
+  String get billingInvoiceId => 'चालान आईडी';
+
+  @override
+  String get billingInvoiceDate => 'तिथि';
+
+  @override
+  String get billingInvoicePlan => 'योजना';
+
+  @override
+  String get billingInvoicePaymentMethod => 'भुगतान विधि';
+
+  @override
+  String get billingInvoiceSubtotal => 'उप-योग';
+
+  @override
+  String get billingInvoiceTaxGst => 'कर (जीएसटी 18%)';
+
+  @override
+  String get billingInvoiceTotalAmount => 'कुल राशि';
+
+  @override
+  String get billingInvoiceClose => 'बंद करें';
+
+  @override
+  String get billingInvoiceDownload => 'डाउनलोड';
+
+  @override
+  String billingInvoiceDownloaded(String fileName) {
+    return '$fileName आपके ब्राउज़र डाउनलोड फ़ोल्डर में डाउनलोड किया गया!';
+  }
+
+  @override
+  String billingInvoiceSaved(String filePath) {
+    return 'चालान यहां सहेजा गया: $filePath';
+  }
+
+  @override
+  String get billingReceiptHeader => 'ऑरा एआई बिलिंग पोर्टल';
+
+  @override
+  String get billingReceiptNumber => 'रसीद संख्या';
+
+  @override
+  String get billingReceiptTransactionDate => 'लेनदेन की तिथि';
+
+  @override
+  String get billingReceiptPlanType => 'योजना प्रकार';
+
+  @override
+  String get billingReceiptPaymentStatus => 'भुगतान स्थिति';
+
+  @override
+  String get billingReceiptPaymentMethod => 'भुगतान विधि';
+
+  @override
+  String get billingReceiptSummary => 'शुल्क सारांश';
+
+  @override
+  String get billingReceiptPlanPrice => 'योजना सदस्यता मूल्य';
+
+  @override
+  String get billingReceiptTaxGst => 'कर (जीएसटी 18%)';
+
+  @override
+  String get billingReceiptTotalCharged => 'कुल शुल्क';
+
+  @override
+  String get billingReceiptThankYou =>
+      'ऑरा एआई प्रीमियम में अपग्रेड करने के लिए धन्यवाद!';
+
+  @override
+  String get billingReceiptContactSupport =>
+      'किसी भी प्रश्न के लिए support@aura.ai पर संपर्क करें';
+
+  @override
+  String get billingDowngradeTitle => 'खाता डाउनग्रेड करें?';
+
+  @override
+  String get billingDowngradeMessage =>
+      'यदि आप रद्द करते हैं, तो आप असीमित चैट, विज़न एक्सप्लोरेशन और स्मार्ट मेमोरी आइटम के स्लॉट खो देंगे। यह कार्रवाई तुरंत प्रभावी होगी।';
+
+  @override
+  String get billingKeepSubscription => 'सदस्यता रखें';
+
+  @override
+  String get billingDowngrade => 'डाउनग्रेड';
+
+  @override
+  String get billingCancelledSuccess => 'सदस्यता सफलतापूर्वक रद्द की गई';
+
+  @override
+  String get choosePlanTitle => 'अपनी योजना चुनें';
+
+  @override
+  String get choosePlanSubtitle => 'अपने साथी की पूर्ण बुद्धिमत्ता अनलॉक करें';
+
+  @override
+  String get choosePlanDescription =>
+      'मेमोरी रिटेंशन, उच्च गति प्रोसेसिंग और विज़न विश्लेषण तक असीमित पहुंच प्राप्त करें।';
+
+  @override
+  String get choosePlanFree => 'मुफ्त योजना';
+
+  @override
+  String get choosePlanPremium => 'प्रीमियम योजना';
+
+  @override
+  String get choosePlanPro => 'प्रो योजना';
+
+  @override
+  String get choosePlanPerMonth => '/ माह';
+
+  @override
+  String get choosePlanFreeDesc =>
+      'बुनियादी एआई जर्नलिंग शुरू करने के लिए आदर्श।';
+
+  @override
+  String get choosePlanPremiumDesc =>
+      'गहन चिंतन और त्वरित उत्तरों के लिए पूर्ण क्षमताएं।';
+
+  @override
+  String get choosePlanProDesc =>
+      'पावर-यूज़र मॉडल कॉन्फ़िगरेशन और तृतीय-पक्ष एकीकरण।';
+
+  @override
+  String get choosePlanFeature50Chats => 'प्रति माह 50 चैट';
+
+  @override
+  String get choosePlanFeature20Memory => '20 मेमोरी इंडेक्स स्लॉट';
+
+  @override
+  String get choosePlanFeatureBasicSpeed => 'बुनियादी प्रतिक्रिया गति';
+
+  @override
+  String get choosePlanFeatureStandardModes => 'मानक सहायक मोड';
+
+  @override
+  String get choosePlanFeatureUnlimitedChats => 'असीमित चैट';
+
+  @override
+  String get choosePlanFeatureUnlimitedMemory => 'असीमित मेमोरी रिटेंशन';
+
+  @override
+  String get choosePlanFeatureHighSpeed => 'उच्च-गति प्रतिक्रियाएं';
+
+  @override
+  String get choosePlanFeatureVision => 'पूर्ण विज़न क्षमताएं';
+
+  @override
+  String get choosePlanFeaturePersonalities => 'सभी कस्टम व्यक्तित्व';
+
+  @override
+  String get choosePlanFeatureAllPremium => 'सभी प्रीमियम सुविधाएं';
+
+  @override
+  String get choosePlanFeatureWorkspace => 'वर्कस्पेस एकीकरण (मॉक)';
+
+  @override
+  String get choosePlanFeatureDevApi => 'उन्नत डेवलपर एपीआई विकल्प';
+
+  @override
+  String get choosePlanFeaturePrioritySupport => 'प्राथमिकता सहायता';
+
+  @override
+  String get choosePlanCurrentPlan => 'वर्तमान योजना';
+
+  @override
+  String get choosePlanSelectFree => 'मुफ्त चुनें';
+
+  @override
+  String get choosePlanUpgradePremium => 'प्रीमियम में अपग्रेड करें';
+
+  @override
+  String get choosePlanComingSoon => 'जल्द आ रहा है';
+
+  @override
+  String get choosePlanMostPopular => 'सबसे लोकप्रिय';
+
+  @override
+  String get choosePlanSwitchedFree => 'मुफ्त योजना पर स्विच किया गया';
+
+  @override
+  String get purchaseSummaryTitle => 'खरीद सारांश';
+
+  @override
+  String get purchaseSummaryReview =>
+      'विवरण की समीक्षा करें और ऑर्डर पूरा करें';
+
+  @override
+  String get purchaseSummaryIncludes =>
+      'पूर्ण सहायक क्षमताएं, प्रीमियम आवाज़ मोड और असीमित मेमोरी स्लॉट शामिल हैं।';
+
+  @override
+  String get purchaseSummarySubtotal => 'उप-योग';
+
+  @override
+  String get purchaseSummaryTaxGst => 'कर (जीएसटी 18%)';
+
+  @override
+  String get purchaseSummaryTotalDue => 'कुल देय';
+
+  @override
+  String get purchaseSummaryProceed => 'भुगतान के लिए आगे बढ़ें';
+
+  @override
+  String get purchaseSummaryCancelNote => 'कभी भी रद्द करें। सुरक्षित चेकआउट।';
+
+  @override
+  String get paymentTitle => 'भुगतान विवरण';
+
+  @override
+  String get paymentSelectMethod => 'भुगतान विधि चुनें';
+
+  @override
+  String get paymentMethodCard => 'कार्ड';
+
+  @override
+  String get paymentMethodUpi => 'यूपीआई';
+
+  @override
+  String get paymentMethodGooglePay => 'गूगल पे';
+
+  @override
+  String get paymentMethodNetBanking => 'नेट बैंकिंग';
+
+  @override
+  String get paymentCardNumber => 'कार्ड नंबर';
+
+  @override
+  String get paymentCardNumberHint => '4111 2222 3333 4444';
+
+  @override
+  String get paymentCardNumberError => 'कार्ड नंबर दर्ज करें';
+
+  @override
+  String get paymentCardNumberLengthError => '16 अंकों का कार्ड नंबर दर्ज करें';
+
+  @override
+  String get paymentExpiry => 'समाप्ति';
+
+  @override
+  String get paymentExpiryHint => 'MM/YY';
+
+  @override
+  String get paymentExpiryRequired => 'आवश्यक';
+
+  @override
+  String get paymentExpiryFormat => 'MM/YY का उपयोग करें';
+
+  @override
+  String get paymentCvv => 'सीवीवी';
+
+  @override
+  String get paymentCvvHint => '123';
+
+  @override
+  String get paymentCvvRequired => 'आवश्यक';
+
+  @override
+  String get paymentCvvDigits => '3 अंक';
+
+  @override
+  String get paymentCardholder => 'कार्डधारक का नाम';
+
+  @override
+  String get paymentCardholderHint => 'आयेशा खान';
+
+  @override
+  String get paymentCardholderError => 'कार्डधारक का नाम दर्ज करें';
+
+  @override
+  String get paymentUpiId => 'यूपीआई आईडी';
+
+  @override
+  String get paymentUpiIdHint => 'username@okaxis';
+
+  @override
+  String get paymentUpiIdError => 'यूपीआई आईडी दर्ज करें';
+
+  @override
+  String get paymentUpiIdFormat => 'अमान्य यूपीआई प्रारूप';
+
+  @override
+  String get paymentGooglePayDesc =>
+      'गूगल पे ऐप का उपयोग करके भुगतान प्राधिकरण पूरा करें।';
+
+  @override
+  String get paymentNetBankingDesc =>
+      'पुष्टि पर आपको सुरक्षित बैंक गेटवे पर रीडायरेक्ट किया जाएगा।';
+
+  @override
+  String get paymentCompletePayment => 'भुगतान पूरा करें';
+
+  @override
+  String get paymentProcessingTitle => 'पेमेंट गेटवे सुरक्षित हो रहा है...';
+
+  @override
+  String get paymentProcessingSubtitle => 'कृपया वापस न जाएं या ऐप बंद न करें।';
+
+  @override
+  String get paymentSuccessWelcome => 'प्रीमियम में आपका स्वागत है!';
+
+  @override
+  String get paymentSuccessMessage =>
+      'आपका भुगतान सफलतापूर्वक संसाधित किया गया। आपके खाते के लिए सभी क्षमताएं अनलॉक हो गई हैं।';
+
+  @override
+  String get paymentSuccessFeatureSpeed =>
+      'उच्च गति प्राथमिकता एआई प्रतिक्रिया';
+
+  @override
+  String get paymentSuccessFeatureChats => 'असीमित चैट सत्र और इतिहास';
+
+  @override
+  String get paymentSuccessFeatureMemory => 'एआई मेमोरी के लिए असीमित स्लॉट';
+
+  @override
+  String get paymentSuccessFeatureVision => 'पूर्ण विज़न फोटो विश्लेषण';
+
+  @override
+  String get paymentSuccessGoToDashboard => 'डैशबोर्ड पर जाएं';
 }

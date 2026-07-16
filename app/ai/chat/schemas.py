@@ -32,3 +32,6 @@ class ChatResponse(BaseModel):
     response: LLMResponse
     memory_updates: list[dict[str, Any]] = Field(default_factory=list)
     journal_updates: list[dict[str, Any]] = Field(default_factory=list)
+    pdf_report_type: str | None = None
+    pdf_report_filename: str | None = None
+    pdf_report_bytes: bytes | None = None

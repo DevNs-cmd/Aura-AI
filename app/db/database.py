@@ -16,4 +16,10 @@ def get_db():
     try:
         yield db
     finally:
+<<<<<<< HEAD
         db.close()
+=======
+        db.close()
+
+
+>>>>>>> 8a877bf27f7220ade008db9a02914e1cdcb22120

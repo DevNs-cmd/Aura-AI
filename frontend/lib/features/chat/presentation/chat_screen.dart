@@ -4,10 +4,11 @@ import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/theme/theme_provider.dart';
-import '../chat_provider.dart';
+import '../chat_sessions_provider.dart';
 import 'widgets/chat_bubble.dart';
 import 'widgets/message_input.dart';
 import 'widgets/typing_indicator.dart';
+import 'widgets/chat_sidebar.dart';
 import '../../../core/localization/generated/app_localizations.dart';
 
 class ChatScreen extends ConsumerStatefulWidget {
@@ -22,11 +23,19 @@ class ChatScreen extends ConsumerStatefulWidget {
 class _ChatScreenState extends ConsumerState<ChatScreen> {
   final _scrollController = ScrollController();
   String? _activeDocumentContext;
+  bool _sidebarCollapsed = false;
 
   @override
   void initState() {
     super.initState();
     _activeDocumentContext = widget.documentContext;
+    if (widget.documentContext != null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        ref
+            .read(chatSessionsProvider.notifier)
+            .sendMessage(widget.documentContext!);
+      });
+    }
   }
 
   @override
@@ -49,18 +58,172 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final chatState = ref.watch(chatProvider);
+    final sessionState = ref.watch(chatSessionsProvider);
     final themeState = ref.watch(themeProvider);
     final isDark = themeState.isDarkMode;
     final accentColor = themeState.accentColor;
+    final activeSession = sessionState.activeSession;
+    final messages = activeSession?.messages ?? [];
+    final isTyping = sessionState.isTyping;
 
     // Auto-scroll on new message or typing indicator toggle
-    ref.listen(chatProvider, (previous, next) {
-      if (previous?.messages.length != next.messages.length ||
+    ref.listen(chatSessionsProvider, (previous, next) {
+      if (previous?.sessions.length != next.sessions.length ||
+          previous?.activeSessionId != next.activeSessionId ||
           previous?.isTyping != next.isTyping) {
         _scrollToBottom();
       }
     });
+
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isWideScreen = screenWidth >= 768;
+
+    final chatView = Column(
+      children: [
+        // 1. Active Document Context Chip
+        if (_activeDocumentContext != null) ...[
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              decoration: BoxDecoration(
+                color: accentColor.withValues(alpha: 0.08),
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(
+                  color: accentColor.withValues(alpha: 0.25),
+                  width: 1.5,
+                ),
+              ),
+              child: Row(
+                children: [
+                  Icon(Icons.description_rounded, size: 18, color: accentColor),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Q&A DOCUMENT CONTEXT',
+                          style: GoogleFonts.outfit(
+                            fontSize: 9,
+                            fontWeight: FontWeight.bold,
+                            color: accentColor,
+                            letterSpacing: 0.8,
+                          ),
+                        ),
+                        const SizedBox(height: 3),
+                        Text(
+                          _activeDocumentContext!,
+                          style: GoogleFonts.quicksand(
+                            fontSize: 13,
+                            fontWeight: FontWeight.bold,
+                            color: isDark
+                                ? Colors.white70
+                                : AppColors.lightTextPrimary,
+                          ),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ],
+                    ),
+                  ),
+                  IconButton(
+                    icon: Icon(
+                      Icons.close_rounded,
+                      size: 16,
+                      color: accentColor,
+                    ),
+                    padding: EdgeInsets.zero,
+                    constraints: const BoxConstraints(),
+                    onPressed: () {
+                      setState(() {
+                        _activeDocumentContext = null;
+                      });
+                    },
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+
+        // Message List View
+        Expanded(
+          child: ListView.builder(
+            controller: _scrollController,
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
+            itemCount: messages.length + (isTyping ? 1 : 0),
+            itemBuilder: (context, index) {
+              if (index == messages.length) {
+                return const TypingIndicator();
+              }
+              final message = messages[index];
+              return ChatBubble(message: message);
+            },
+          ),
+        ),
+
+        // Suggestion Chips (floating above input box)
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              _buildSuggestionChip(
+                context,
+                accentColor,
+                isDark,
+                themeState,
+                icon: _activeDocumentContext != null
+                    ? Icons.notes_rounded
+                    : Icons.code_rounded,
+                label: _activeDocumentContext != null
+                    ? AppLocalizations.of(context)!.chatWhatGoal
+                    : AppLocalizations.of(context)!.chatExplainCode,
+                onTap: () => ref
+                    .read(chatSessionsProvider.notifier)
+                    .sendMessage(
+                      _activeDocumentContext != null
+                          ? AppLocalizations.of(context)!.chatWhatGoal
+                          : AppLocalizations.of(context)!.chatExplainCode,
+                    ),
+              ),
+              const SizedBox(width: 12),
+              _buildSuggestionChip(
+                context,
+                accentColor,
+                isDark,
+                themeState,
+                icon: _activeDocumentContext != null
+                    ? Icons.access_time_rounded
+                    : Icons.auto_fix_high_rounded,
+                label: _activeDocumentContext != null
+                    ? AppLocalizations.of(context)!.chatSummarizeFile
+                    : AppLocalizations.of(context)!.chatOptimizeScript,
+                onTap: () => ref
+                    .read(chatSessionsProvider.notifier)
+                    .sendMessage(
+                      _activeDocumentContext != null
+                          ? AppLocalizations.of(context)!.chatSummarizeFile
+                          : AppLocalizations.of(context)!.chatOptimizeScript,
+                    ),
+              ),
+            ],
+          ),
+        ),
+
+        // Bottom Message Input Box
+        SafeArea(
+          top: false,
+          child: MessageInput(
+            onSend: (text) =>
+                ref.read(chatSessionsProvider.notifier).sendMessage(text),
+            onAttachmentTap: () =>
+                _showAttachmentSheet(context, accentColor, isDark, themeState),
+          ),
+        ),
+      ],
+    );
 
     return Scaffold(
       backgroundColor: isDark
@@ -68,6 +231,9 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
           : (themeState.hasMoodSelected
                 ? themeState.moodTheme.background
                 : AppColors.lightBackground),
+      drawer: isWideScreen
+          ? null
+          : const Drawer(child: ChatSidebar(isDrawer: true)),
       appBar: AppBar(
         backgroundColor: isDark
             ? const Color(0xFF1E1C24)
@@ -76,23 +242,34 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
                   : Colors.white),
         elevation: 0,
         scrolledUnderElevation: 0,
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back_ios_new_rounded,
-            color: isDark ? Colors.white : AppColors.lightTextPrimary,
-          ),
-          onPressed: () {
-            if (context.canPop()) {
-              context.pop();
-            } else {
-              context.go('/home');
-            }
-          },
-        ),
+        leading: isWideScreen
+            ? IconButton(
+                icon: Icon(
+                  Icons.arrow_back_ios_new_rounded,
+                  color: isDark ? Colors.white : AppColors.lightTextPrimary,
+                ),
+                onPressed: () {
+                  if (context.canPop()) {
+                    context.pop();
+                  } else {
+                    context.go('/home');
+                  }
+                },
+              )
+            : Builder(
+                builder: (drawerContext) => IconButton(
+                  icon: Icon(
+                    Icons.menu_rounded,
+                    color: isDark ? Colors.white : AppColors.lightTextPrimary,
+                  ),
+                  onPressed: () => Scaffold.of(drawerContext).openDrawer(),
+                ),
+              ),
         title: Column(
           children: [
             Text(
-              AppLocalizations.of(context)!.chatAuraCompanion,
+              activeSession?.title ??
+                  AppLocalizations.of(context)!.chatAuraCompanion,
               style: GoogleFonts.outfit(
                 fontWeight: FontWeight.bold,
                 fontSize: 16,
@@ -121,6 +298,18 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
         ),
         centerTitle: true,
         actions: [
+          if (isWideScreen)
+            IconButton(
+              icon: Icon(
+                _sidebarCollapsed ? Icons.menu_rounded : Icons.menu_open_rounded,
+                color: isDark ? Colors.white : AppColors.lightTextPrimary,
+              ),
+              onPressed: () {
+                setState(() {
+                  _sidebarCollapsed = !_sidebarCollapsed;
+                });
+              },
+            ),
           PopupMenuButton<String>(
             icon: Icon(
               Icons.more_vert_rounded,
@@ -138,7 +327,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
             color: isDark ? const Color(0xFF1E1C24) : Colors.white,
             onSelected: (value) {
               if (value == 'clear') {
-                ref.read(chatProvider.notifier).clearChat();
+                ref.read(chatSessionsProvider.notifier).clearActiveSession();
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(content: Text('Chat history cleared')),
                 );
@@ -173,105 +362,10 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
           ),
         ),
       ),
-      body: Column(
-        children: [
-          // 1. Active Document Context Chip
-          if (_activeDocumentContext != null) ...[
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-              child: Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 16,
-                  vertical: 12,
-                ),
-                decoration: BoxDecoration(
-                  color: accentColor.withValues(alpha: 0.08),
-                  borderRadius: BorderRadius.circular(20),
-                  border: Border.all(
-                    color: accentColor.withValues(alpha: 0.25),
-                    width: 1.5,
-                  ),
-                ),
-                child: Row(
-                  children: [
-                    Icon(
-                      Icons.description_rounded,
-                      size: 18,
-                      color: accentColor,
-                    ),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Q&A DOCUMENT CONTEXT',
-                            style: GoogleFonts.outfit(
-                              fontSize: 9,
-                              fontWeight: FontWeight.bold,
-                              color: accentColor,
-                              letterSpacing: 0.8,
-                            ),
-                          ),
-                          const SizedBox(height: 3),
-                          Text(
-                            _activeDocumentContext!,
-                            style: GoogleFonts.quicksand(
-                              fontSize: 13,
-                              fontWeight: FontWeight.bold,
-                              color: isDark
-                                  ? Colors.white70
-                                  : AppColors.lightTextPrimary,
-                            ),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ],
-                      ),
-                    ),
-                    IconButton(
-                      icon: Icon(
-                        Icons.close_rounded,
-                        size: 16,
-                        color: accentColor,
-                      ),
-                      padding: EdgeInsets.zero,
-                      constraints: const BoxConstraints(),
-                      onPressed: () {
-                        setState(() {
-                          _activeDocumentContext = null;
-                        });
-                      },
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ],
-
-          // Message List View
-          Expanded(
-            child: ListView.builder(
-              controller: _scrollController,
-              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
-              itemCount:
-                  chatState.messages.length + (chatState.isTyping ? 1 : 0),
-              itemBuilder: (context, index) {
-                if (index == chatState.messages.length) {
-                  return const TypingIndicator();
-                }
-                final message = chatState.messages[index];
-                return ChatBubble(message: message);
-              },
-            ),
-          ),
-
-          // Suggestion Chips (floating above input box)
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+      body: isWideScreen
+          ? Row(
               children: [
+<<<<<<< HEAD
                 _buildSuggestionChip(
                   context,
                   accentColor,
@@ -311,26 +405,13 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
                             : AppLocalizations.of(context)!.chatOptimizeScript,
                       ),
                 ),
+=======
+                if (!_sidebarCollapsed) const ChatSidebar(),
+                Expanded(child: chatView),
+>>>>>>> 8a877bf27f7220ade008db9a02914e1cdcb22120
               ],
-            ),
-          ),
-
-          // Bottom Message Input Box
-          SafeArea(
-            top: false,
-            child: MessageInput(
-              onSend: (text) =>
-                  ref.read(chatProvider.notifier).sendMessage(text),
-              onAttachmentTap: () => _showAttachmentSheet(
-                context,
-                accentColor,
-                isDark,
-                themeState,
-              ),
-            ),
-          ),
-        ],
-      ),
+            )
+          : chatView,
     );
   }
 
@@ -379,7 +460,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
                     onTap: () {
                       Navigator.pop(sheetContext);
                       ref
-                          .read(chatProvider.notifier)
+                          .read(chatSessionsProvider.notifier)
                           .sendMessage(
                             'Analyze this physical workspace setup.',
                             imageUrl:
@@ -396,7 +477,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
                     onTap: () {
                       Navigator.pop(sheetContext);
                       ref
-                          .read(chatProvider.notifier)
+                          .read(chatSessionsProvider.notifier)
                           .sendMessage(
                             'Explain this project plan diagram.',
                             imageUrl:
@@ -413,7 +494,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
                     onTap: () {
                       Navigator.pop(sheetContext);
                       ref
-                          .read(chatProvider.notifier)
+                          .read(chatSessionsProvider.notifier)
                           .sendMessage(
                             '📎 Attached: project_spec.pdf\nPlease review sections 1 and 2.',
                           );

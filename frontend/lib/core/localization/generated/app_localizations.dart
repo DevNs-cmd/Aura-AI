@@ -2251,6 +2251,750 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Continue'**
   String get moodBtnContinue;
+
+  /// No description provided for @profileTakePhoto.
+  ///
+  /// In en, this message translates to:
+  /// **'Take Photo'**
+  String get profileTakePhoto;
+
+  /// No description provided for @profileChooseGallery.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose from Gallery'**
+  String get profileChooseGallery;
+
+  /// No description provided for @profileCancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get profileCancel;
+
+  /// No description provided for @billingTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Billing & Subscription'**
+  String get billingTitle;
+
+  /// No description provided for @billingCurrentPlan.
+  ///
+  /// In en, this message translates to:
+  /// **'Current Plan'**
+  String get billingCurrentPlan;
+
+  /// No description provided for @billingFreeTier.
+  ///
+  /// In en, this message translates to:
+  /// **'Free Tier'**
+  String get billingFreeTier;
+
+  /// No description provided for @billingPremiumTier.
+  ///
+  /// In en, this message translates to:
+  /// **'Premium Tier'**
+  String get billingPremiumTier;
+
+  /// No description provided for @billingProTier.
+  ///
+  /// In en, this message translates to:
+  /// **'Pro Tier'**
+  String get billingProTier;
+
+  /// No description provided for @billingRenewsOn.
+  ///
+  /// In en, this message translates to:
+  /// **'Renews on: {date}'**
+  String billingRenewsOn(String date);
+
+  /// No description provided for @billingUsageLimits.
+  ///
+  /// In en, this message translates to:
+  /// **'Usage Limits'**
+  String get billingUsageLimits;
+
+  /// No description provided for @billingAiCompanionChats.
+  ///
+  /// In en, this message translates to:
+  /// **'AI Companion Chats'**
+  String get billingAiCompanionChats;
+
+  /// No description provided for @billingMemoryIndexSlots.
+  ///
+  /// In en, this message translates to:
+  /// **'Memory Index Slots'**
+  String get billingMemoryIndexSlots;
+
+  /// No description provided for @billingUnlimited.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlimited'**
+  String get billingUnlimited;
+
+  /// No description provided for @billingPaymentMethod.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment Method'**
+  String get billingPaymentMethod;
+
+  /// No description provided for @billingRenewsAutomatically.
+  ///
+  /// In en, this message translates to:
+  /// **'Renews automatically'**
+  String get billingRenewsAutomatically;
+
+  /// No description provided for @billingUpdate.
+  ///
+  /// In en, this message translates to:
+  /// **'Update'**
+  String get billingUpdate;
+
+  /// No description provided for @billingPaymentMethodUpdated.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment method updated to: {method}'**
+  String billingPaymentMethodUpdated(String method);
+
+  /// No description provided for @billingHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'Billing History'**
+  String get billingHistory;
+
+  /// No description provided for @billingCancelPremium.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel Premium Subscription'**
+  String get billingCancelPremium;
+
+  /// No description provided for @billingUpgradePlan.
+  ///
+  /// In en, this message translates to:
+  /// **'Upgrade Plan'**
+  String get billingUpgradePlan;
+
+  /// No description provided for @billingInvoiceTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Tax Invoice Receipt'**
+  String get billingInvoiceTitle;
+
+  /// No description provided for @billingInvoicePaidSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'PAID SUCCESS'**
+  String get billingInvoicePaidSuccess;
+
+  /// No description provided for @billingInvoiceId.
+  ///
+  /// In en, this message translates to:
+  /// **'Invoice ID'**
+  String get billingInvoiceId;
+
+  /// No description provided for @billingInvoiceDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Date'**
+  String get billingInvoiceDate;
+
+  /// No description provided for @billingInvoicePlan.
+  ///
+  /// In en, this message translates to:
+  /// **'Plan'**
+  String get billingInvoicePlan;
+
+  /// No description provided for @billingInvoicePaymentMethod.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment Method'**
+  String get billingInvoicePaymentMethod;
+
+  /// No description provided for @billingInvoiceSubtotal.
+  ///
+  /// In en, this message translates to:
+  /// **'Subtotal'**
+  String get billingInvoiceSubtotal;
+
+  /// No description provided for @billingInvoiceTaxGst.
+  ///
+  /// In en, this message translates to:
+  /// **'Taxes (GST 18%)'**
+  String get billingInvoiceTaxGst;
+
+  /// No description provided for @billingInvoiceTotalAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Amount'**
+  String get billingInvoiceTotalAmount;
+
+  /// No description provided for @billingInvoiceClose.
+  ///
+  /// In en, this message translates to:
+  /// **'Close'**
+  String get billingInvoiceClose;
+
+  /// No description provided for @billingInvoiceDownload.
+  ///
+  /// In en, this message translates to:
+  /// **'Download'**
+  String get billingInvoiceDownload;
+
+  /// No description provided for @billingInvoiceDownloaded.
+  ///
+  /// In en, this message translates to:
+  /// **'Downloaded {fileName} to your browser downloads folder!'**
+  String billingInvoiceDownloaded(String fileName);
+
+  /// No description provided for @billingInvoiceSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved invoice to: {filePath}'**
+  String billingInvoiceSaved(String filePath);
+
+  /// No description provided for @billingReceiptHeader.
+  ///
+  /// In en, this message translates to:
+  /// **'AURA AI BILLING PORTAL'**
+  String get billingReceiptHeader;
+
+  /// No description provided for @billingReceiptNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Receipt Number'**
+  String get billingReceiptNumber;
+
+  /// No description provided for @billingReceiptTransactionDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Transaction Date'**
+  String get billingReceiptTransactionDate;
+
+  /// No description provided for @billingReceiptPlanType.
+  ///
+  /// In en, this message translates to:
+  /// **'Plan Type'**
+  String get billingReceiptPlanType;
+
+  /// No description provided for @billingReceiptPaymentStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment Status'**
+  String get billingReceiptPaymentStatus;
+
+  /// No description provided for @billingReceiptPaymentMethod.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment Method'**
+  String get billingReceiptPaymentMethod;
+
+  /// No description provided for @billingReceiptSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'SUMMARY OF CHARGES'**
+  String get billingReceiptSummary;
+
+  /// No description provided for @billingReceiptPlanPrice.
+  ///
+  /// In en, this message translates to:
+  /// **'Plan Subscription Price'**
+  String get billingReceiptPlanPrice;
+
+  /// No description provided for @billingReceiptTaxGst.
+  ///
+  /// In en, this message translates to:
+  /// **'Taxes (GST 18%)'**
+  String get billingReceiptTaxGst;
+
+  /// No description provided for @billingReceiptTotalCharged.
+  ///
+  /// In en, this message translates to:
+  /// **'TOTAL CHARGED'**
+  String get billingReceiptTotalCharged;
+
+  /// No description provided for @billingReceiptThankYou.
+  ///
+  /// In en, this message translates to:
+  /// **'Thank you for upgrading to Aura AI Premium!'**
+  String get billingReceiptThankYou;
+
+  /// No description provided for @billingReceiptContactSupport.
+  ///
+  /// In en, this message translates to:
+  /// **'For any queries, contact support@aura.ai'**
+  String get billingReceiptContactSupport;
+
+  /// No description provided for @billingDowngradeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Downgrade Account?'**
+  String get billingDowngradeTitle;
+
+  /// No description provided for @billingDowngradeMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'If you cancel, you will lose unlimited chats, vision exploration, and slots for smart memory items. This action takes effect immediately.'**
+  String get billingDowngradeMessage;
+
+  /// No description provided for @billingKeepSubscription.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep Subscription'**
+  String get billingKeepSubscription;
+
+  /// No description provided for @billingDowngrade.
+  ///
+  /// In en, this message translates to:
+  /// **'Downgrade'**
+  String get billingDowngrade;
+
+  /// No description provided for @billingCancelledSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Subscription Cancelled successfully'**
+  String get billingCancelledSuccess;
+
+  /// No description provided for @choosePlanTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose Your Plan'**
+  String get choosePlanTitle;
+
+  /// No description provided for @choosePlanSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock your companion\'s full intelligence'**
+  String get choosePlanSubtitle;
+
+  /// No description provided for @choosePlanDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Get unlimited access to memory retention, high speed processing, and vision analysis.'**
+  String get choosePlanDescription;
+
+  /// No description provided for @choosePlanFree.
+  ///
+  /// In en, this message translates to:
+  /// **'Free Plan'**
+  String get choosePlanFree;
+
+  /// No description provided for @choosePlanPremium.
+  ///
+  /// In en, this message translates to:
+  /// **'Premium Plan'**
+  String get choosePlanPremium;
+
+  /// No description provided for @choosePlanPro.
+  ///
+  /// In en, this message translates to:
+  /// **'Pro Plan'**
+  String get choosePlanPro;
+
+  /// No description provided for @choosePlanPerMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'/ month'**
+  String get choosePlanPerMonth;
+
+  /// No description provided for @choosePlanFreeDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Ideal for getting started with basic AI journaling.'**
+  String get choosePlanFreeDesc;
+
+  /// No description provided for @choosePlanPremiumDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Full capabilities for deep reflection and fast answers.'**
+  String get choosePlanPremiumDesc;
+
+  /// No description provided for @choosePlanProDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Power-user model configurations and third-party integrations.'**
+  String get choosePlanProDesc;
+
+  /// No description provided for @choosePlanFeature50Chats.
+  ///
+  /// In en, this message translates to:
+  /// **'50 chats per month'**
+  String get choosePlanFeature50Chats;
+
+  /// No description provided for @choosePlanFeature20Memory.
+  ///
+  /// In en, this message translates to:
+  /// **'20 memory index slots'**
+  String get choosePlanFeature20Memory;
+
+  /// No description provided for @choosePlanFeatureBasicSpeed.
+  ///
+  /// In en, this message translates to:
+  /// **'Basic response speed'**
+  String get choosePlanFeatureBasicSpeed;
+
+  /// No description provided for @choosePlanFeatureStandardModes.
+  ///
+  /// In en, this message translates to:
+  /// **'Standard companion modes'**
+  String get choosePlanFeatureStandardModes;
+
+  /// No description provided for @choosePlanFeatureUnlimitedChats.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlimited chats'**
+  String get choosePlanFeatureUnlimitedChats;
+
+  /// No description provided for @choosePlanFeatureUnlimitedMemory.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlimited memory retention'**
+  String get choosePlanFeatureUnlimitedMemory;
+
+  /// No description provided for @choosePlanFeatureHighSpeed.
+  ///
+  /// In en, this message translates to:
+  /// **'High-speed responses'**
+  String get choosePlanFeatureHighSpeed;
+
+  /// No description provided for @choosePlanFeatureVision.
+  ///
+  /// In en, this message translates to:
+  /// **'Full vision capabilities'**
+  String get choosePlanFeatureVision;
+
+  /// No description provided for @choosePlanFeaturePersonalities.
+  ///
+  /// In en, this message translates to:
+  /// **'All custom personalities'**
+  String get choosePlanFeaturePersonalities;
+
+  /// No description provided for @choosePlanFeatureAllPremium.
+  ///
+  /// In en, this message translates to:
+  /// **'All Premium features'**
+  String get choosePlanFeatureAllPremium;
+
+  /// No description provided for @choosePlanFeatureWorkspace.
+  ///
+  /// In en, this message translates to:
+  /// **'Workspace integration (Mock)'**
+  String get choosePlanFeatureWorkspace;
+
+  /// No description provided for @choosePlanFeatureDevApi.
+  ///
+  /// In en, this message translates to:
+  /// **'Advanced Developer API options'**
+  String get choosePlanFeatureDevApi;
+
+  /// No description provided for @choosePlanFeaturePrioritySupport.
+  ///
+  /// In en, this message translates to:
+  /// **'Priority support'**
+  String get choosePlanFeaturePrioritySupport;
+
+  /// No description provided for @choosePlanCurrentPlan.
+  ///
+  /// In en, this message translates to:
+  /// **'Current Plan'**
+  String get choosePlanCurrentPlan;
+
+  /// No description provided for @choosePlanSelectFree.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Free'**
+  String get choosePlanSelectFree;
+
+  /// No description provided for @choosePlanUpgradePremium.
+  ///
+  /// In en, this message translates to:
+  /// **'Upgrade to Premium'**
+  String get choosePlanUpgradePremium;
+
+  /// No description provided for @choosePlanComingSoon.
+  ///
+  /// In en, this message translates to:
+  /// **'Coming Soon'**
+  String get choosePlanComingSoon;
+
+  /// No description provided for @choosePlanMostPopular.
+  ///
+  /// In en, this message translates to:
+  /// **'MOST POPULAR'**
+  String get choosePlanMostPopular;
+
+  /// No description provided for @choosePlanSwitchedFree.
+  ///
+  /// In en, this message translates to:
+  /// **'Switched to Free plan'**
+  String get choosePlanSwitchedFree;
+
+  /// No description provided for @purchaseSummaryTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchase Summary'**
+  String get purchaseSummaryTitle;
+
+  /// No description provided for @purchaseSummaryReview.
+  ///
+  /// In en, this message translates to:
+  /// **'Review details and complete order'**
+  String get purchaseSummaryReview;
+
+  /// No description provided for @purchaseSummaryIncludes.
+  ///
+  /// In en, this message translates to:
+  /// **'Includes full companion capabilities, premium voice modes, and unlimited memory slots.'**
+  String get purchaseSummaryIncludes;
+
+  /// No description provided for @purchaseSummarySubtotal.
+  ///
+  /// In en, this message translates to:
+  /// **'Subtotal'**
+  String get purchaseSummarySubtotal;
+
+  /// No description provided for @purchaseSummaryTaxGst.
+  ///
+  /// In en, this message translates to:
+  /// **'Tax (GST 18%)'**
+  String get purchaseSummaryTaxGst;
+
+  /// No description provided for @purchaseSummaryTotalDue.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Due'**
+  String get purchaseSummaryTotalDue;
+
+  /// No description provided for @purchaseSummaryProceed.
+  ///
+  /// In en, this message translates to:
+  /// **'Proceed to Payment'**
+  String get purchaseSummaryProceed;
+
+  /// No description provided for @purchaseSummaryCancelNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel at any time. Secure checkout.'**
+  String get purchaseSummaryCancelNote;
+
+  /// No description provided for @paymentTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment details'**
+  String get paymentTitle;
+
+  /// No description provided for @paymentSelectMethod.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Payment Method'**
+  String get paymentSelectMethod;
+
+  /// No description provided for @paymentMethodCard.
+  ///
+  /// In en, this message translates to:
+  /// **'Card'**
+  String get paymentMethodCard;
+
+  /// No description provided for @paymentMethodUpi.
+  ///
+  /// In en, this message translates to:
+  /// **'UPI'**
+  String get paymentMethodUpi;
+
+  /// No description provided for @paymentMethodGooglePay.
+  ///
+  /// In en, this message translates to:
+  /// **'Google Pay'**
+  String get paymentMethodGooglePay;
+
+  /// No description provided for @paymentMethodNetBanking.
+  ///
+  /// In en, this message translates to:
+  /// **'Net Banking'**
+  String get paymentMethodNetBanking;
+
+  /// No description provided for @paymentCardNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Card Number'**
+  String get paymentCardNumber;
+
+  /// No description provided for @paymentCardNumberHint.
+  ///
+  /// In en, this message translates to:
+  /// **'4111 2222 3333 4444'**
+  String get paymentCardNumberHint;
+
+  /// No description provided for @paymentCardNumberError.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter card number'**
+  String get paymentCardNumberError;
+
+  /// No description provided for @paymentCardNumberLengthError.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter 16-digit card number'**
+  String get paymentCardNumberLengthError;
+
+  /// No description provided for @paymentExpiry.
+  ///
+  /// In en, this message translates to:
+  /// **'Expiry'**
+  String get paymentExpiry;
+
+  /// No description provided for @paymentExpiryHint.
+  ///
+  /// In en, this message translates to:
+  /// **'MM/YY'**
+  String get paymentExpiryHint;
+
+  /// No description provided for @paymentExpiryRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Required'**
+  String get paymentExpiryRequired;
+
+  /// No description provided for @paymentExpiryFormat.
+  ///
+  /// In en, this message translates to:
+  /// **'Use MM/YY'**
+  String get paymentExpiryFormat;
+
+  /// No description provided for @paymentCvv.
+  ///
+  /// In en, this message translates to:
+  /// **'CVV'**
+  String get paymentCvv;
+
+  /// No description provided for @paymentCvvHint.
+  ///
+  /// In en, this message translates to:
+  /// **'123'**
+  String get paymentCvvHint;
+
+  /// No description provided for @paymentCvvRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Required'**
+  String get paymentCvvRequired;
+
+  /// No description provided for @paymentCvvDigits.
+  ///
+  /// In en, this message translates to:
+  /// **'3 digits'**
+  String get paymentCvvDigits;
+
+  /// No description provided for @paymentCardholder.
+  ///
+  /// In en, this message translates to:
+  /// **'Cardholder Name'**
+  String get paymentCardholder;
+
+  /// No description provided for @paymentCardholderHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Ayesha Khan'**
+  String get paymentCardholderHint;
+
+  /// No description provided for @paymentCardholderError.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter cardholder name'**
+  String get paymentCardholderError;
+
+  /// No description provided for @paymentUpiId.
+  ///
+  /// In en, this message translates to:
+  /// **'UPI ID'**
+  String get paymentUpiId;
+
+  /// No description provided for @paymentUpiIdHint.
+  ///
+  /// In en, this message translates to:
+  /// **'username@okaxis'**
+  String get paymentUpiIdHint;
+
+  /// No description provided for @paymentUpiIdError.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter UPI ID'**
+  String get paymentUpiIdError;
+
+  /// No description provided for @paymentUpiIdFormat.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid UPI format'**
+  String get paymentUpiIdFormat;
+
+  /// No description provided for @paymentGooglePayDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete payment authorization using Google Pay App.'**
+  String get paymentGooglePayDesc;
+
+  /// No description provided for @paymentNetBankingDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'You will be redirected to secure bank gateway on confirmation.'**
+  String get paymentNetBankingDesc;
+
+  /// No description provided for @paymentCompletePayment.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete Payment'**
+  String get paymentCompletePayment;
+
+  /// No description provided for @paymentProcessingTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Securing Payment Gateway...'**
+  String get paymentProcessingTitle;
+
+  /// No description provided for @paymentProcessingSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Please do not press back or close the app.'**
+  String get paymentProcessingSubtitle;
+
+  /// No description provided for @paymentSuccessWelcome.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome to Premium!'**
+  String get paymentSuccessWelcome;
+
+  /// No description provided for @paymentSuccessMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Your payment was processed successfully. All capabilities are now unlocked for your account.'**
+  String get paymentSuccessMessage;
+
+  /// No description provided for @paymentSuccessFeatureSpeed.
+  ///
+  /// In en, this message translates to:
+  /// **'High Speed Priority AI Response'**
+  String get paymentSuccessFeatureSpeed;
+
+  /// No description provided for @paymentSuccessFeatureChats.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlimited Chat Sessions & History'**
+  String get paymentSuccessFeatureChats;
+
+  /// No description provided for @paymentSuccessFeatureMemory.
+  ///
+  /// In en, this message translates to:
+  /// **'Infinite slots for AI memories'**
+  String get paymentSuccessFeatureMemory;
+
+  /// No description provided for @paymentSuccessFeatureVision.
+  ///
+  /// In en, this message translates to:
+  /// **'Full vision photo analysis'**
+  String get paymentSuccessFeatureVision;
+
+  /// No description provided for @paymentSuccessGoToDashboard.
+  ///
+  /// In en, this message translates to:
+  /// **'Go to Dashboard'**
+  String get paymentSuccessGoToDashboard;
 }
 
 class _AppLocalizationsDelegate

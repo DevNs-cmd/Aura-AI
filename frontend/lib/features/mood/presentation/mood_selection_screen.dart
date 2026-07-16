@@ -128,272 +128,283 @@ class _MoodSelectionScreenState extends ConsumerState<MoodSelectionScreen> {
 
                 const SizedBox(height: 16),
 
-              // Horizontal Swipe Carousel
-              SizedBox(
-                height: 380,
-                child: PageView.builder(
-                  controller: _pageController,
-                  onPageChanged: (index) {
-                    setState(() {
-                      _currentIndex = index;
-                    });
-                  },
-                  physics: const BouncingScrollPhysics(),
-                  itemCount: _moods.length,
-                  itemBuilder: (context, index) {
-                    final mood = _moods[index];
-                    final isSelected = index == _currentIndex;
-                    final cardTheme = MoodThemeModel.fromMoodName(
-                      mood['name']!,
-                    );
+                // Horizontal Swipe Carousel
+                SizedBox(
+                  height: 380,
+                  child: PageView.builder(
+                    controller: _pageController,
+                    onPageChanged: (index) {
+                      setState(() {
+                        _currentIndex = index;
+                      });
+                    },
+                    physics: const BouncingScrollPhysics(),
+                    itemCount: _moods.length,
+                    itemBuilder: (context, index) {
+                      final mood = _moods[index];
+                      final isSelected = index == _currentIndex;
+                      final cardTheme = MoodThemeModel.fromMoodName(
+                        mood['name']!,
+                      );
 
-                    return Center(
-                      child: GestureDetector(
-                        onTap: () {
-                          _pageController.animateToPage(
-                            index,
-                            duration: const Duration(milliseconds: 400),
-                            curve: Curves.easeInOut,
-                          );
-                        },
-                        child: AnimatedScale(
-                          duration: const Duration(milliseconds: 300),
-                          scale: isSelected ? 1.08 : 0.90,
-                          curve: Curves.easeOutBack,
-                          child: AnimatedContainer(
+                      return Center(
+                        child: GestureDetector(
+                          onTap: () {
+                            _pageController.animateToPage(
+                              index,
+                              duration: const Duration(milliseconds: 400),
+                              curve: Curves.easeInOut,
+                            );
+                          },
+                          child: AnimatedScale(
                             duration: const Duration(milliseconds: 300),
-                            width: 250,
-                            height: 320,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(32),
-                              gradient: LinearGradient(
-                                begin: Alignment.topLeft,
-                                end: Alignment.bottomRight,
-                                colors: cardTheme.backgroundGradient,
-                              ),
-                              border: isSelected
-                                  ? Border.all(
-                                      color: cardTheme.primary,
-                                      width: 3.0,
-                                    )
-                                  : Border.all(
-                                      color: cardTheme.cardBorder,
-                                      width: 1.5,
-                                    ),
-                              boxShadow: isSelected
-                                  ? [
-                                      BoxShadow(
-                                        color: cardTheme.primary.withValues(
-                                          alpha: 0.4,
-                                        ),
-                                        blurRadius: 28,
-                                        spreadRadius: 6,
-                                      ),
-                                    ]
-                                  : [
-                                      BoxShadow(
-                                        color: Colors.black.withValues(
-                                          alpha: 0.03,
-                                        ),
-                                        blurRadius: 10,
-                                        offset: const Offset(0, 4),
-                                      ),
-                                    ],
-                            ),
-                            child: Stack(
-                              children: [
-                                Center(
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      // Scale up the emoji for the selected one
-                                      AnimatedScale(
-                                        duration: const Duration(
-                                          milliseconds: 300,
-                                        ),
-                                        scale: isSelected ? 1.15 : 1.0,
-                                        child: Text(
-                                          mood['emoji']!,
-                                          style: const TextStyle(fontSize: 64),
-                                        ),
-                                      ),
-                                      const SizedBox(height: 20),
-                                      Text(
-                                        _getLocalizedMoodName(context, mood['name']!),
-                                        style: GoogleFonts.outfit(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 22,
-                                          color: cardTheme.primary,
-                                        ),
-                                      ),
-                                      const SizedBox(height: 8),
-                                      Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                          horizontal: 20,
-                                        ),
-                                        child: Text(
-                                          _getLocalizedMoodDesc(context, mood['name']!),
-                                          style: GoogleFonts.quicksand(
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.bold,
-                                            color: const Color(0xFF555555),
-                                          ),
-                                          textAlign: TextAlign.center,
-                                          maxLines: 2,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+                            scale: isSelected ? 1.08 : 0.90,
+                            curve: Curves.easeOutBack,
+                            child: AnimatedContainer(
+                              duration: const Duration(milliseconds: 300),
+                              width: 250,
+                              height: 320,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(32),
+                                gradient: LinearGradient(
+                                  begin: Alignment.topLeft,
+                                  end: Alignment.bottomRight,
+                                  colors: cardTheme.backgroundGradient,
                                 ),
-                                if (isSelected)
-                                  Positioned(
-                                    top: 16,
-                                    right: 16,
-                                    child: Container(
-                                      width: 28,
-                                      height: 28,
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        shape: BoxShape.circle,
-                                        border: Border.all(
-                                          color: cardTheme.primary,
-                                          width: 2.0,
-                                        ),
-                                      ),
-                                      child: Icon(
-                                        Icons.check,
-                                        size: 16,
+                                border: isSelected
+                                    ? Border.all(
                                         color: cardTheme.primary,
+                                        width: 3.0,
+                                      )
+                                    : Border.all(
+                                        color: cardTheme.cardBorder,
+                                        width: 1.5,
                                       ),
+                                boxShadow: isSelected
+                                    ? [
+                                        BoxShadow(
+                                          color: cardTheme.primary.withValues(
+                                            alpha: 0.4,
+                                          ),
+                                          blurRadius: 28,
+                                          spreadRadius: 6,
+                                        ),
+                                      ]
+                                    : [
+                                        BoxShadow(
+                                          color: Colors.black.withValues(
+                                            alpha: 0.03,
+                                          ),
+                                          blurRadius: 10,
+                                          offset: const Offset(0, 4),
+                                        ),
+                                      ],
+                              ),
+                              child: Stack(
+                                children: [
+                                  Center(
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        // Scale up the emoji for the selected one
+                                        AnimatedScale(
+                                          duration: const Duration(
+                                            milliseconds: 300,
+                                          ),
+                                          scale: isSelected ? 1.15 : 1.0,
+                                          child: Text(
+                                            mood['emoji']!,
+                                            style: const TextStyle(
+                                              fontSize: 64,
+                                            ),
+                                          ),
+                                        ),
+                                        const SizedBox(height: 20),
+                                        Text(
+                                          _getLocalizedMoodName(
+                                            context,
+                                            mood['name']!,
+                                          ),
+                                          style: GoogleFonts.outfit(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 22,
+                                            color: cardTheme.primary,
+                                          ),
+                                        ),
+                                        const SizedBox(height: 8),
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                            horizontal: 20,
+                                          ),
+                                          child: Text(
+                                            _getLocalizedMoodDesc(
+                                              context,
+                                              mood['name']!,
+                                            ),
+                                            style: GoogleFonts.quicksand(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.bold,
+                                              color: const Color(0xFF555555),
+                                            ),
+                                            textAlign: TextAlign.center,
+                                            maxLines: 2,
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
-                              ],
+                                  if (isSelected)
+                                    Positioned(
+                                      top: 16,
+                                      right: 16,
+                                      child: Container(
+                                        width: 28,
+                                        height: 28,
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          shape: BoxShape.circle,
+                                          border: Border.all(
+                                            color: cardTheme.primary,
+                                            width: 2.0,
+                                          ),
+                                        ),
+                                        child: Icon(
+                                          Icons.check,
+                                          size: 16,
+                                          color: cardTheme.primary,
+                                        ),
+                                      ),
+                                    ),
+                                ],
+                              ),
                             ),
                           ),
                         ),
+                      );
+                    },
+                  ),
+                ),
+
+                const SizedBox(height: 16),
+
+                // Indicator Dots
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: List.generate(_moods.length, (index) {
+                    final isSelected = index == _currentIndex;
+                    return AnimatedContainer(
+                      duration: const Duration(milliseconds: 300),
+                      margin: const EdgeInsets.symmetric(horizontal: 4.0),
+                      width: isSelected ? 18 : 6,
+                      height: 6,
+                      decoration: BoxDecoration(
+                        color: isSelected
+                            ? moodTheme.primary
+                            : moodTheme.primary.withValues(alpha: 0.2),
+                        borderRadius: BorderRadius.circular(3),
                       ),
                     );
-                  },
+                  }),
                 ),
-              ),
 
-              const SizedBox(height: 16),
+                const SizedBox(height: 24),
 
-              // Indicator Dots
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: List.generate(_moods.length, (index) {
-                  final isSelected = index == _currentIndex;
-                  return AnimatedContainer(
-                    duration: const Duration(milliseconds: 300),
-                    margin: const EdgeInsets.symmetric(horizontal: 4.0),
-                    width: isSelected ? 18 : 6,
-                    height: 6,
-                    decoration: BoxDecoration(
-                      color: isSelected
-                          ? moodTheme.primary
-                          : moodTheme.primary.withValues(alpha: 0.2),
-                      borderRadius: BorderRadius.circular(3),
-                    ),
-                  );
-                }),
-              ),
-
-              const SizedBox(height: 24),
-
-              // PreferredLanguageCard
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 28.0),
-                child: GestureDetector(
-                  onTap: () => _showLanguageSelectionSheet(context),
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 20,
-                      vertical: 16,
-                    ),
-                    decoration: BoxDecoration(
-                      color: Colors.white.withValues(alpha: 0.8),
-                      borderRadius: BorderRadius.circular(24),
-                      border: Border.all(
-                        color: moodTheme.cardBorder,
-                        width: 1.5,
+                // PreferredLanguageCard
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 28.0),
+                  child: GestureDetector(
+                    onTap: () => _showLanguageSelectionSheet(context),
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 20,
+                        vertical: 16,
                       ),
-                    ),
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.language_rounded,
-                          color: moodTheme.primary,
-                          size: 20,
+                      decoration: BoxDecoration(
+                        color: Colors.white.withValues(alpha: 0.8),
+                        borderRadius: BorderRadius.circular(24),
+                        border: Border.all(
+                          color: moodTheme.cardBorder,
+                          width: 1.5,
                         ),
-                        const SizedBox(width: 12),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              AppLocalizations.of(context)!.moodPreferredLanguage,
-                              style: GoogleFonts.outfit(
-                                fontSize: 11,
-                                fontWeight: FontWeight.bold,
-                                color: const Color(0xFF666666),
+                      ),
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.language_rounded,
+                            color: moodTheme.primary,
+                            size: 20,
+                          ),
+                          const SizedBox(width: 12),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                AppLocalizations.of(
+                                  context,
+                                )!.moodPreferredLanguage,
+                                style: GoogleFonts.outfit(
+                                  fontSize: 11,
+                                  fontWeight: FontWeight.bold,
+                                  color: const Color(0xFF666666),
+                                ),
                               ),
-                            ),
-                            const SizedBox(height: 2),
-                            Text(
-                              SupportedLanguagesRegistry.lookupByCode(
-                                    ref.watch(localeProvider).languageCode,
-                                  )?.nativeName ??
-                                  SupportedLanguagesRegistry
-                                      .defaultLanguage
-                                      .nativeName,
-                              style: GoogleFonts.quicksand(
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
-                                color: const Color(0xFF1F1F1F),
+                              const SizedBox(height: 2),
+                              Text(
+                                SupportedLanguagesRegistry.lookupByCode(
+                                      ref.watch(localeProvider).languageCode,
+                                    )?.nativeName ??
+                                    SupportedLanguagesRegistry
+                                        .defaultLanguage
+                                        .nativeName,
+                                style: GoogleFonts.quicksand(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
+                                  color: const Color(0xFF1F1F1F),
+                                ),
                               ),
-                            ),
-                          ],
-                        ),
-                        const Spacer(),
-                        Icon(
-                          Icons.keyboard_arrow_down_rounded,
-                          color: moodTheme.primary,
-                          size: 20,
-                        ),
-                      ],
+                            ],
+                          ),
+                          const Spacer(),
+                          Icon(
+                            Icons.keyboard_arrow_down_rounded,
+                            color: moodTheme.primary,
+                            size: 20,
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
-              ),
 
-              const SizedBox(height: 24),
+                const SizedBox(height: 24),
 
-              // Continue Button
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 28.0),
-                child: PrimaryButton(
-                  text: AppLocalizations.of(context)!.moodBtnContinue,
-                  backgroundColor: moodTheme.primary,
-                  onPressed: () async {
-                    // Commit mood theme
-                    ref
-                        .read(themeProvider.notifier)
-                        .setMoodTheme(activeMoodName);
- 
-                    if (context.mounted) {
-                      context.go('/home');
-                    }
-                  },
+                // Continue Button
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 28.0),
+                  child: PrimaryButton(
+                    text: AppLocalizations.of(context)!.moodBtnContinue,
+                    backgroundColor: moodTheme.primary,
+                    onPressed: () async {
+                      // Commit mood theme
+                      ref
+                          .read(themeProvider.notifier)
+                          .setMoodTheme(activeMoodName);
+
+                      if (context.mounted) {
+                        context.go('/home');
+                      }
+                    },
+                  ),
                 ),
-              ),
-              const SizedBox(height: 32),
-            ],
+                const SizedBox(height: 32),
+              ],
+            ),
           ),
         ),
       ),
-    ),
-  );
-}
+    );
+  }
 
   void _showLanguageSelectionSheet(BuildContext context) {
     final activeMoodName = _moods[_currentIndex]['name']!;
@@ -419,7 +430,10 @@ class _MoodSelectionScreenState extends ConsumerState<MoodSelectionScreen> {
                       top: Radius.circular(32),
                     ),
                   ),
-                  padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 20),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 28,
+                    vertical: 20,
+                  ),
                   child: ListView(
                     controller: scrollController,
                     children: [

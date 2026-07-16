@@ -8,12 +8,11 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       ignoreExpiration: false,
-      secretOrKey: process.env.JWT_SECRET || 'SECRET_KEY', // Tumhari env file se secret key
+      secretOrKey: process.env.JWT_SECRET || 'aura_ai_secret_key_123',
     });
   }
 
   async validate(payload: any) {
-    // Payload se user id return hogi jo req.user mein save ho jayegi
-    return { id: payload.sub, email: payload.email }; 
+    return { id: payload.sub, sub: payload.sub, email: payload.email };
   }
 }
