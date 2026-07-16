@@ -1,15 +1,20 @@
+<<<<<<< HEAD
+import '../../core/network/api_client.dart';
+=======
 import 'dart:async';
 import 'package:dio/dio.dart';
+>>>>>>> 8a877bf27f7220ade008db9a02914e1cdcb22120
 import '../../models/chat_message.dart';
 import '../../core/network/api_client.dart';
 import '../../core/network/auth_session_store.dart';
 
-abstract class ChatRepository {
-  List<ChatMessage> getInitialMessages();
-  Future<ChatMessage> sendUserMessage(String content, {String? imageUrl});
-  Future<ChatMessage> getAIResponse(List<ChatMessage> conversationHistory);
-}
+class ChatRepository {
+  ChatRepository(this._client);
+  final ApiClient _client;
 
+<<<<<<< HEAD
+  // 1. Ye method add/check karo
+=======
 class HttpChatRepository implements ChatRepository {
   HttpChatRepository({Dio? dio, AuthSessionStore? sessionStore})
       : _sessionStore = sessionStore ?? AuthSessionStore(),
@@ -164,101 +169,32 @@ class MockChatRepository implements ChatRepository {
   }
 
   @override
+>>>>>>> 8a877bf27f7220ade008db9a02914e1cdcb22120
   List<ChatMessage> getInitialMessages() {
-    return List.from(_messages);
+    return []; 
   }
 
-  @override
-  Future<ChatMessage> sendUserMessage(
-    String content, {
-    String? imageUrl,
-  }) async {
-    // Add user message to history
-    final userMessage = ChatMessage(
-      id: 'msg-user-${DateTime.now().millisecondsSinceEpoch}',
+  // 2. Ye method add/check karo
+  Future<ChatMessage> sendUserMessage(String content, {String? imageUrl}) async {
+    // Yahan apna logic (API call ya local object creation) likho
+    return ChatMessage(
+      id: 'local-${DateTime.now().microsecondsSinceEpoch}', 
       content: content,
-      isUser: true,
+      isUser: true, 
       timestamp: DateTime.now(),
-      imageUrl: imageUrl,
     );
-    _messages.add(userMessage);
-    return userMessage;
   }
 
-  @override
-  Future<ChatMessage> getAIResponse(
-    List<ChatMessage> conversationHistory,
-  ) async {
-    await Future.delayed(
-      const Duration(milliseconds: 2000),
-    ); // Simulated typing delay
-
-    final lastUserMessage = conversationHistory.last.content.toLowerCase();
-    final isHindi = localeCode.toLowerCase() == 'hi';
-    String responseContent = isHindi
-        ? "मुझे आपका अनुरोध प्राप्त हो गया है! मुझे बताएं कि क्या आप गहराई से जांच करना चाहते हैं या अन्य लक्ष्यों का पता लगाना चाहते हैं।"
-        : "I've received your request! Let know if you'd like to dive deeper or explore other goals.";
-
-    if (lastUserMessage.contains('explain') ||
-        lastUserMessage.contains('code') ||
-        lastUserMessage.contains('समझाएं')) {
-      responseContent = isHindi
-          ? "यहाँ स्पष्टीकरण दिया गया है:\n\n"
-                "```python\n"
-                "import logging\n\n"
-                "# त्रुटि लॉगिंग कॉन्फ़िगर करें\n"
-                "logging.basicConfig(level=logging.INFO)\n\n"
-                "def track_task(task_id):\n"
-                "    try:\n"
-                "        logging.info(f'Task {task_id} successfully started')\n"
-                "        # ट्रैकिंग तर्क यहाँ जाता है...\n"
-                "    except Exception as e:\n"
-                "        logging.error(f'Failure: {e}')\n"
-                "```\n\n"
-                "यह स्क्रिप्ट लॉगिंग को प्रारंभ करती है और एक मजबूत ट्राई-एक्सेप्ट रैपर में टास्क ट्रैकिंग को समाहित करती है।"
-          : "Here's the explanation:\n\n"
-                "```python\n"
-                "import logging\n\n"
-                "# Configure error logging\n"
-                "logging.basicConfig(level=logging.INFO)\n\n"
-                "def track_task(task_id):\n"
-                "    try:\n"
-                "        logging.info(f'Task {task_id} successfully started')\n"
-                "        # Tracking logic goes here...\n"
-                "    except Exception as e:\n"
-                "        logging.error(f'Failure: {e}')\n"
-                "```\n\n"
-                "This script initializes logging and encapsulates task tracking in a robust try-except wrapper.";
-    } else if (lastUserMessage.contains('optimize') ||
-        lastUserMessage.contains('script') ||
-        lastUserMessage.contains('अनुकूलित')) {
-      responseContent = isHindi
-          ? "मैंने प्रदर्शन के लिए पायथन स्क्रिप्ट को अनुकूलित किया है। संचालन अब बैच में हैं और समानांतर में निष्पादित होते हैं:\n\n"
-                "```python\n"
-                "import asyncio\n\n"
-                "async def process_batch(tasks):\n"
-                "    # समानांतर में कई कार्यों को निष्पादित करना\n"
-                "    results = await asyncio.gather(*[track_task(t) for t in tasks])\n"
-                "    return results\n"
-                "```"
-          : "I have optimized the Python script for performance. The operations are now batched and execute in parallel:\n\n"
-                "```python\n"
-                "import asyncio\n\n"
-                "async def process_batch(tasks):\n"
-                "    # Executing multiple tasks asynchronously\n"
-                "    results = await asyncio.gather(*[track_task(t) for t in tasks])\n"
-                "    return results\n"
-                "```";
-    }
-
-    final aiMessage = ChatMessage(
-      id: 'msg-ai-${DateTime.now().millisecondsSinceEpoch}',
-      content: responseContent,
+  // 3. Ye method add/check karo
+  Future<ChatMessage> getAIResponse(List<ChatMessage> conversationHistory) async {
+    final response = await _client.post('/api/v1/chat/sessions/123/messages', 
+      data: {'message': conversationHistory.last.content});
+    
+    return ChatMessage(
+      id: 'ai-${DateTime.now().microsecondsSinceEpoch}',
+      content: response.data['response'],
       isUser: false,
       timestamp: DateTime.now(),
     );
-
-    _messages.add(aiMessage);
-    return aiMessage;
   }
 }

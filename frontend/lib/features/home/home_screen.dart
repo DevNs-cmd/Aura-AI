@@ -391,6 +391,11 @@ class _HomeDashboardViewState extends ConsumerState<HomeDashboardView> {
   @override
   Widget build(BuildContext context) {
     final authState = ref.watch(authProvider);
+<<<<<<< HEAD
+    final userName = authState.user?.name ?? 'User';
+    final userAvatar =
+        'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=256&h=256&fit=crop';
+=======
     final profile = ref.watch(profileProvider);
     final billing = ref.watch(billingProvider);
     final userName = profile.userName.isNotEmpty
@@ -400,6 +405,7 @@ class _HomeDashboardViewState extends ConsumerState<HomeDashboardView> {
         ? profile.avatarUrl
         : (authState.user?.avatarUrl ??
               'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=256&h=256&fit=crop');
+>>>>>>> 8a877bf27f7220ade008db9a02914e1cdcb22120
     final themeState = ref.watch(themeProvider);
     final isDark = themeState.isDarkMode;
     final accentColor = themeState.accentColor;

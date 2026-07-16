@@ -1,5 +1,8 @@
+<<<<<<< HEAD
+=======
 import 'dart:async';
 import 'package:dio/dio.dart';
+>>>>>>> 8a877bf27f7220ade008db9a02914e1cdcb22120
 import '../../core/network/api_client.dart';
 import '../../models/notification_item.dart';
 
@@ -10,6 +13,19 @@ abstract class NotificationsRepository {
   Future<void> deleteNotification(String id);
 }
 
+<<<<<<< HEAD
+class ApiNotificationsRepository implements NotificationsRepository {
+  ApiNotificationsRepository(this._client);
+  final ApiClient _client;
+  NotificationItem _fromJson(Map<String, dynamic> json) => NotificationItem(
+    id: json['id'] as String, title: json['title'] as String, body: json['message'] as String,
+    timestamp: DateTime.parse(json['createdAt'] as String), category: json['type'] as String,
+    priority: json['type'] == 'warning' ? 'high' : 'medium', isRead: json['read'] as bool? ?? false,
+  );
+  @override Future<List<NotificationItem>> getNotifications() async {
+    final response = await _client.get<List<dynamic>>('/api/notifications');
+    return response.data!.map((e) => _fromJson(Map<String, dynamic>.from(e as Map))).toList();
+=======
 class HttpNotificationsRepository implements NotificationsRepository {
   HttpNotificationsRepository({Dio? dio}) : _dio = dio ?? ApiClient().dio;
 
@@ -120,5 +136,10 @@ class MockNotificationsRepository implements NotificationsRepository {
   Future<void> deleteNotification(String id) async {
     await Future.delayed(const Duration(milliseconds: 200));
     _notifications.removeWhere((n) => n.id == id);
+>>>>>>> 8a877bf27f7220ade008db9a02914e1cdcb22120
   }
+  @override Future<void> markAsRead(String id) async => _client.patch('/api/notifications/$id/read');
+  @override Future<void> markAllAsRead() async => _client.patch('/api/notifications/read-all');
+  @override Future<void> deleteNotification(String id) async =>
+      throw UnsupportedError('The production notifications API only supports clearing all notifications.');
 }
