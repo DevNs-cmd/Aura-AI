@@ -177,7 +177,10 @@ def build_embedding_provider() -> EmbeddingProvider:
     if provider_type in {"http", "remote", "openai_compatible"}:
         return HttpEmbeddingProvider(
             api_url=settings.EMBEDDING_API_URL,
-            api_key=settings.EMBEDDING_API_KEY,
+            # OpenRouter's embeddings endpoint uses the same bearer token as
+            # chat completions. A dedicated key can still be supplied when a
+            # different OpenAI-compatible embeddings provider is configured.
+            api_key=settings.EMBEDDING_API_KEY or settings.OPENROUTER_API_KEY,
             model_name=settings.EMBEDDING_MODEL,
             timeout_seconds=settings.EMBEDDING_TIMEOUT_SECONDS,
         )

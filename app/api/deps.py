@@ -1,3 +1,4 @@
+import logging
 from functools import lru_cache
 from typing import Any
 
@@ -26,6 +27,8 @@ from app.core.security import decode_token
 from app.db.database import get_db
 from app.models.user import User
 
+logger = logging.getLogger(__name__)
+
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/v1/auth/login")
 
 
@@ -37,7 +40,12 @@ def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(
     )
 
     payload = decode_token(token)
-    if payload is None or payload.get("type") != "access":
+    if payload is None:
+        raise credentials_exception
+
+    # Accept tokens from both FastAPI (type="access") and NestJS (no type claim).
+    token_type = payload.get("type")
+    if token_type is not None and token_type != "access":
         raise credentials_exception
 
     user_id = payload.get("sub")
@@ -74,7 +82,11 @@ class _MemoryContextAdapter:
         if user_id is None or not query_text:
             return MemoryContext()
 
-        memories = self._service.retrieve_memories(query_text, user_id=user_id, top_k=memory_limit)
+        try:
+            memories = self._service.retrieve_memories(query_text, user_id=user_id, top_k=memory_limit)
+        except Exception:  # noqa: BLE001 - optional context must not block chat replies
+            logger.exception("Memory context retrieval failed for user_id=%s", user_id)
+            return MemoryContext()
         return MemoryContext(memories=[item.memory.model_dump(mode="json") for item in memories])
 
 
@@ -118,7 +130,11 @@ class _RagContextAdapter:
         if not query_text:
             return RetrievalContext()
 
-        documents = self._service.retrieve_chunks(query_text, top_k=retrieval_limit)
+        try:
+            documents = self._service.retrieve_chunks(query_text, top_k=retrieval_limit)
+        except Exception:  # noqa: BLE001 - optional context must not block chat replies
+            logger.exception("RAG context retrieval failed")
+            return RetrievalContext(query=query_text)
         return RetrievalContext(
             query=query_text,
             documents=[chunk.model_dump(mode="json") for chunk in documents],

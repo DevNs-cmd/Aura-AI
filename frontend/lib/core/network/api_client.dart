@@ -16,6 +16,20 @@ class ApiClient {
           }
           handler.next(options);
         },
+        onError: (error, handler) async {
+          // Only clear the session when NestJS auth routes reject the token.
+          // FastAPI routes (e.g. /api/v1/*) returning 401 should NOT wipe the
+          // session — the token is still valid for NestJS; FastAPI was just
+          // rejecting it due to a configuration mismatch (now fixed).
+          if (error.response?.statusCode == 401) {
+            final path = error.requestOptions.path;
+            final isNestAuthRoute = !path.contains('/api/v1/');
+            if (isNestAuthRoute) {
+              await _sessionStore.clearSession();
+            }
+          }
+          handler.next(error);
+        },
       ),
     );
   }

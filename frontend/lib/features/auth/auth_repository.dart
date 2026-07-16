@@ -79,6 +79,11 @@ class HttpAuthRepository implements AuthRepository {
       return _currentUser;
     }
 
+    if (!await _sessionStore.hasValidAccessToken()) {
+      await _sessionStore.clearSession();
+      return null;
+    }
+
     _currentUser = await _sessionStore.readCurrentUser();
     return _currentUser;
   }

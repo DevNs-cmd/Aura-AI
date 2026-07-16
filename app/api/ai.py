@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import logging
 from datetime import datetime, timezone
 
 from fastapi import APIRouter, Depends, HTTPException, status
@@ -12,6 +13,8 @@ from app.core.security import hash_password
 from app.models.user import User
 from app.schemas.ai_chat import AIChatMetadata, AIChatRequest, AIChatResponse
 from app.ai.chat.schemas import ChatRequest
+
+logger = logging.getLogger(__name__)
 
 router = APIRouter(prefix="/ai", tags=["AI Gateway"])
 
@@ -54,6 +57,7 @@ def chat(
     try:
         result = chat_service.generate_reply(ChatRequest(user_id=user.id, query=request.message), db=db)
     except ChatError as exc:
+        logger.exception("AI chat generation failed for user_id=%s", user.id)
         raise HTTPException(
             status_code=status.HTTP_502_BAD_GATEWAY,
             detail=str(exc) if str(exc) else "AI chat generation failed",

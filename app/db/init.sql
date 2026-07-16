@@ -32,11 +32,11 @@ CREATE TABLE IF NOT EXISTS messages (
 CREATE TABLE IF NOT EXISTS memories (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-    content TEXT NOT NULL,
-    type VARCHAR(50),
-    embedding_id TEXT,
-    importance INTEGER DEFAULT 1,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    key VARCHAR(255) NOT NULL,
+    value TEXT NOT NULL,
+    source VARCHAR(50) DEFAULT 'chat',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE IF NOT EXISTS documents (
@@ -87,5 +87,10 @@ EXECUTE FUNCTION update_updated_at_column();
 
 CREATE TRIGGER update_journal_entries_updated_at
 BEFORE UPDATE ON journal_entries
+FOR EACH ROW
+EXECUTE FUNCTION update_updated_at_column();
+
+CREATE TRIGGER update_memories_updated_at
+BEFORE UPDATE ON memories
 FOR EACH ROW
 EXECUTE FUNCTION update_updated_at_column();
