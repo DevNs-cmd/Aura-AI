@@ -36,13 +36,24 @@ class ApiConfig {
   /// FastAPI (Python) backend — handles document upload + RAG indexing.
   static String get fastapiBaseUrl {
     if (kIsWeb) {
-      return 'http://localhost:8000/api/v1';
+      return 'http://localhost:8002/api/v1';
     }
     if (defaultTargetPlatform == TargetPlatform.android) {
       // Use 10.0.2.2 for emulator, real device needs the LAN IP of the dev machine.
-      return 'http://192.168.29.237:8000/api/v1';
+      return 'http://192.168.29.237:8002/api/v1';
     }
     // iOS simulator / desktop — localhost works fine.
-    return 'http://localhost:8000/api/v1';
+    return 'http://localhost:8002/api/v1';
+  }
+
+  static String get aiBaseUrl {
+    if (kIsWeb) {
+      return 'http://localhost:8002/ai';
+    }
+    if (defaultTargetPlatform == TargetPlatform.android) {
+      // Use LAN IP of the machine
+      return 'http://192.168.29.237:8002/ai';
+    }
+    return 'http://localhost:8002/ai';
   }
 }

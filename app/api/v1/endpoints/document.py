@@ -1,7 +1,8 @@
 import os
 import uuid
+import logging
 
-from fastapi import APIRouter, Depends, UploadFile
+from fastapi import APIRouter, Depends, UploadFile, BackgroundTasks
 from sqlalchemy.orm import Session
 
 from app.api.deps import get_current_user
@@ -10,15 +11,35 @@ from app.db.database import get_db
 from app.models.document import Document
 from app.models.user import User
 
+logger = logging.getLogger(__name__)
+
 router = APIRouter(prefix="/documents", tags=["Documents"])
 
 UPLOAD_DIR = "uploads"
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 
 
+def run_indexing(file_path: str, doc_id: uuid.UUID, user_id: uuid.UUID, filename: str, content_type: str):
+    try:
+        logger.info(f"Starting background indexing for document {doc_id}")
+        extracted_text = extract_document_text(file_path=file_path, file_type=content_type)
+        chunks = chunk_text(extracted_text)
+
+        upsert_document_chunks_to_chroma(
+            user_id=user_id,
+            document_id=doc_id,
+            file_name=filename,
+            chunks=chunks,
+        )
+        logger.info(f"Successfully completed background indexing for document {doc_id}")
+    except Exception as e:
+        logger.error(f"Failed background indexing for document {doc_id}: {e}", exc_info=True)
+
+
 @router.post("/upload")
 async def upload_document(
     file: UploadFile,
+    background_tasks: BackgroundTasks,
     db: Session = Depends(get_db),
     user: User = Depends(get_current_user),
 ):
@@ -41,29 +62,23 @@ async def upload_document(
     db.commit()
     db.refresh(doc)
 
-    # Index the document synchronously (MVP).
-    indexing_status = "uploaded"
-    try:
-        extracted_text = extract_document_text(file_path=file_path, file_type=doc.file_type)
-        chunks = chunk_text(extracted_text)
+    background_tasks.add_task(
+        run_indexing,
+        file_path=file_path,
+        doc_id=doc.id,
+        user_id=user.id,
+        filename=doc.filename,
+        content_type=doc.file_type,
+    )
 
-        upsert_document_chunks_to_chroma(
-            user_id=user.id,
-            document_id=doc.id,
-            file_name=doc.filename,
-            chunks=chunks,
-        )
-        indexing_status = "indexed"
-    except Exception:
-        indexing_status = "failed"
-        raise
+    doc.status = "indexing"
 
     return {
         "id": str(doc.id),
         "filename": doc.filename,
         "file_type": doc.file_type,
         "size_bytes": doc.size_bytes,
-        "status": indexing_status,
+        "status": doc.status,
     }
 
 

@@ -32,19 +32,38 @@ def _get_user_memory_context(db: Session, user: User) -> str:
 
 
 def generate_ai_reply(db: Session, user: User, session: ChatSession, user_message: str) -> str:
-    """D1 LLM Orchestrator + D4 Context Manager: merges chat history & memory, calls LLM."""
-    
-    # Updated Prompt: handles casual greetings smoothly without throwing context errors
+    """D1 LLM Orchestrator + D4 Context Manager: merges chat history & memory, queries documents (RAG), calls LLM."""
+    from app.ai.rag.service import build_rag_service
+
+    # Retrieve relevant document excerpts (RAG)
+    rag_context = ""
+    try:
+        rag_service = build_rag_service(db=db)
+        chunks = rag_service.retrieve_chunks(user_message, top_k=5)
+        if chunks:
+            # Format chunks with file references for high-quality grounded answers
+            chunks_text = "\n\n".join([
+                f"[Document: {c.metadata.get('file_name', 'Unknown')}]\n{c.chunk_text}"
+                for c in chunks
+            ])
+            rag_context = f"Relevant excerpts from the user's uploaded documents:\n{chunks_text}"
+    except Exception as e:
+        logger.error(f"RAG retrieval failed inside chat service: {e}", exc_info=True)
+
+    # Prompt tuned to handle documents and greetings smoothly
     system_prompt = (
         "You are Aura, a helpful, warm, and natural personal AI companion. "
-        "Respond conversationally. If the user greets you with casual words like 'hey', 'hi', or 'hello', "
-        "simply reply with a warm, friendly greeting and ask how they are doing. Do not bring up or "
-        "summarize background tasks, codes, or facts unless the user explicitly asks about them in the current conversation."
+        "Use the supplied excerpts from the user's uploaded documents (Document Context) to answer their questions accurately, contextually, and grounded. "
+        "If the document context contains the answer, prioritize using it. If the document context is not relevant or does not contain the answer, "
+        "use your general knowledge to answer helpfully, but briefly mention that the uploaded documents do not contain this information."
     )
+    
+    if rag_context:
+        system_prompt += f"\n\n[Document Context]:\n{rag_context}"
     
     memory_context = _get_user_memory_context(db, user)
     if memory_context:
-        system_prompt += f"\n\n[Background Context]: {memory_context}"
+        system_prompt += f"\n\n[Background Context (User memories)]: {memory_context}"
 
     history = _get_recent_history(db, session)
     

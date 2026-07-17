@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../auth/auth_provider.dart';
 
 class ProfileState {
   final String userName;
@@ -31,8 +32,8 @@ class ProfileState {
 class ProfileNotifier extends StateNotifier<ProfileState> {
   ProfileNotifier()
       : super(ProfileState(
-          userName: 'Soumya', 
-          email: 'soumya@example.com',
+          userName: 'User', 
+          email: 'user@example.com',
           avatarUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb',
           selectedPersonality: 'Empathetic',
         ));
@@ -55,5 +56,25 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
 }
 
 final profileProvider = StateNotifierProvider<ProfileNotifier, ProfileState>((ref) {
-  return ProfileNotifier();
+  // Use 'User' as fallback if not authenticated
+  final notifier = ProfileNotifier();
+
+  ref.listen<AuthState>(authProvider, (previous, next) {
+    if (next.status == AuthStatus.authenticated && next.user != null) {
+      notifier.updateProfile(next.user!.displayName, next.user!.email);
+      if (next.user!.avatarUrl != null) {
+        notifier.updateAvatar(next.user!.avatarUrl!);
+      }
+    }
+  });
+
+  final authState = ref.read(authProvider);
+  if (authState.status == AuthStatus.authenticated && authState.user != null) {
+    notifier.updateProfile(authState.user!.displayName, authState.user!.email);
+    if (authState.user!.avatarUrl != null) {
+      notifier.updateAvatar(authState.user!.avatarUrl!);
+    }
+  }
+
+  return notifier;
 });

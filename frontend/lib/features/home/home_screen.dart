@@ -392,9 +392,11 @@ class _HomeDashboardViewState extends ConsumerState<HomeDashboardView> {
   Widget build(BuildContext context) {
     final authState = ref.watch(authProvider);
     final profile = ref.watch(profileProvider);
-    final userName = profile.userName.isNotEmpty
-        ? profile.userName
-        : (authState.user?.displayName ?? 'User');
+    final userName = (authState.user != null && authState.user!.displayName.isNotEmpty)
+        ? authState.user!.displayName
+        : (profile.userName.isNotEmpty && profile.userName != 'User'
+            ? profile.userName
+            : 'User');
     final userAvatar = profile.avatarUrl.isNotEmpty
         ? profile.avatarUrl
         : (authState.user?.avatarUrl ??

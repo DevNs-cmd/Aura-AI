@@ -139,60 +139,7 @@ class _VisionAnalysisScreenState extends ConsumerState<VisionAnalysisScreen>
   String _selectedMode = 'Understand Scene';
   int _activeResultTab = 0; // 0: Scene, 1: Objects, 2: Text, 3: Context
 
-  // Mock data representing recent sightings history items
-  final List<Map<String, dynamic>> _mockRecentSightings = [
-    {
-      'imagePath':
-          'https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=256&h=256&fit=crop',
-      'title': 'Office Desk Setup',
-      'mode': 'Understand Scene',
-      'detectedObjects': [
-        {'name': 'Laptop', 'confidence': 0.98},
-        {'name': 'Keyboard', 'confidence': 0.95},
-        {'name': 'Coffee Mug', 'confidence': 0.89},
-      ],
-      'ocrText':
-          'PLAN:\n- Launch v1.0 by Friday morning!\n- Schedule Team Sync at 10 AM\n- Buy coffee beans',
-      'scene':
-          'I see a modern and clean office desk setup. There is a silver laptop open on the desk, a mechanical keyboard, and a dark ceramic coffee mug. The desk has a light wooden texture.',
-      'context':
-          'This setup is ideal for software development or writing. The planner notes indicate a high-priority product launch deadline approaching this Friday.',
-      'timestamp': '2h ago',
-    },
-    {
-      'imagePath':
-          'https://images.unsplash.com/photo-1455390582262-044cdead277a?q=80&w=256&h=256&fit=crop',
-      'title': 'Handwritten Notes',
-      'mode': 'Read Text',
-      'detectedObjects': [
-        {'name': 'Notebook', 'confidence': 0.99},
-        {'name': 'Pen', 'confidence': 0.93},
-      ],
-      'ocrText':
-          'Reflections on Growth:\nChange is constant. Focus on building habits, not just achieving goals. Take small steps daily.',
-      'scene':
-          'I see a handwritten notebook page open on a wooden table with a pen lying next to it.',
-      'context':
-          'The text captures personal development ideas on habits. This fits well with your Journal reflecting features.',
-      'timestamp': 'Yesterday',
-    },
-    {
-      'imagePath':
-          'https://images.unsplash.com/photo-1513836279014-a89f7a76ae86?q=80&w=256&h=256&fit=crop',
-      'title': 'Plant on Window Sill',
-      'mode': 'Identify Objects',
-      'detectedObjects': [
-        {'name': 'Houseplant', 'confidence': 0.97},
-        {'name': 'Window Sill', 'confidence': 0.92},
-      ],
-      'ocrText': 'PLANT CARE GUIDE',
-      'scene':
-          'I see a green potted houseplant sitting on a white window sill. Sunlight is coming through the glass window pane.',
-      'context':
-          'Natural light and plants can boost productivity and mood. Fits well with your Calm mood theme.',
-      'timestamp': '3 days ago',
-    },
-  ];
+  final List<Map<String, dynamic>> _mockRecentSightings = [];
 
   // Rotation messages for scanning state
   final List<String> _scanMessageKeys = [
@@ -401,7 +348,9 @@ class _VisionAnalysisScreenState extends ConsumerState<VisionAnalysisScreen>
     // Get specific result components
     final sceneText = _selectedMockSighting != null
         ? _getLocalSceneText(context, _selectedMockSighting!['scene'] as String)
-        : AppLocalizations.of(context)!.visionMockSceneDesk;
+        : (visionState.scene != null && visionState.scene!.isNotEmpty
+            ? visionState.scene!
+            : AppLocalizations.of(context)!.visionMockSceneDesk);
     final detectedObjects = _selectedMockSighting != null
         ? _selectedMockSighting!['detectedObjects']
               as List<Map<String, dynamic>>
@@ -421,7 +370,9 @@ class _VisionAnalysisScreenState extends ConsumerState<VisionAnalysisScreen>
             context,
             _selectedMockSighting!['context'] as String,
           )
-        : AppLocalizations.of(context)!.visionMockContextDesk;
+        : (visionState.context != null && visionState.context!.isNotEmpty
+            ? visionState.context!
+            : AppLocalizations.of(context)!.visionMockContextDesk);
 
     return Scaffold(
       backgroundColor: isDark
@@ -994,6 +945,7 @@ class _VisionAnalysisScreenState extends ConsumerState<VisionAnalysisScreen>
 
   // Recent Sightings horizontal thumbnails List
   Widget _buildRecentSightings(bool isDark, ThemeState themeState) {
+    if (_mockRecentSightings.isEmpty) return const SizedBox.shrink();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
