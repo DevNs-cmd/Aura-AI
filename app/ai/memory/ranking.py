@@ -3,7 +3,8 @@ from __future__ import annotations
 import math
 import re
 from dataclasses import dataclass
-from datetime import UTC, datetime
+from datetime import datetime, timezone
+UTC = timezone.utc
 from typing import Sequence
 
 from app.ai.memory.exceptions import MemoryRankingError

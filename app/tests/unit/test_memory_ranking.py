@@ -1,6 +1,7 @@
 from __future__ import annotations
 
-from datetime import UTC, datetime, timedelta
+from datetime import datetime, timezone, timedelta
+UTC = timezone.utc
 from uuid import uuid4
 
 from app.ai.memory.ranking import MemoryRanker, MemoryScoredCandidate
