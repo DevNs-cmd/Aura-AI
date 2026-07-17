@@ -31,24 +31,60 @@ def _get_user_memory_context(db: Session, user: User) -> str:
     return f"Known facts about the user: {facts}"
 
 
+def _get_rag_context(user_id, query: str) -> str:
+    """Retrieve relevant document chunks from ChromaDB for the query."""
+    try:
+        from app.ai.embeddings.service import build_embedding_service
+        from app.ai.vectorstore import build_vector_store
+        from app.ai.rag.retrieval import build_chunk_candidate
+
+        embedding_service = build_embedding_service()
+        vector_store = build_vector_store()
+
+        query_vector = embedding_service.generate_embedding(query)
+        results = vector_store.similarity_search_with_scores(
+            query_vector=query_vector,
+            top_k=5,
+            filters={"user_id": str(user_id)},
+        )
+
+        chunks = []
+        for result in results:
+            candidate = build_chunk_candidate(result)
+            if candidate and candidate.chunk_text:
+                chunks.append(candidate.chunk_text)
+
+        if not chunks:
+            return ""
+
+        joined = "\n\n---\n\n".join(chunks)
+        return f"Relevant excerpts from the user's documents:\n\n{joined}"
+
+    except Exception as exc:
+        logger.warning("RAG retrieval failed (non-fatal): %s", exc)
+        return ""
+
+
 def generate_ai_reply(db: Session, user: User, session: ChatSession, user_message: str) -> str:
-    """D1 LLM Orchestrator + D4 Context Manager: merges chat history & memory, calls LLM."""
-    
-    # Updated Prompt: handles casual greetings smoothly without throwing context errors
+    """D1 LLM Orchestrator + D4 Context Manager: merges chat history, memory, and RAG context."""
+
     system_prompt = (
         "You are Aura, a helpful, warm, and natural personal AI companion. "
         "Respond conversationally. If the user greets you with casual words like 'hey', 'hi', or 'hello', "
-        "simply reply with a warm, friendly greeting and ask how they are doing. Do not bring up or "
-        "summarize background tasks, codes, or facts unless the user explicitly asks about them in the current conversation."
+        "simply reply with a warm, friendly greeting and ask how they are doing. "
+        "When document excerpts are provided below, use them to answer the user's question accurately. "
+        "Do not bring up background tasks or codes unless the user explicitly asks."
     )
-    
+
     memory_context = _get_user_memory_context(db, user)
     if memory_context:
-        system_prompt += f"\n\n[Background Context]: {memory_context}"
+        system_prompt += f"\n\n[User Memory]: {memory_context}"
+
+    rag_context = _get_rag_context(user.id, user_message)
+    if rag_context:
+        system_prompt += f"\n\n[Document Context]:\n{rag_context}"
 
     history = _get_recent_history(db, session)
-    
-    # FIX: Added user_message to payload so the AI actually receives what you typed!
     messages = [{"role": "system", "content": system_prompt}] + history + [{"role": "user", "content": user_message}]
 
     if not settings.OPENROUTER_API_KEY:

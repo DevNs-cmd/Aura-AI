@@ -49,25 +49,43 @@ def _extract_pdf_text(path: str) -> str:
         raise ValueError(f"Failed to extract text from PDF: {exc}") from exc
 
 
+def _extract_docx_text(path: str) -> str:
+    """Extract text from a .docx file using python-docx."""
+    try:
+        from docx import Document  # type: ignore[import]
+        doc = Document(path)
+        paragraphs = [p.text for p in doc.paragraphs if p.text.strip()]
+        return "\n".join(paragraphs)
+    except ImportError:
+        return _read_text_file(path)
+    except Exception as exc:
+        raise ValueError(f"Failed to extract text from DOCX: {exc}") from exc
+
+
 def extract_document_text(file_path: str, file_type: str | None = None) -> str:
     """Extract plain text from a document file.
 
     Supports:
-      - .txt / .md  — direct UTF-8 read
-      - .pdf        — pypdf page extraction
-      - others      — best-effort byte decode
+      - .txt / .md   — direct UTF-8 read
+      - .pdf         — pypdf page extraction
+      - .docx / .doc — python-docx extraction
+      - others       — best-effort byte decode
     """
 
     if not file_path or not os.path.exists(file_path):
         raise FileNotFoundError(f"Document file not found: {file_path}")
 
     ext = os.path.splitext(file_path)[1].lower()
+    mime = (file_type or "").lower()
 
     if ext in {".txt", ".md"}:
         return _read_text_file(file_path)
 
-    if ext == ".pdf" or (file_type or "").lower() == "application/pdf":
+    if ext == ".pdf" or mime == "application/pdf":
         return _extract_pdf_text(file_path)
+
+    if ext in {".docx", ".doc"} or "wordprocessingml" in mime or "msword" in mime:
+        return _extract_docx_text(file_path)
 
     # Fallback: attempt decode.
     return _read_text_file(file_path)

@@ -9,7 +9,7 @@ from app.db.database import Base
 
 
 class ChatSession(Base):
-    __tablename__ = "chat_sessions"
+    __tablename__ = "chats"  # DB table is "chats", not "chat_sessions"
 
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     user_id = Column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False)
@@ -24,8 +24,8 @@ class Message(Base):
     __tablename__ = "messages"
 
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    # DB column is "chat_id", not "session_id"
-    session_id = Column("chat_id", UUID(as_uuid=True), ForeignKey("chat_sessions.id"), nullable=False)
+    # DB column is "chat_id"; FK references "chats" (not "chat_sessions")
+    session_id = Column("chat_id", UUID(as_uuid=True), ForeignKey("chats.id"), nullable=False)
     role = Column(String, nullable=False)  # "user" | "assistant"
     content = Column(Text, nullable=False)
     created_at = Column(DateTime, default=datetime.utcnow)

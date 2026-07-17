@@ -15,6 +15,7 @@ import '../../core/theme/theme_provider.dart';
 import '../../core/widgets/primary_button.dart';
 import '../../core/localization/generated/app_localizations.dart';
 import 'file_provider.dart';
+import 'documents_repository.dart';
 import 'widgets/ask_your_files/knowledge_orb.dart';
 import 'widgets/ask_your_files/ask_files_bar.dart';
 import 'widgets/ask_your_files/quick_question_card.dart';
@@ -204,8 +205,12 @@ class _DocumentsScreenState extends ConsumerState<DocumentsScreen> {
   }
 
   /// Send a question to the RAG backend and show the answer in a sheet.
-  Future<void> _askAura(String question) async {
+  void _askAura(String question) {
     if (question.trim().isEmpty) return;
+
+    // Create the future BEFORE opening the sheet so it starts immediately
+    // and is not created inside the builder (which runs during build phase).
+    final future = DocumentsRepository().queryDocuments(question);
 
     showModalBottomSheet(
       context: context,
@@ -213,8 +218,7 @@ class _DocumentsScreenState extends ConsumerState<DocumentsScreen> {
       backgroundColor: Colors.transparent,
       builder: (_) => _AnswerSheet(
         question: question,
-        ragStream: ref.read(ragQueryProvider.notifier).ask(question),
-        ragStateReader: () => ref.read(ragQueryProvider),
+        future: future,
       ),
     );
   }
@@ -521,49 +525,15 @@ class _DocumentsScreenState extends ConsumerState<DocumentsScreen> {
 }
 
 // ---------------------------------------------------------------------------
-// Self-contained answer sheet — owns its own loading/result state via
-// FutureBuilder so it never needs to pop itself or touch the router.
+// Self-contained answer sheet — plain FutureBuilder, zero Riverpod.
+// The future is created by the caller BEFORE showModalBottomSheet so provider
+// state is never modified during the build phase.
 // ---------------------------------------------------------------------------
-class _AnswerSheet extends StatefulWidget {
+class _AnswerSheet extends StatelessWidget {
   final String question;
-  final Future<void> ragStream;
-  final RagQueryState Function() ragStateReader;
+  final Future<RagQueryResult> future;
 
-  const _AnswerSheet({
-    required this.question,
-    required this.ragStream,
-    required this.ragStateReader,
-  });
-
-  @override
-  State<_AnswerSheet> createState() => _AnswerSheetState();
-}
-
-class _AnswerSheetState extends State<_AnswerSheet> {
-  String? _answer;
-  String? _error;
-  bool _loading = true;
-
-  @override
-  void initState() {
-    super.initState();
-    widget.ragStream.then((_) {
-      if (!mounted) return;
-      final s = widget.ragStateReader();
-      setState(() {
-        _loading = false;
-        _answer = s.answer;
-        _error = s.error;
-      });
-    }).catchError((Object _) {
-      if (!mounted) return;
-      final s = widget.ragStateReader();
-      setState(() {
-        _loading = false;
-        _error = s.error ?? 'Something went wrong. Please try again.';
-      });
-    });
-  }
+  const _AnswerSheet({required this.question, required this.future});
 
   @override
   Widget build(BuildContext context) {
@@ -600,7 +570,7 @@ class _AnswerSheetState extends State<_AnswerSheet> {
                   const SizedBox(width: 8),
                   Expanded(
                     child: Text(
-                      widget.question,
+                      question,
                       style: GoogleFonts.outfit(
                         fontSize: 15,
                         fontWeight: FontWeight.bold,
@@ -616,56 +586,67 @@ class _AnswerSheetState extends State<_AnswerSheet> {
             const SizedBox(height: 16),
             Divider(color: isDark ? Colors.white12 : Colors.black12),
             Expanded(
-              child: SingleChildScrollView(
-                controller: scrollController,
-                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-                child: _loading
-                    ? Center(
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            const SizedBox(height: 32),
-                            CircularProgressIndicator(color: accentColor),
-                            const SizedBox(height: 16),
-                            Text(
-                              'Aura is reading your documents...',
-                              style: GoogleFonts.quicksand(
-                                fontSize: 13,
-                                fontWeight: FontWeight.w600,
-                                color: AppColors.secondaryText,
-                              ),
-                            ),
-                          ],
-                        ),
-                      )
-                    : _error != null
-                        ? Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Icon(Icons.error_outline_rounded,
-                                  color: Colors.redAccent, size: 28),
-                              const SizedBox(height: 12),
-                              Text(
-                                'Something went wrong. Please try again.',
-                                style: GoogleFonts.quicksand(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.redAccent,
-                                ),
-                              ),
-                            ],
-                          )
-                        : Text(
-                            _answer ?? '',
+              child: FutureBuilder<RagQueryResult>(
+                future: future,
+                builder: (context, snap) {
+                  Widget body;
+                  if (snap.connectionState != ConnectionState.done) {
+                    body = Center(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const SizedBox(height: 32),
+                          CircularProgressIndicator(color: accentColor),
+                          const SizedBox(height: 16),
+                          Text(
+                            'Aura is reading your documents...',
                             style: GoogleFonts.quicksand(
-                              fontSize: 14,
+                              fontSize: 13,
                               fontWeight: FontWeight.w600,
-                              height: 1.6,
-                              color: isDark
-                                  ? Colors.white70
-                                  : AppColors.lightTextSecondary,
+                              color: AppColors.secondaryText,
                             ),
                           ),
+                        ],
+                      ),
+                    );
+                  } else if (snap.hasError) {
+                    body = Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const Icon(Icons.error_outline_rounded,
+                            color: Colors.redAccent, size: 28),
+                        const SizedBox(height: 12),
+                        Text(
+                          'Something went wrong. Please try again.',
+                          style: GoogleFonts.quicksand(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.redAccent,
+                          ),
+                        ),
+                      ],
+                    );
+                  } else {
+                    body = Text(
+                      snap.data?.answer ?? '',
+                      style: GoogleFonts.quicksand(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                        height: 1.6,
+                        color: isDark
+                            ? Colors.white70
+                            : AppColors.lightTextSecondary,
+                      ),
+                    );
+                  }
+                  return SingleChildScrollView(
+                    controller: scrollController,
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 24, vertical: 16),
+                    child: body,
+                  );
+                },
               ),
             ),
           ],
