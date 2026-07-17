@@ -24,6 +24,19 @@ with engine.begin() as connection:
             "ALTER TABLE users ADD COLUMN IF NOT EXISTS is_active BOOLEAN DEFAULT TRUE NOT NULL"
         )
     )
+    connection.execute(
+        text(
+            """
+            ALTER TABLE journal_entries
+                ADD COLUMN IF NOT EXISTS summary TEXT,
+                ADD COLUMN IF NOT EXISTS keywords JSON DEFAULT '[]'::json,
+                ADD COLUMN IF NOT EXISTS reflection TEXT,
+                ADD COLUMN IF NOT EXISTS follow_up_suggestions JSON DEFAULT '[]'::json,
+                ADD COLUMN IF NOT EXISTS artifacts JSON DEFAULT '{}'::json,
+                ADD COLUMN IF NOT EXISTS deleted_at TIMESTAMP
+            """
+        )
+    )
 
 # B3. Rate Limiter
 limiter = Limiter(key_func=get_remote_address)

@@ -24,7 +24,8 @@ class Message(Base):
     __tablename__ = "messages"
 
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    session_id = Column(UUID(as_uuid=True), ForeignKey("chat_sessions.id"), nullable=False)
+    # DB column is "chat_id", not "session_id"
+    session_id = Column("chat_id", UUID(as_uuid=True), ForeignKey("chat_sessions.id"), nullable=False)
     role = Column(String, nullable=False)  # "user" | "assistant"
     content = Column(Text, nullable=False)
     created_at = Column(DateTime, default=datetime.utcnow)

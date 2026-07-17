@@ -4,14 +4,23 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/localization/generated/app_localizations.dart';
 
+/// A progress card that animates to 85% quickly, then waits for [uploadFuture]
+/// to complete before snapping to 100% and calling [onComplete].
+///
+/// This ensures the card never dismisses before the real upload is done.
 class UploadProgressCard extends StatefulWidget {
   final String fileName;
   final VoidCallback onComplete;
+
+  /// The actual upload + indexing future. The card pauses at 85% until
+  /// this resolves (success or error).
+  final Future<void>? uploadFuture;
 
   const UploadProgressCard({
     super.key,
     required this.fileName,
     required this.onComplete,
+    this.uploadFuture,
   });
 
   @override
@@ -21,38 +30,96 @@ class UploadProgressCard extends StatefulWidget {
 class _UploadProgressCardState extends State<UploadProgressCard> {
   int _currentStageIndex = 0;
   double _progressValue = 0.0;
-  late Timer _timer;
+  Timer? _timer;
+
+  // Once we hit 85% we pause here and wait for the future.
+  static const double _waitThreshold = 0.85;
 
   @override
   void initState() {
     super.initState();
-    _timer = Timer.periodic(const Duration(milliseconds: 600), (timer) {
-      setState(() {
-        _progressValue += 0.15;
-        if (_progressValue >= 1.0) {
-          _progressValue = 1.0;
-          _timer.cancel();
-          Future.delayed(const Duration(milliseconds: 300), () {
-            widget.onComplete();
-          });
-        }
+    _startAnimation();
+    _awaitUpload();
+  }
 
-        if (_progressValue < 0.25) {
-          _currentStageIndex = 0;
-        } else if (_progressValue < 0.55) {
-          _currentStageIndex = 1;
-        } else if (_progressValue < 0.85) {
-          _currentStageIndex = 2;
-        } else {
-          _currentStageIndex = 3;
+  void _startAnimation() {
+    _timer = Timer.periodic(const Duration(milliseconds: 600), (timer) {
+      if (!mounted) {
+        timer.cancel();
+        return;
+      }
+      setState(() {
+        if (_progressValue < _waitThreshold) {
+          _progressValue += 0.15;
+          if (_progressValue >= _waitThreshold) {
+            // Clamp to threshold and pause — wait for the real upload.
+            _progressValue = _waitThreshold;
+            timer.cancel();
+          }
         }
+        _updateStage();
       });
     });
   }
 
+  void _awaitUpload() {
+    final future = widget.uploadFuture;
+    if (future == null) {
+      // No future provided — fall back to old timer-only behaviour.
+      _timer?.cancel();
+      _timer = Timer.periodic(const Duration(milliseconds: 600), (timer) {
+        if (!mounted) {
+          timer.cancel();
+          return;
+        }
+        setState(() {
+          _progressValue += 0.15;
+          if (_progressValue >= 1.0) {
+            _progressValue = 1.0;
+            timer.cancel();
+            Future.delayed(const Duration(milliseconds: 300), () {
+              if (mounted) widget.onComplete();
+            });
+          }
+          _updateStage();
+        });
+      });
+      return;
+    }
+
+    future.then((_) {
+      if (!mounted) return;
+      // Upload succeeded — snap to 100% and dismiss.
+      setState(() {
+        _progressValue = 1.0;
+        _currentStageIndex = 3;
+      });
+      Future.delayed(const Duration(milliseconds: 500), () {
+        if (mounted) widget.onComplete();
+      });
+    }).catchError((Object err) {
+      // Upload failed — onComplete is NOT called; the parent's catchError
+      // already handles showing the error snackbar and clearing state.
+      if (!mounted) return;
+      widget.onComplete();
+    });
+  }
+
+  void _updateStage() {
+    if (_progressValue < 0.25) {
+      _currentStageIndex = 0;
+    } else if (_progressValue < 0.55) {
+      _currentStageIndex = 1;
+    } else if (_progressValue < _waitThreshold) {
+      _currentStageIndex = 2;
+    } else {
+      _currentStageIndex = 3;
+    }
+  }
+
   @override
   void dispose() {
-    _timer.cancel();
+    _timer?.cancel();
     super.dispose();
   }
 
@@ -76,6 +143,9 @@ class _UploadProgressCardState extends State<UploadProgressCard> {
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final accentColor = Theme.of(context).primaryColor;
+
+    // While waiting at 85%, show an indeterminate spinner to signal real work.
+    final bool isWaiting = _progressValue >= _waitThreshold && _progressValue < 1.0;
 
     return Container(
       padding: const EdgeInsets.all(20),
@@ -102,7 +172,8 @@ class _UploadProgressCardState extends State<UploadProgressCard> {
                   width: 16,
                   height: 16,
                   child: CircularProgressIndicator(
-                    value: _progressValue,
+                    // null = indeterminate when waiting for backend
+                    value: isWaiting ? null : _progressValue,
                     strokeWidth: 2,
                     valueColor: AlwaysStoppedAnimation<Color>(accentColor),
                   ),
@@ -138,7 +209,9 @@ class _UploadProgressCardState extends State<UploadProgressCard> {
                 ),
               ),
               Text(
-                '${(_progressValue * 100).toInt()}%',
+                isWaiting
+                    ? '${(_progressValue * 100).toInt()}%'
+                    : '${(_progressValue * 100).toInt()}%',
                 style: GoogleFonts.outfit(
                   fontSize: 13,
                   fontWeight: FontWeight.bold,

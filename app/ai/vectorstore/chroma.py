@@ -91,7 +91,15 @@ class ChromaVectorStore:
         if top_k <= 0:
             return []
 
-        where = filters or None
+        where = None
+        if filters:
+            # Chroma accepts a direct predicate for one field, but multiple
+            # fields must be combined with a logical operator.
+            where = (
+                filters
+                if len(filters) == 1
+                else {"$and": [{key: value} for key, value in filters.items()]}
+            )
 
         try:
             # Chroma supports where-filtering via the `where` kwarg.

@@ -1,5 +1,6 @@
 import {
   Injectable,
+  Logger,
   BadGatewayException,
   BadRequestException,
   InternalServerErrorException,
@@ -11,6 +12,8 @@ import { firstValueFrom } from 'rxjs';
 
 @Injectable()
 export class ChatService {
+  private readonly logger = new Logger(ChatService.name);
+
   constructor(private readonly httpService: HttpService) {
   }
 
@@ -31,6 +34,7 @@ export class ChatService {
 
     try {
       const aiServiceUrl = new URL('/ai/chat', aiServiceBaseUrl).toString();
+      this.logger.log(`Forwarding chat request to ${aiServiceUrl} for user ${userId}`);
       const response = await firstValueFrom(
         this.httpService.post(aiServiceUrl, payload),
       );
@@ -38,6 +42,10 @@ export class ChatService {
     } catch (error: any) {
       const status = error?.response?.status;
       const detail = error?.response?.data?.detail ?? error?.message ?? 'FastAPI AI service request failed.';
+
+      this.logger.error(
+        `FastAPI chat request failed: status=${status ?? 'unreachable'} detail=${String(detail)}`,
+      );
 
       if (status) {
         if (status >= 500) {

@@ -19,15 +19,30 @@ class ApiConfig {
     }
 
     if (kIsWeb) {
-      // When Flutter Web is served on localhost:3000, the backend must run on a separate port.
+      // Flutter Web served alongside NestJS on port 3001
       return 'http://localhost:3001/api';
     }
 
     if (defaultTargetPlatform == TargetPlatform.android) {
-      // Android emulator ke liye port 3000 with backend global /api prefix
-      return 'http://10.0.2.2:3000/api';
+      // Real Android device needs the LAN IP of the dev machine.
+      // NestJS is on port 3001 (confirmed via netstat).
+      return 'http://192.168.29.237:3001/api';
     }
 
-    return 'http://localhost:3000/api';
+    // iOS simulator / desktop
+    return 'http://localhost:3001/api';
+  }
+
+  /// FastAPI (Python) backend — handles document upload + RAG indexing.
+  static String get fastapiBaseUrl {
+    if (kIsWeb) {
+      return 'http://localhost:8000/api/v1';
+    }
+    if (defaultTargetPlatform == TargetPlatform.android) {
+      // Use 10.0.2.2 for emulator, real device needs the LAN IP of the dev machine.
+      return 'http://192.168.29.237:8000/api/v1';
+    }
+    // iOS simulator / desktop — localhost works fine.
+    return 'http://localhost:8000/api/v1';
   }
 }
