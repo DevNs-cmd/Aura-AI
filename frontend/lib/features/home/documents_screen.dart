@@ -3,8 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:go_router/go_router.dart';
+import 'dart:io';
+
+import 'package:mime/mime.dart';
+
 import 'package:image_picker/image_picker.dart';
 import 'package:file_picker/file_picker.dart';
+
 import '../../core/constants/app_colors.dart';
 import '../../core/theme/theme_provider.dart';
 import '../../core/widgets/primary_button.dart';
@@ -27,6 +32,9 @@ class DocumentsScreen extends ConsumerStatefulWidget {
 }
 
 class _DocumentsScreenState extends ConsumerState<DocumentsScreen> {
+  // Holds the last-picked file so the upload callback can send bytes to backend.
+  PlatformFile? _pickedFile;
+
   // Track selection state
   final Set<String> _selectedFileNames = {};
 
@@ -34,10 +42,14 @@ class _DocumentsScreenState extends ConsumerState<DocumentsScreen> {
   String _searchQuery = "";
   bool _isSearching = false;
 
-  // Upload simulation state
+  // Upload state
   String? _uploadingFileName;
   String _uploadingFileSize = '1.5 MB';
   String _uploadingFileType = 'PDF';
+
+  // The actual upload future, passed to UploadProgressCard so it can wait.
+  Future<void>? _uploadFuture;
+
 
   void _showUploadSourceSheet() {
     showModalBottomSheet(
@@ -60,6 +72,7 @@ class _DocumentsScreenState extends ConsumerState<DocumentsScreen> {
         final result = await FilePicker.platform.pickFiles(
           type: FileType.custom,
           allowedExtensions: ['pdf', 'doc', 'docx', 'txt', 'png', 'jpg', 'jpeg'],
+          withData: kIsWeb, // on web, load bytes eagerly (path is unavailable)
         );
         if (!mounted) return;
         if (result != null && result.files.single.name.isNotEmpty) {
@@ -74,9 +87,12 @@ class _DocumentsScreenState extends ConsumerState<DocumentsScreen> {
             }
           }
           setState(() {
+            _pickedFile = file;
             _uploadingFileName = file.name;
             _uploadingFileSize = sizeStr;
             _uploadingFileType = file.extension?.toUpperCase() ?? 'FILE';
+            // Start upload immediately and hand the future to the progress card.
+            _uploadFuture = _runUpload(file);
           });
         }
       } catch (e) {
@@ -128,26 +144,50 @@ class _DocumentsScreenState extends ConsumerState<DocumentsScreen> {
     }
   }
 
-  void _onUploadComplete() {
-    if (_uploadingFileName != null) {
-      final newFile = UploadedFile(
-        id: DateTime.now().millisecondsSinceEpoch.toString(),
-        name: _uploadingFileName!,
-        size: _uploadingFileSize,
-        type: _uploadingFileType,
-      );
-      ref.read(fileProvider.notifier).addFile(newFile);
-      setState(() {
-        _uploadingFileName = null;
-      });
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Document successfully parsed and indexed!'),
-          backgroundColor: AppColors.success,
-        ),
-      );
+  /// Performs the actual file upload + indexing. Called right when the file
+  /// is picked. The returned Future is passed to [UploadProgressCard] so the
+  /// card can wait for it before dismissing.
+  Future<void> _runUpload(PlatformFile file) async {
+    final mimeType = lookupMimeType(file.name) ?? 'application/octet-stream';
+    try {
+      if (kIsWeb) {
+        // On web, dart:io File and .path are unavailable — use bytes directly.
+        final bytes = file.bytes;
+        if (bytes == null) throw Exception('Could not read file bytes');
+        await ref.read(fileProvider.notifier).uploadFileFromBytes(
+              bytes: bytes,
+              fileName: file.name,
+              contentType: mimeType,
+            );
+      } else {
+        if (file.path == null) throw Exception('File path unavailable');
+        await ref.read(fileProvider.notifier).uploadFile(
+              file: File(file.path!),
+              fileName: file.name,
+              contentType: mimeType,
+            );
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Upload failed: $e')),
+        );
+      }
+      rethrow;
     }
   }
+
+  /// Called by [UploadProgressCard] once the animation + upload are both done.
+  Future<void> _onUploadComplete() async {
+    if (!mounted) return;
+    setState(() {
+      _uploadingFileName = null;
+      _pickedFile = null;
+      _uploadFuture = null;
+    });
+  }
+
+
 
   void _deleteDocument(String name) {
     try {
@@ -161,6 +201,22 @@ class _DocumentsScreenState extends ConsumerState<DocumentsScreen> {
         SnackBar(content: Text('Removed "$name" from workspace.')),
       );
     } catch (_) {}
+  }
+
+  /// Send a question to the RAG backend and show the answer in a sheet.
+  Future<void> _askAura(String question) async {
+    if (question.trim().isEmpty) return;
+
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (_) => _AnswerSheet(
+        question: question,
+        ragStream: ref.read(ragQueryProvider.notifier).ask(question),
+        ragStateReader: () => ref.read(ragQueryProvider),
+      ),
+    );
   }
 
   void _deleteSelectedDocuments() {
@@ -266,11 +322,8 @@ class _DocumentsScreenState extends ConsumerState<DocumentsScreen> {
                     fileState.files.map((d) => d.name),
                   );
                 });
-              } else {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text('Action "$val" selected (Mock).')),
-                );
               }
+              // sort / storage are UI-only for now
             },
             itemBuilder: (context) => const [
               PopupMenuItem(value: 'select', child: Text('Select All')),
@@ -299,6 +352,7 @@ class _DocumentsScreenState extends ConsumerState<DocumentsScreen> {
                         if (_uploadingFileName != null) ...[
                           UploadProgressCard(
                             fileName: _uploadingFileName!,
+                            uploadFuture: _uploadFuture,
                             onComplete: _onUploadComplete,
                           ),
                           const SizedBox(height: 24),
@@ -307,15 +361,7 @@ class _DocumentsScreenState extends ConsumerState<DocumentsScreen> {
                           selectedCount: _selectedFileNames.length,
                           hasDocuments: fileState.files.isNotEmpty,
                           onUploadPressed: _showUploadSourceSheet,
-                          onSubmit: (text) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text(
-                                  AppLocalizations.of(context)!.documentsMockAskedSnackbar(text),
-                                ),
-                              ),
-                            );
-                          },
+                          onSubmit: _askAura,
                         ),
                         const SizedBox(height: 28),
                         Row(
@@ -341,65 +387,33 @@ class _DocumentsScreenState extends ConsumerState<DocumentsScreen> {
                               QuickQuestionCard(
                                 label: AppLocalizations.of(context)!.documentsSuggestionSummarize,
                                 icon: Icons.notes_rounded,
-                                onTap: () {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text(
-                                        AppLocalizations.of(context)!.documentsMockAskedSnackbar(
-                                          AppLocalizations.of(context)!.documentsSuggestionSummarize,
-                                        ),
-                                      ),
-                                    ),
-                                  );
-                                },
+                                onTap: () => _askAura(
+                                  AppLocalizations.of(context)!.documentsSuggestionSummarize,
+                                ),
                               ),
                               const SizedBox(width: 12),
                               QuickQuestionCard(
                                 label: AppLocalizations.of(context)!.documentsSuggestionDeadlines,
                                 icon: Icons.access_time_rounded,
-                                onTap: () {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text(
-                                        AppLocalizations.of(context)!.documentsMockAskedSnackbar(
-                                          AppLocalizations.of(context)!.documentsSuggestionDeadlines,
-                                        ),
-                                      ),
-                                    ),
-                                  );
-                                },
+                                onTap: () => _askAura(
+                                  AppLocalizations.of(context)!.documentsSuggestionDeadlines,
+                                ),
                               ),
                               const SizedBox(width: 12),
                               QuickQuestionCard(
                                 label: AppLocalizations.of(context)!.documentsSuggestionMainIdeas,
                                 icon: Icons.lightbulb_outline_rounded,
-                                onTap: () {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text(
-                                        AppLocalizations.of(context)!.documentsMockAskedSnackbar(
-                                          AppLocalizations.of(context)!.documentsSuggestionMainIdeas,
-                                        ),
-                                      ),
-                                    ),
-                                  );
-                                },
+                                onTap: () => _askAura(
+                                  AppLocalizations.of(context)!.documentsSuggestionMainIdeas,
+                                ),
                               ),
                               const SizedBox(width: 12),
                               QuickQuestionCard(
                                 label: AppLocalizations.of(context)!.documentsSuggestionActionItems,
                                 icon: Icons.track_changes_rounded,
-                                onTap: () {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text(
-                                        AppLocalizations.of(context)!.documentsMockAskedSnackbar(
-                                          AppLocalizations.of(context)!.documentsSuggestionActionItems,
-                                        ),
-                                      ),
-                                    ),
-                                  );
-                                },
+                                onTap: () => _askAura(
+                                  AppLocalizations.of(context)!.documentsSuggestionActionItems,
+                                ),
                               ),
                             ],
                           ),
@@ -462,15 +476,9 @@ class _DocumentsScreenState extends ConsumerState<DocumentsScreen> {
                                     );
                                   },
                                   onDelete: () => _deleteDocument(docName),
-                                  onAskAura: () {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                        content: Text(
-                                          AppLocalizations.of(context)!.documentsMockAskingSnackbar(docName),
-                                        ),
-                                      ),
-                                    );
-                                  },
+                                  onAskAura: () => _askAura(
+                                    'Tell me about "${docName}"',
+                                  ),
                                 ),
                               ),
                             );
@@ -508,6 +516,161 @@ class _DocumentsScreenState extends ConsumerState<DocumentsScreen> {
                 onPressed: _showUploadSourceSheet,
               ),
             ),
+    );
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Self-contained answer sheet — owns its own loading/result state via
+// FutureBuilder so it never needs to pop itself or touch the router.
+// ---------------------------------------------------------------------------
+class _AnswerSheet extends StatefulWidget {
+  final String question;
+  final Future<void> ragStream;
+  final RagQueryState Function() ragStateReader;
+
+  const _AnswerSheet({
+    required this.question,
+    required this.ragStream,
+    required this.ragStateReader,
+  });
+
+  @override
+  State<_AnswerSheet> createState() => _AnswerSheetState();
+}
+
+class _AnswerSheetState extends State<_AnswerSheet> {
+  String? _answer;
+  String? _error;
+  bool _loading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    widget.ragStream.then((_) {
+      if (!mounted) return;
+      final s = widget.ragStateReader();
+      setState(() {
+        _loading = false;
+        _answer = s.answer;
+        _error = s.error;
+      });
+    }).catchError((Object _) {
+      if (!mounted) return;
+      final s = widget.ragStateReader();
+      setState(() {
+        _loading = false;
+        _error = s.error ?? 'Something went wrong. Please try again.';
+      });
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final accentColor = Theme.of(context).primaryColor;
+
+    return DraggableScrollableSheet(
+      initialChildSize: 0.6,
+      minChildSize: 0.35,
+      maxChildSize: 0.92,
+      expand: false,
+      builder: (_, scrollController) => Container(
+        decoration: BoxDecoration(
+          color: isDark ? const Color(0xFF1E1C24) : Colors.white,
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(28)),
+        ),
+        child: Column(
+          children: [
+            const SizedBox(height: 12),
+            Container(
+              width: 36,
+              height: 4,
+              decoration: BoxDecoration(
+                color: isDark ? Colors.white24 : Colors.black12,
+                borderRadius: BorderRadius.circular(2),
+              ),
+            ),
+            const SizedBox(height: 20),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              child: Row(
+                children: [
+                  Icon(Icons.auto_awesome_rounded, color: accentColor, size: 18),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: Text(
+                      widget.question,
+                      style: GoogleFonts.outfit(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                        color: isDark ? Colors.white : AppColors.lightTextPrimary,
+                      ),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 16),
+            Divider(color: isDark ? Colors.white12 : Colors.black12),
+            Expanded(
+              child: SingleChildScrollView(
+                controller: scrollController,
+                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                child: _loading
+                    ? Center(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const SizedBox(height: 32),
+                            CircularProgressIndicator(color: accentColor),
+                            const SizedBox(height: 16),
+                            Text(
+                              'Aura is reading your documents...',
+                              style: GoogleFonts.quicksand(
+                                fontSize: 13,
+                                fontWeight: FontWeight.w600,
+                                color: AppColors.secondaryText,
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
+                    : _error != null
+                        ? Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Icon(Icons.error_outline_rounded,
+                                  color: Colors.redAccent, size: 28),
+                              const SizedBox(height: 12),
+                              Text(
+                                'Something went wrong. Please try again.',
+                                style: GoogleFonts.quicksand(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.redAccent,
+                                ),
+                              ),
+                            ],
+                          )
+                        : Text(
+                            _answer ?? '',
+                            style: GoogleFonts.quicksand(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600,
+                              height: 1.6,
+                              color: isDark
+                                  ? Colors.white70
+                                  : AppColors.lightTextSecondary,
+                            ),
+                          ),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

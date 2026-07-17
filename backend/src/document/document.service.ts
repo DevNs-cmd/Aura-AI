@@ -1,4 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { DatabaseService } from '../database/database.service';
 
 export interface DocumentItem {
   id: string;
@@ -11,45 +12,84 @@ export interface DocumentItem {
 
 @Injectable()
 export class DocumentService {
-  private documents: DocumentItem[] = [];
+  constructor(private readonly databaseService: DatabaseService) {}
 
-  async upload(filename: string, mimeType: string, size: number): Promise<DocumentItem> {
-    const doc: DocumentItem = {
-      id: `doc_${Math.random().toString(36).substring(2, 9)}`,
-      filename,
-      mimeType,
-      size,
-      uploadedAt: new Date(),
-      status: 'processing',
+  async upload(userId: string, filename: string, mimeType: string, size: number): Promise<DocumentItem> {
+    const fileUrl = `uploads/${filename}`;
+    const result = await this.databaseService.query(
+      `
+      INSERT INTO documents (user_id, file_name, file_url, file_type, file_size)
+      VALUES ($1, $2, $3, $4, $5)
+      RETURNING id, file_name as filename, file_type as "mimeType", file_size as size, created_at as "uploadedAt"
+      `,
+      [userId, filename, fileUrl, mimeType, size],
+    );
+    const row = result.rows[0];
+    return {
+      id: row.id,
+      filename: row.filename,
+      mimeType: row.mimeType || 'application/octet-stream',
+      size: Number(row.size),
+      uploadedAt: row.uploadedAt,
+      status: 'indexed',
     };
-    this.documents.push(doc);
-
-    // Simulate vector parsing and indexing in the background
-    setTimeout(() => {
-      doc.status = 'indexed';
-    }, 5000);
-
-    return doc;
   }
 
-  async findAll(): Promise<DocumentItem[]> {
-    return this.documents;
+  async findAll(userId: string): Promise<DocumentItem[]> {
+    const result = await this.databaseService.query(
+      `
+      SELECT id, file_name as filename, file_type as "mimeType", file_size as size, created_at as "uploadedAt"
+      FROM documents
+      WHERE user_id = $1
+      ORDER BY created_at DESC
+      `,
+      [userId],
+    );
+    return result.rows.map((row) => ({
+      id: row.id,
+      filename: row.filename,
+      mimeType: row.mimeType || 'application/octet-stream',
+      size: Number(row.size),
+      uploadedAt: row.uploadedAt,
+      status: 'indexed',
+    }));
   }
 
-  async findOne(id: string): Promise<DocumentItem> {
-    const doc = this.documents.find((d) => d.id === id);
-    if (!doc) {
+  async findOne(userId: string, id: string): Promise<DocumentItem> {
+    const result = await this.databaseService.query(
+      `
+      SELECT id, file_name as filename, file_type as "mimeType", file_size as size, created_at as "uploadedAt"
+      FROM documents
+      WHERE user_id = $1 AND id = $2
+      LIMIT 1
+      `,
+      [userId, id],
+    );
+    if (result.rows.length === 0) {
       throw new NotFoundException(`Document with ID ${id} not found.`);
     }
-    return doc;
+    const row = result.rows[0];
+    return {
+      id: row.id,
+      filename: row.filename,
+      mimeType: row.mimeType || 'application/octet-stream',
+      size: Number(row.size),
+      uploadedAt: row.uploadedAt,
+      status: 'indexed',
+    };
   }
 
-  async delete(id: string): Promise<{ success: boolean; message: string }> {
-    const index = this.documents.findIndex((d) => d.id === id);
-    if (index === -1) {
+  async delete(userId: string, id: string): Promise<{ success: boolean; message: string }> {
+    const result = await this.databaseService.query(
+      `
+      DELETE FROM documents
+      WHERE user_id = $1 AND id = $2
+      `,
+      [userId, id],
+    );
+    if (result.rowCount === 0) {
       throw new NotFoundException(`Document with ID ${id} not found.`);
     }
-    this.documents.splice(index, 1);
     return { success: true, message: 'Document deleted and removed from index.' };
   }
 }

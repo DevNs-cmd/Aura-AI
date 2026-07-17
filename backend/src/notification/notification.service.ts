@@ -1,4 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { DatabaseService } from '../database/database.service';
 
 export interface AppNotification {
   id: string;
@@ -11,65 +12,79 @@ export interface AppNotification {
 
 @Injectable()
 export class NotificationService {
-  private notifications: AppNotification[] = [
-    {
-      id: 'notif_init',
-      title: 'Welcome to Aura-AI',
-      message: 'Your high-performance modular backend is active and running!',
-      read: false,
-      type: 'success',
-      createdAt: new Date(),
-    },
-  ];
+  constructor(private readonly databaseService: DatabaseService) {}
 
   async trigger(title: string, message: string, type: 'info' | 'warning' | 'success' = 'info'): Promise<AppNotification> {
-    const notification: AppNotification = {
-      id: `notif_${Math.random().toString(36).substring(2, 9)}`,
-      title,
-      message,
-      read: false,
-      type,
-      createdAt: new Date(),
-    };
-    this.notifications.unshift(notification);
-    return notification;
+    const id = `notif_${Math.random().toString(36).substring(2, 9)}`;
+    const result = await this.databaseService.query(
+      `
+      INSERT INTO notifications (id, title, message, read, type)
+      VALUES ($1, $2, $3, FALSE, $4)
+      RETURNING id, title, message, read, type, created_at as "createdAt"
+      `,
+      [id, title, message, type],
+    );
+    return result.rows[0];
   }
 
   async findAll(): Promise<AppNotification[]> {
-    return this.notifications;
+    const result = await this.databaseService.query(
+      `
+      SELECT id, title, message, read, type, created_at as "createdAt"
+      FROM notifications
+      ORDER BY created_at DESC
+      `,
+    );
+    return result.rows;
   }
 
   async markAsRead(id: string): Promise<AppNotification> {
-    const notif = this.notifications.find((n) => n.id === id);
-    if (!notif) {
+    const result = await this.databaseService.query(
+      `
+      UPDATE notifications
+      SET read = TRUE
+      WHERE id = $1
+      RETURNING id, title, message, read, type, created_at as "createdAt"
+      `,
+      [id],
+    );
+    if (result.rows.length === 0) {
       throw new NotFoundException(`Notification with ID ${id} not found.`);
     }
-    notif.read = true;
-    return notif;
+    return result.rows[0];
   }
 
   async markAllAsRead(): Promise<{ success: boolean; count: number }> {
-    let count = 0;
-    this.notifications.forEach((n) => {
-      if (!n.read) {
-        n.read = true;
-        count++;
-      }
-    });
-    return { success: true, count };
+    const result = await this.databaseService.query(
+      `
+      UPDATE notifications
+      SET read = TRUE
+      WHERE read = FALSE
+      `,
+    );
+    return { success: true, count: result.rowCount || 0 };
   }
 
   async delete(id: string): Promise<{ success: boolean }> {
-    const index = this.notifications.findIndex((notification) => notification.id === id);
-    if (index === -1) {
+    const result = await this.databaseService.query(
+      `
+      DELETE FROM notifications
+      WHERE id = $1
+      `,
+      [id],
+    );
+    if (result.rowCount === 0) {
       throw new NotFoundException(`Notification with ID ${id} not found.`);
     }
-    this.notifications.splice(index, 1);
     return { success: true };
   }
 
   async clearAll(): Promise<{ success: boolean }> {
-    this.notifications = [];
+    await this.databaseService.query(
+      `
+      DELETE FROM notifications
+      `,
+    );
     return { success: true };
   }
 }

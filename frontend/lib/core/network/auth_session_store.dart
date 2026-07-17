@@ -45,6 +45,33 @@ class AuthSessionStore {
     return prefs.getString(_accessTokenKey);
   }
 
+  Future<bool> hasValidAccessToken() async {
+    final token = await readAccessToken();
+    if (token == null || token.isEmpty) {
+      return false;
+    }
+
+    final parts = token.split('.');
+    if (parts.length != 3) {
+      return false;
+    }
+
+    try {
+      final payload = jsonDecode(
+        utf8.decode(base64Url.decode(base64Url.normalize(parts[1]))),
+      );
+      if (payload is! Map<String, dynamic>) {
+        return false;
+      }
+
+      final expiration = payload['exp'];
+      return expiration is num &&
+          DateTime.now().millisecondsSinceEpoch < expiration * 1000;
+    } catch (_) {
+      return false;
+    }
+  }
+
   Future<void> clearSession() async {
     final prefs = await _prefs;
     await prefs.remove(_currentUserKey);

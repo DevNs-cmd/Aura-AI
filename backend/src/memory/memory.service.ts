@@ -1,4 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { DatabaseService } from '../database/database.service';
 
 export interface MemoryFact {
   id: string;
@@ -10,34 +11,76 @@ export interface MemoryFact {
 
 @Injectable()
 export class MemoryService {
-  private memories: MemoryFact[] = [];
+  constructor(private readonly databaseService: DatabaseService) {}
 
-  async learn(category: string, fact: string, importance: number = 3): Promise<MemoryFact> {
-    const memory: MemoryFact = {
-      id: `mem_${Math.random().toString(36).substring(2, 9)}`,
-      category,
-      fact,
+  async learn(userId: string, category: string, fact: string, importance: number = 3): Promise<MemoryFact> {
+    const result = await this.databaseService.query(
+      `
+      INSERT INTO memories (user_id, key, value, source)
+      VALUES ($1, $2, $3, 'manual')
+      RETURNING id, key as category, value as fact, created_at as "createdAt"
+      `,
+      [userId, category, fact],
+    );
+    const row = result.rows[0];
+    return {
+      id: row.id,
+      category: row.category,
+      fact: row.fact,
       importance,
-      createdAt: new Date(),
+      createdAt: row.createdAt,
     };
-    this.memories.push(memory);
-    return memory;
   }
 
-  async findAll(): Promise<MemoryFact[]> {
-    return this.memories;
+  async findAll(userId: string): Promise<MemoryFact[]> {
+    const result = await this.databaseService.query(
+      `
+      SELECT id, key as category, value as fact, created_at as "createdAt"
+      FROM memories
+      WHERE user_id = $1
+      ORDER BY created_at DESC
+      `,
+      [userId],
+    );
+    return result.rows.map((row) => ({
+      id: row.id,
+      category: row.category,
+      fact: row.fact,
+      importance: 3,
+      createdAt: row.createdAt,
+    }));
   }
 
-  async findByCategory(category: string): Promise<MemoryFact[]> {
-    return this.memories.filter((m) => m.category.toLowerCase() === category.toLowerCase());
+  async findByCategory(userId: string, category: string): Promise<MemoryFact[]> {
+    const result = await this.databaseService.query(
+      `
+      SELECT id, key as category, value as fact, created_at as "createdAt"
+      FROM memories
+      WHERE user_id = $1 AND LOWER(key) = LOWER($2)
+      ORDER BY created_at DESC
+      `,
+      [userId, category],
+    );
+    return result.rows.map((row) => ({
+      id: row.id,
+      category: row.category,
+      fact: row.fact,
+      importance: 3,
+      createdAt: row.createdAt,
+    }));
   }
 
-  async forget(id: string): Promise<{ success: boolean; message: string }> {
-    const idx = this.memories.findIndex((m) => m.id === id);
-    if (idx === -1) {
+  async forget(userId: string, id: string): Promise<{ success: boolean; message: string }> {
+    const result = await this.databaseService.query(
+      `
+      DELETE FROM memories
+      WHERE user_id = $1 AND id = $2
+      `,
+      [userId, id],
+    );
+    if (result.rowCount === 0) {
       throw new NotFoundException(`Memory fact with ID ${id} not found.`);
     }
-    this.memories.splice(idx, 1);
     return { success: true, message: 'Memory fact forgotten successfully.' };
   }
 }
