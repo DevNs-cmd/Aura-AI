@@ -372,12 +372,12 @@ class _VisionAnalysisScreenState extends ConsumerState<VisionAnalysisScreen>
 
   void _selectMockSighting(Map<String, dynamic> sighting) {
     setState(() {
-      _selectedMockSighting = sighting;
+      _selectedMockSighting = null;
       _selectedMode = sighting['mode'];
       _activeResultTab = 0;
     });
-    // Sync to mock provider state so standard handlers work
     ref.read(visionProvider.notifier).setImage(sighting['imagePath'] as String);
+    ref.read(visionProvider.notifier).startScan();
   }
 
   @override
@@ -401,7 +401,9 @@ class _VisionAnalysisScreenState extends ConsumerState<VisionAnalysisScreen>
     // Get specific result components
     final sceneText = _selectedMockSighting != null
         ? _getLocalSceneText(context, _selectedMockSighting!['scene'] as String)
-        : AppLocalizations.of(context)!.visionMockSceneDesk;
+        : (visionState.scene != null && visionState.scene!.isNotEmpty
+            ? visionState.scene!
+            : AppLocalizations.of(context)!.visionMockSceneDesk);
     final detectedObjects = _selectedMockSighting != null
         ? _selectedMockSighting!['detectedObjects']
               as List<Map<String, dynamic>>
@@ -421,7 +423,9 @@ class _VisionAnalysisScreenState extends ConsumerState<VisionAnalysisScreen>
             context,
             _selectedMockSighting!['context'] as String,
           )
-        : AppLocalizations.of(context)!.visionMockContextDesk;
+        : (visionState.context != null && visionState.context!.isNotEmpty
+            ? visionState.context!
+            : AppLocalizations.of(context)!.visionMockContextDesk);
 
     return Scaffold(
       backgroundColor: isDark

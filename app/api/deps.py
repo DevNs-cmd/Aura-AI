@@ -189,3 +189,13 @@ def get_ai_chat_service(db: Session = Depends(get_db)) -> ChatService:
         journal_service=journal_service,
     )
     return build_chat_service(pipeline=chat_pipeline)
+
+
+def get_voice_service() -> Any:
+    from app.ai.voice.service import build_voice_service
+    from app.ai.voice.providers import OpenRouterSTTProvider, GoogleTranslateTTSProvider
+    return build_voice_service(
+        stt_provider=OpenRouterSTTProvider(),
+        tts_provider=GoogleTranslateTTSProvider()
+    )
+

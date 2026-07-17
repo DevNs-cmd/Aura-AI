@@ -91,7 +91,10 @@ class ChromaVectorStore:
         if top_k <= 0:
             return []
 
-        where = filters or None
+        if filters and len(filters) > 1:
+            where = {"$and": [{k: v} for k, v in filters.items()]}
+        else:
+            where = filters or None
 
         try:
             # Chroma supports where-filtering via the `where` kwarg.

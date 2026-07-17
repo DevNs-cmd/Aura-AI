@@ -114,6 +114,96 @@ class VoiceAssistantScreen extends ConsumerWidget {
               ),
             ),
 
+            const SizedBox(height: 16),
+
+            // Speech text / subtitle display card
+            if (voiceState.spokenText != null || voiceState.userTranscript != null)
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 32.0),
+                child: Container(
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: themeState.isDarkMode 
+                        ? Colors.white.withValues(alpha: 0.05) 
+                        : Colors.black.withValues(alpha: 0.03),
+                    borderRadius: BorderRadius.circular(16),
+                    border: Border.all(
+                      color: themeState.isDarkMode 
+                          ? Colors.white.withValues(alpha: 0.1) 
+                          : Colors.black.withValues(alpha: 0.05),
+                    ),
+                  ),
+                  child: Column(
+                    children: [
+                      if (voiceState.userTranscript != null) ...[
+                        Text(
+                          "You: ${voiceState.userTranscript}",
+                          style: GoogleFonts.quicksand(
+                            color: themeState.isDarkMode ? Colors.white70 : Colors.black87,
+                            fontSize: 13,
+                            fontStyle: FontStyle.italic,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                        const SizedBox(height: 8),
+                      ],
+                      if (voiceState.spokenText != null)
+                        Text(
+                          voiceState.spokenText!,
+                          style: GoogleFonts.quicksand(
+                            color: themeState.accentColor,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w600,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                    ],
+                  ),
+                ),
+              ),
+
+            // Selectable interactive prompts in listening state
+            if (voiceState.status == VoiceStatus.listening)
+              Padding(
+                padding: const EdgeInsets.only(top: 16.0, left: 16, right: 16),
+                child: Column(
+                  children: [
+                    Text(
+                      "TAP TO ASK AURA:",
+                      style: GoogleFonts.outfit(
+                        color: AppColors.textSecondary,
+                        fontSize: 11,
+                        fontWeight: FontWeight.bold,
+                        letterSpacing: 1.0,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    Wrap(
+                      spacing: 8,
+                      runSpacing: 8,
+                      alignment: WrapAlignment.center,
+                      children: [
+                        _buildPromptChip(
+                          context,
+                          ref,
+                          "What did I write in my last journal entry?",
+                        ),
+                        _buildPromptChip(
+                          context,
+                          ref,
+                          "Give me a motivational productivity tip.",
+                        ),
+                        _buildPromptChip(
+                          context,
+                          ref,
+                          "Summarize my cognitive logs today.",
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+
             const Spacer(flex: 2),
 
             // Voice frequency waveform styled in yellow gold
@@ -226,6 +316,34 @@ class VoiceAssistantScreen extends ConsumerWidget {
         tooltip: tooltip,
         icon: Icon(icon, color: AppColors.text, size: 22),
         onPressed: onPressed,
+      ),
+    );
+  }
+
+  Widget _buildPromptChip(BuildContext context, WidgetRef ref, String prompt) {
+    return GestureDetector(
+      onTap: () {
+        ref.read(voiceProvider.notifier).sendPrompt(prompt);
+      },
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+        decoration: BoxDecoration(
+          color: AppColors.primary.withValues(alpha: 0.1),
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(
+            color: AppColors.primary.withValues(alpha: 0.2),
+            width: 1,
+          ),
+        ),
+        child: Text(
+          prompt,
+          style: GoogleFonts.quicksand(
+            color: AppColors.text,
+            fontSize: 12,
+            fontWeight: FontWeight.bold,
+          ),
+          textAlign: TextAlign.center,
+        ),
       ),
     );
   }

@@ -183,8 +183,9 @@ def build_embedding_provider() -> EmbeddingProvider:
         )
 
     if provider_type == "deterministic":
-        raise EmbeddingConfigurationError(
-            "DeterministicEmbeddingProvider is test-only and cannot be used as a production provider"
+        return DeterministicEmbeddingProvider(
+            model_name=settings.EMBEDDING_MODEL,
+            dimension=settings.EMBEDDING_DIMENSION,
         )
 
     raise EmbeddingConfigurationError(f"Unsupported embedding provider: {settings.EMBEDDING_PROVIDER}")

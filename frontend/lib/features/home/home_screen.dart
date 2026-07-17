@@ -545,13 +545,13 @@ class _HomeDashboardViewState extends ConsumerState<HomeDashboardView> {
                     gradient: LinearGradient(
                       colors: [
                         accentColor,
-                        accentColor.withOpacity(0.8),
+                        accentColor.withValues(alpha: 0.8),
                       ],
                     ),
                     borderRadius: BorderRadius.circular(24),
                     boxShadow: [
                       BoxShadow(
-                        color: accentColor.withOpacity(0.2),
+                        color: accentColor.withValues(alpha: 0.2),
                         blurRadius: 12,
                         offset: const Offset(0, 4),
                       ),
@@ -579,7 +579,7 @@ class _HomeDashboardViewState extends ConsumerState<HomeDashboardView> {
                               style: GoogleFonts.quicksand(
                                 fontSize: 11,
                                 fontWeight: FontWeight.w600,
-                                color: Colors.white.withOpacity(0.85),
+                                color: Colors.white.withValues(alpha: 0.85),
                               ),
                             ),
                           ],
