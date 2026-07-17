@@ -1,3 +1,3 @@
-void playBase64Audio(String base64Audio, String mimeType) {
-  // Stub implementation for non-web platforms
+void playBase64Audio(String base64Audio, String mimeType, void Function() onEnded) {
+  onEnded();
 }

@@ -91,13 +91,22 @@ class VoiceNotifier extends StateNotifier<VoiceState> {
       if (response.data != null && response.data['audio'] != null) {
         final base64Audio = response.data['audio'].toString();
         final mimeType = response.data['mime_type']?.toString() ?? 'audio/mp3';
-        playBase64Audio(base64Audio, mimeType);
+        
+        // Stop recognition while AI is playing audio
+        stopSpeechRecognition();
+        _speechTimer?.cancel();
+        
+        playBase64Audio(base64Audio, mimeType, () {
+          if (!mounted) return;
+          startListening();
+        });
+        return;
       }
     } catch (e) {
       print('[Aura-Voice] TTS Synthesis failed (using text fallback): $e');
     }
 
-    // Simulate speaking duration based on text length (approx 60ms per character)
+    // Fallback: Simulate speaking duration if synthesis failed
     final durationMs = (text.length * 60).clamp(2500, 9000);
     _speechTimer = Timer(Duration(milliseconds: durationMs), () {
       if (!mounted) return;
